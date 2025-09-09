@@ -1,0 +1,458 @@
+<section class="technologies-section">
+  <div class="container">
+    <h2 class="section-title">НАШИ ТЕХНОЛОГИИ</h2>
+    <p class="section-subtitle">
+      Мы используем проверенные веками технологии деревянного строительства,
+      адаптированные под современные требования качества и надежности
+    </p>
+
+    <div class="technologies-grid">
+      <!-- Канадская рубка -->
+      <div class="technology-card">
+        <div class="technology-visual">
+          <div class="tech-icon">
+            <img src="/images/main/tech/rub1.png" alt="Канадская рубка">
+          </div>
+        </div>
+        <h3 class="technology-title">Канадская рубка</h3>
+        <p class="technology-description">
+          Самая теплая технология с минимальными теплопотерями.
+          Соединение без щелей и зазоров.
+        </p>
+        <button class="technology-btn">Выбрать технологию</button>
+      </div>
+
+      <!-- Норвежская рубка -->
+      <div class="technology-card">
+        <div class="technology-visual">
+          <div class="tech-icon"><img src="/images/main/tech/rub2.png" alt="Норвежская рубка"></div>
+        </div>
+        <h3 class="technology-title">Норвежская рубка</h3>
+        <p class="technology-description">
+          Максимальная прочность соединения. Бревна со временем
+          только крепче прижимаются друг к другу.
+        </p>
+        <button class="technology-btn">Выбрать технологию</button>
+      </div>
+
+      <!-- Рубка в лапу -->
+      <div class="technology-card">
+        <div class="technology-visual">
+          <div class="tech-icon"><img src="/images/main/tech/rub3.png" alt="Рубка в лапу"></div>
+        </div>
+        <h3 class="technology-title">Рубка в лапу</h3>
+        <p class="technology-description">
+          Аккуратный внешний вид без выступающих концов.
+          Идеально для современного дизайна.
+        </p>
+        <button class="technology-btn">Выбрать технологию</button>
+      </div>
+
+      <!-- Русская чаша -->
+      <div class="technology-card">
+        <div class="technology-visual">
+          <div class="tech-icon"><img src="/images/main/tech/rub5.png" alt="Рубка в русскую чашу"></div>
+        </div>
+        <h3 class="technology-title">Рубка в русскую чашу</h3>
+        <p class="technology-description">
+          Традиционная русская технология. Проверена столетиями,
+          надежна и долговечна.
+        </p>
+        <button class="technology-btn">Выбрать технологию</button>
+      </div>
+
+      <!-- Post & beam -->
+      <div class="technology-card">
+        <div class="technology-visual">
+          <div class="tech-icon"><img src="/images/main/tech/rub4.png" alt="Post & Beam"></div>
+        </div>
+        <h3 class="technology-title">Post & Beam</h3>
+        <p class="technology-description">
+          Современная каркасная технология. Быстрый монтаж
+          и возможность больших пролетов.
+        </p>
+        <button class="technology-btn">Выбрать технологию</button>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta-section">
+      <h3 class="cta-title">Не знаете какую технологию выбрать?</h3>
+      <p class="cta-description">
+        Наши эксперты помогут подобрать оптимальную технологию
+        под ваш проект и бюджет
+      </p>
+      <button class="cta-btn">Получить консультацию</button>
+    </div>
+  </div>
+
+  <style>
+    .technologies-section {
+      padding: 80px 20px;
+      background: linear-gradient(135deg,
+          rgba(44, 85, 48, 0.95) 0%,
+          rgba(74, 124, 89, 0.9) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="wood" patternUnits="userSpaceOnUse" width="20" height="20"><rect width="20" height="20" fill="%23654321"/><path d="M0 0h20v2H0zM0 4h20v1H0zM0 7h20v1H0zM0 10h20v2H0zM0 14h20v1H0zM0 17h20v1H0z" fill="%238B4513" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23wood)"/></svg>');
+      background-size: cover;
+      background-attachment: fixed;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .technologies-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(139, 195, 74, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(74, 124, 89, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(44, 85, 48, 0.8) 0%, rgba(74, 124, 89, 0.6) 100%);
+      z-index: 1;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      position: relative;
+      letter-spacing: 2px;
+    }
+
+    .section-title::before,
+    .section-title::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 150px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #8bc34a, transparent);
+      box-shadow: 0 0 10px rgba(139, 195, 74, 0.5);
+    }
+
+    .section-title::before {
+      left: -170px;
+    }
+
+    .section-title::after {
+      right: -170px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 60px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .technologies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .technology-card {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 30px 25px;
+      text-align: center;
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .technology-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #8bc34a, #4a7c59);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .technology-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .technology-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(139, 195, 74, 0.3);
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .technology-visual {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 25px;
+      background: linear-gradient(135deg, #2c5530, #4a7c59);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 8px 20px rgba(44, 85, 48, 0.3);
+      transition: all 0.4s ease;
+    }
+
+    .technology-visual::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      background:
+        repeating-linear-gradient(45deg,
+          #8B4513 0px,
+          #8B4513 2px,
+          #D2691E 2px,
+          #D2691E 4px,
+          #CD853F 4px,
+          #CD853F 6px);
+      border-radius: 17px;
+      opacity: 0.8;
+    }
+
+    .technology-visual::after {
+      content: '';
+      position: absolute;
+      inset: 15px;
+      background: linear-gradient(45deg, #654321, #8B4513);
+      border-radius: 8px;
+      z-index: 1;
+    }
+
+    .technology-card:hover .technology-visual {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 12px 30px rgba(139, 195, 74, 0.4);
+    }
+
+    .tech-icon {
+      position: relative;
+      z-index: 2;
+      font-size: 40px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .technology-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #2c5530;
+      transition: color 0.3s ease;
+    }
+
+    .technology-card:hover .technology-title {
+      color: #8bc34a;
+    }
+
+    .technology-description {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .technology-features {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 25px;
+      padding: 15px 0;
+      background: rgba(248, 249, 250, 0.8);
+      border-radius: 10px;
+    }
+
+    .feature {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .feature-icon {
+      font-size: 20px;
+      color: #8bc34a;
+    }
+
+    .feature-text {
+      font-size: 12px;
+      color: #666;
+      font-weight: 600;
+    }
+
+    .technology-btn {
+      background: linear-gradient(135deg, #8bc34a, #4a7c59);
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
+    }
+
+    .technology-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(139, 195, 74, 0.4);
+      background: linear-gradient(135deg, #4a7c59, #2c5530);
+    }
+
+    .cta-section {
+      text-align: center;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .cta-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-description {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-btn {
+      background: linear-gradient(135deg, #8bc34a, #4a7c59);
+      color: white;
+      padding: 18px 40px;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(139, 195, 74, 0.4);
+      background: linear-gradient(135deg, #4a7c59, #2c5530);
+    }
+
+    /* Адаптивность */
+    @media (max-width: 1200px) {
+
+      .section-title::before,
+      .section-title::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .technologies-section {
+        padding: 60px 15px;
+      }
+
+      .section-title {
+        font-size: 36px;
+      }
+
+      .technologies-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .technology-card {
+        padding: 25px 20px;
+      }
+
+      .technology-features {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .cta-section {
+        padding: 30px 20px;
+      }
+
+      .cta-title {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-title {
+        font-size: 28px;
+      }
+
+      .section-subtitle {
+        font-size: 16px;
+      }
+
+      .technology-visual {
+        width: 100px;
+        height: 100px;
+      }
+
+      .tech-icon {
+        font-size: 35px;
+      }
+    }
+
+    /* Анимации */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .technology-card:nth-child(even) {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .technology-card:nth-child(odd) {
+      animation: float 6s ease-in-out infinite reverse;
+    }
+  </style>
+</section>
