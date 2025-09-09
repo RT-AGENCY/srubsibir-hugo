@@ -1,0 +1,124 @@
+<section class="projects">
+  <h2>Наши проекты</h2>
+  <ul class="projects-list">
+    <li>
+      <a href="" class="projects-item">
+        <img src="images/projects/brevno.webp" alt="srub house">
+        <p>Сруб из лиственницы</p>
+      </a>
+    </li>
+    <li>
+      <a href="" class="projects-item">
+        <img src="images/projects/house-brevno.webp" alt="srub bath">
+        <p>Элитные дома из кедра</p>
+      </a>
+    </li>
+    <li>
+      <a href="" class="projects-item">
+        <img src="images/projects/sosna.webp" alt="srub house">
+        <p>Срубы из сосны</p>
+      </a>
+    </li>
+    <li>
+      <a href="" class="projects-item">
+        <img src="images/projects/srub-banya.webp" alt="srub banya">
+        <p>Сруб бани под ключ</p>
+      </a>
+    </li>
+  </ul>
+
+  <style>
+    .projects {
+      padding: 40px 10px;
+      background-color: #F4F3F5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .projects h2 {
+      margin: 20px 0 40px;
+    }
+
+    .projects-list {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+      gap: 15px;
+    }
+
+    .projects-item {
+      display: flex;
+      width: 400px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      font-weight: 700;
+      font-size: 18px;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 0 0 24px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .projects-item p {
+      color: black;
+      text-transform: uppercase;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .projects-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .projects-item img {
+      max-width: 400px;
+      width: 100%;
+      object-fit: cover;
+      max-height: 300px;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
+
+    @media(min-width: 769px) and (max-width: 1050px) {
+      .projects-item {
+        font-size: 16px;
+        text-align: center;
+      }
+    }
+
+    @media(max-width: 768px) {
+      .projects-list {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 10px;
+      }
+
+      .projects-item {
+        flex: 1 1 150px;
+        font-size: 16px;
+        gap: 15px;
+        width: 100%;
+        padding-bottom: 15px;
+      }
+
+      .projects h2 {
+        margin-top: 0;
+      }
+
+      .projects-item p {
+        font-size: 18px;
+      }
+
+    }
+  </style>
+</section>
