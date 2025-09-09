@@ -33,9 +33,14 @@
 
 <style>
   .hero-slider {
-    height: 410px;            /* фиксируем высоту */
+    height: 700px;            /* фиксируем высоту */
     position: relative;
     overflow: hidden;
+  }
+  @media(max-width: 768px) {
+    .hero-slider {
+      height: 200px;
+    }
   }
   .hero-swiper,
   .hero-swiper .swiper-wrapper,
