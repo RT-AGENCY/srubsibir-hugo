@@ -1,6 +1,6 @@
 <section class="services-section">
   <div class="container">
-    <h2 class="section-title">НАШИ УСЛУГИ</h2>
+    <h2 class="services-title">НАШИ УСЛУГИ</h2>
 
     <!-- УРОВЕНЬ 1: Основные направления -->
     <div class="primary-services">
@@ -72,7 +72,7 @@
       background: #F4F3F5;
     }
 
-    .section-title {
+    .services-title {
       text-align: center;
       text-transform: uppercase;
       font-size: 42px;
@@ -82,8 +82,8 @@
       position: relative;
     }
 
-    .section-title::before,
-    .section-title::after {
+    .services-title::before,
+    .services-title::after {
       content: '';
       position: absolute;
       top: 50%;
@@ -92,11 +92,11 @@
       background: linear-gradient(90deg, transparent, #8bc34a, transparent);
     }
 
-    .section-title::before {
+    .services-title::before {
       left: -220px;
     }
 
-    .section-title::after {
+    .services-title::after {
       right: -220px;
     }
 
@@ -351,8 +351,8 @@
     /* Адаптивность */
     @media (max-width: 1200px) {
 
-      .section-title::before,
-      .section-title::after {
+      .services-title::before,
+      .services-title::after {
         display: none;
       }
     }
@@ -365,7 +365,7 @@
         grid-template-columns: 1fr;
       }
 
-      .section-title {
+      .services-title {
         font-size: 32px;
       }
 
@@ -383,7 +383,7 @@
         padding: 30px 10px;
       }
 
-      .section-title {
+      .services-title {
         font-size: 28px;
       }
     }

@@ -1,0 +1,587 @@
+<style>
+  .stages-section {
+    padding: 80px 20px;
+    background: #F4F3F5;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stages-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(circle at 15% 25%, rgba(139, 195, 74, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 85% 75%, rgba(44, 85, 48, 0.05) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+
+
+  .stages-title {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #2c5530;
+    position: relative;
+    letter-spacing: 2px;
+  }
+
+  .stages-title::before,
+  .stages-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 200px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #8bc34a, transparent);
+  }
+
+  .stages-title::before {
+    left: -220px;
+  }
+
+  .stages-title::after {
+    right: -220px;
+  }
+
+  .stages-subtitle {
+    text-align: center;
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 60px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .stages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 40px;
+    margin-bottom: 50px;
+    position: relative;
+  }
+
+  .stage-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 25px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 3;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stage-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(139, 195, 74, 0.2);
+    border-color: #8bc34a;
+  }
+
+  .stage-card:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .stage-card:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .stage-card:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .stage-card:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+
+  .stage-card:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  .stage-card:nth-child(6) {
+    animation-delay: 0.4s;
+  }
+
+  .stage-card:nth-child(7) {
+    animation-delay: 0.7s;
+    order: 5;
+  }
+
+  .stage-card:nth-child(8) {
+    animation-delay: 0.8s;
+    order: 6;
+  }
+
+  .stage-card:nth-child(9) {
+    animation-delay: 0.9s;
+    order: 7;
+  }
+
+  .stage-number {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #8bc34a, #4a7c59);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(139, 195, 74, 0.3);
+    transition: all 0.4s ease;
+    position: relative;
+  }
+
+  .stage-number::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    background: linear-gradient(135deg, #8bc34a, #4a7c59);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .stage-card:hover .stage-number {
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(139, 195, 74, 0.4);
+  }
+
+  .stage-card:hover .stage-number::before {
+    opacity: 0.3;
+  }
+
+  .stage-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #2c5530;
+    transition: color 0.3s ease;
+  }
+
+  .stage-card:hover .stage-title {
+    color: #8bc34a;
+  }
+
+  .stage-card:nth-child(5)::before, .stage-card:nth-child(4)::before{
+  content: '←';
+  position: absolute;
+  top: 50%;
+  left: -35px;
+  font-size: 24px;
+  color: #8bc34a;
+  transform: translateY(-50%);
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);}
+
+  .stage-description {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex: 1;
+  }
+
+  .stage-timeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: rgba(139, 195, 74, 0.1);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a7c59;
+  }
+
+  .timeline-icon {
+    font-size: 16px;
+  }
+
+  /* Стрелки между этапами */
+  .stage-card:nth-child(1)::after,
+  .stage-card:nth-child(2)::after,
+  .stage-card:nth-child(7)::after,
+  .stage-card:nth-child(8)::after {
+    content: '→';
+    position: absolute;
+    top: 50%;
+    right: -35px;
+    font-size: 24px;
+    color: #8bc34a;
+    transform: translateY(-50%);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .stage-card:nth-child(3)::after {
+    content: '↓';
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    font-size: 24px;
+    color: #8bc34a;
+    transform: translateX(-50%);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .stage-card:nth-child(6)::after {
+    content: '↓';
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    font-size: 24px;
+    color: #8bc34a;
+    transform: translateX(-50%);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Специальные стили для направления */
+  .stage-card:nth-child(n+4):nth-child(-n+6) {
+    order: 6;
+  }
+
+  .stage-card:nth-child(4) {
+    order: 4 !important;
+  }
+
+  .stage-card:nth-child(5) {
+    order: 3 !important;
+  }
+
+  .stage-card:nth-child(6) {
+    order: 2 !important;
+  }
+
+  /* CTA секция */
+  .cta-stages-section {
+    text-align: center;
+    padding: 50px 40px;
+    background: linear-gradient(135deg, rgba(44, 85, 48, 0.05), rgba(139, 195, 74, 0.05));
+    border-radius: 20px;
+    border: 2px solid rgba(139, 195, 74, 0.2);
+  }
+
+  .cta-stages-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c5530;
+    margin-bottom: 15px;
+  }
+
+  .cta-stages-description {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-stages-btn {
+    background: linear-gradient(135deg, #8bc34a, #4a7c59);
+    color: white;
+    padding: 18px 40px;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+  }
+
+  .cta-stages-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(139, 195, 74, 0.4);
+    background: linear-gradient(135deg, #4a7c59, #2c5530);
+  }
+
+  /* Адаптивность */
+  @media (max-width: 1200px) {
+
+    .stages-title::before,
+    .stages-title::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .stages-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px 30px;
+    }
+
+    .stages-grid::before,
+    .stages-grid::after {
+      display: none;
+    }
+
+    .stage-card::after,
+    .stage-card::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stages-section {
+      padding: 60px 15px;
+    }
+
+    .section-title {
+      font-size: 36px;
+    }
+
+    .stages-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .stage-card {
+      padding: 25px 20px;
+    }
+
+    .stage-number {
+      width: 70px;
+      height: 70px;
+      font-size: 28px;
+    }
+
+    .cta-stages-section {
+      padding: 40px 20px;
+    }
+
+    .cta-stages-title {
+      font-size: 28px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stages-title {
+      font-size: 28px;
+    }
+
+    .stages-subtitle {
+      font-size: 16px;
+    }
+
+    .stage-title {
+      font-size: 20px;
+    }
+
+    .stage-description {
+      font-size: 15px;
+    }
+  }
+
+  /* Анимации */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .stage-card {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  /* Появление карточек при скролле */
+  .stage-card.visible {
+    animation: fadeInUp 0.6s ease forwards;
+  }
+</style>
+</head>
+
+<body>
+  <section class="stages-section">
+    <div class="container">
+      <h2 class="stages-title">ЭТАПЫ СТРОИТЕЛЬСТВА ДЕРЕВЯННОГО ДОМА</h2>
+      <p class="stages-subtitle">
+        Мы следуем проверенной технологии строительства, обеспечивая высокое качество
+        на каждом этапе от проекта до финишной отделки
+      </p>
+
+      <div class="stages-grid">
+        <!-- Этап 1 -->
+        <div class="stage-card">
+          <div class="stage-number">1</div>
+          <h3 class="stage-title">Проектные работы</h3>
+          <p class="stage-description">
+            Разработка проекта дома или бани с учетом ваших пожеланий и особенностей участка
+          </p>
+          <div class="stage-timeline">
+            <span class="timeline-icon">⏱️</span>
+            <span>5-10 дней</span>
+          </div>
+        </div>
+
+        <!-- Этап 2 -->
+        <div class="stage-card">
+          <div class="stage-number">2</div>
+          <h3 class="stage-title">Фундамент</h3>
+          <p class="stage-description">
+            Закладка фундамента и строительство цоколя согласно проекту
+          </p>
+          <div class="stage-timeline">
+            <span class="timeline-icon">⏱️</span>
+            <span>7-14 дней</span>
+          </div>
+        </div>
+
+        <!-- Этап 3 -->
+        <div class="stage-card">
+          <div class="stage-number">3</div>
+          <h3 class="stage-title">Первый венец</h3>
+          <p class="stage-description">
+            Укладка первого венца и строительство чернового пола
+          </p>
+          <div class="stage-timeline">
+            <span class="timeline-icon">⏱️</span>
+            <span>2-3 дня</span>
+          </div>
+        </div>
+
+        <!-- Этап 4 -->
+        <div class="stage-card">
+          <div class="stage-number">4</div>
+          <h3 class="stage-title">Стены</h3>
+          <p class="stage-description">
+            Сборка стены из подготовленного сруба с соблюдением технологии
+          </p>
+          <div class="stage-timeline">
+            <span class="timeline-icon">⏱️</span>
+            <span>5-7 дней</span>
+          </div>
+        </div>
+
+        <!-- Этап 5 -->
+        <div class="stage-card">
+          <div class="stage-number">5</div>
+          <h3 class="stage-title">Мансарда</h3>
+          <p class="stage-description">
+            Строительство стропильной конструкции и сооружение мансарды
+          </p>
+          <div class="stage-timeline">
+            <span class="timeline-icon">⏱️</span>
+            <span>3-5 дней</span>
+          </div>
+        </div>
+
+        <!-- Этап 6 -->
+        <div class="stage-card">
+          <div class="stage-number">6</div>
+          <h3 class="stage-title">Крыша</h3>
+          <p class="stage-description">
+            Укладка кровли с использованием качественных материалов
+          </p>
+          <div class="stage-timeline">
+            <span class="timeline-icon">⏱️</span>
+            <span>3-4 дня</span>
+          </div>
+        </div>
+
+        <!-- Этап 7 -->
+        <div class="stage-card">
+          <div class="stage-number">7</div>
+          <h3 class="stage-title">Лестница</h3>
+          <p class="stage-description">
+            Монтаж лестницы для подвала и 2-го этажа/мансарды
+          </p>
+          <div class="stage-timeline">
+            <span class="timeline-icon">⏱️</span>
+            <span>2-3 дня</span>
+          </div>
+        </div>
+
+        <!-- Этап 8 -->
+        <div class="stage-card">
+          <div class="stage-number">8</div>
+          <h3 class="stage-title">Окна и двери</h3>
+          <p class="stage-description">
+            Выбор и установка окон и дверей согласно проекту
+          </p>
+          <div class="stage-timeline">
+            <span class="timeline-icon">⏱️</span>
+            <span>2-4 дня</span>
+          </div>
+        </div>
+
+        <!-- Этап 9 -->
+        <div class="stage-card">
+          <div class="stage-number">9</div>
+          <h3 class="stage-title">Отделка</h3>
+          <p class="stage-description">
+            Монтаж полов и потолков, финишная отделка помещений
+          </p>
+          <div class="stage-timeline">
+            <span class="timeline-icon">⏱️</span>
+            <span>7-14 дней</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="cta-stages-section">
+        <h3 class="cta-stages-title">Готовы начать строительство?</h3>
+        <p class="cta-stages-description">
+          Закажите бесплатную консультацию и получите подробный план работ
+          с точными сроками для вашего проекта
+        </p>
+        <button class="cta-stages-btn">Получить план работ</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Анимация появления карточек при скролле
+    document.addEventListener('DOMContentLoaded', function () {
+      const cards = document.querySelectorAll('.stage-card');
+
+      // Запускаем анимацию через небольшие интервалы
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+        }, index * 100);
+      });
+
+      // Intersection Observer для анимации при скролле
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      cards.forEach(card => {
+        observer.observe(card);
+      });
+    });
+  </script>
