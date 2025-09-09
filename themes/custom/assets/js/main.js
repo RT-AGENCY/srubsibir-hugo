@@ -1,11 +1,12 @@
 /**
- * Основной JavaScript файл для сайта
+ * Основной JavaScript файл для сайта СрубСибирь
  */
 
 // Ждем загрузки DOM
 document.addEventListener('DOMContentLoaded', function () {
   // Инициализация всех компонентов
   initMobileMenu();
+  initMobileSearch();
   initSmoothScroll();
   initScrollToTop();
   initContactForm();
@@ -20,19 +21,74 @@ document.addEventListener('DOMContentLoaded', function () {
 function initMobileMenu() {
   const mobileToggle = document.getElementById('mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuClose = document.getElementById('mobile-menu-close'); // Новая кнопка закрытия
   const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+  const body = document.body;
 
   if (!mobileToggle || !mobileMenu) return;
 
-  // Переключение мобильного меню
-  mobileToggle.addEventListener('click', function () {
-    mobileMenu.classList.toggle('active');
-    mobileToggle.classList.toggle('active');
+  // Переменная для сохранения позиции скролла
+  let scrollPosition = 0;
+
+  /**
+   * Открытие мобильного меню
+   */
+  function openMobileMenu() {
+    // Сохраняем текущую позицию скролла
+    scrollPosition = window.pageYOffset;
+
+    // Блокируем скролл body
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollPosition}px`;
+    body.style.width = '100%';
+    body.classList.add('mobile-menu-open');
+
+    // Показываем меню
+    mobileMenu.classList.remove('closing');
+    mobileMenu.classList.add('active');
+    mobileToggle.classList.add('active');
 
     // Анимация кнопки-гамбургера
+    animateHamburger(true);
+
+    console.log('Мобильное меню открыто');
+  }
+
+  /**
+   * Закрытие мобильного меню
+   */
+  function closeMobileMenu() {
+    // Добавляем класс закрытия для анимации
+    mobileMenu.classList.add('closing');
+    mobileToggle.classList.remove('active');
+
+    // Анимация кнопки-гамбургера
+    animateHamburger(false);
+
+    // Восстанавливаем скролл body
+    body.classList.remove('mobile-menu-open');
+    body.style.position = '';
+    body.style.top = '';
+    body.style.width = '';
+
+    // Восстанавливаем позицию скролла
+    window.scrollTo(0, scrollPosition);
+
+    // Убираем классы после анимации
+    setTimeout(() => {
+      mobileMenu.classList.remove('active', 'closing');
+    }, 300);
+
+    console.log('Мобильное меню закрыто');
+  }
+
+  /**
+   * Анимация гамбургера
+   */
+  function animateHamburger(isActive) {
     const spans = mobileToggle.querySelectorAll('span');
     spans.forEach((span, index) => {
-      if (mobileToggle.classList.contains('active')) {
+      if (isActive) {
         if (index === 0) span.style.transform = 'rotate(45deg) translate(5px, 5px)';
         if (index === 1) span.style.opacity = '0';
         if (index === 2) span.style.transform = 'rotate(-45deg) translate(7px, -6px)';
@@ -41,35 +97,209 @@ function initMobileMenu() {
         span.style.opacity = '1';
       }
     });
+  }
+
+  // Переключение мобильного меню по клику на кнопку-гамбургер
+  mobileToggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+
+    if (mobileMenu.classList.contains('active')) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
   });
+
+  // НОВЫЙ обработчик: Закрытие по кнопке крестика
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeMobileMenu();
+    });
+  }
 
   // Закрытие меню при клике на ссылку
   mobileLinks.forEach(link => {
     link.addEventListener('click', function () {
-      mobileMenu.classList.remove('active');
-      mobileToggle.classList.remove('active');
-
-      const spans = mobileToggle.querySelectorAll('span');
-      spans.forEach(span => {
-        span.style.transform = 'none';
-        span.style.opacity = '1';
-      });
+      closeMobileMenu();
     });
   });
 
   // Закрытие меню при клике вне его
   document.addEventListener('click', function (e) {
-    if (!mobileToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
-      mobileMenu.classList.remove('active');
-      mobileToggle.classList.remove('active');
-
-      const spans = mobileToggle.querySelectorAll('span');
-      spans.forEach(span => {
-        span.style.transform = 'none';
-        span.style.opacity = '1';
-      });
+    if (mobileMenu.classList.contains('active') &&
+      !mobileMenu.contains(e.target) &&
+      !mobileToggle.contains(e.target)) {
+      closeMobileMenu();
     }
   });
+
+  // Закрытие меню по клавише Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+      closeMobileMenu();
+    }
+  });
+
+  // Предотвращаем закрытие при клике внутри меню
+  mobileMenu.addEventListener('click', function (e) {
+    e.stopPropagation();
+  });
+
+  // Обработка изменения размера окна
+  window.addEventListener('resize', debounce(function () {
+    // Закрываем меню если экран стал больше
+    if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+      closeMobileMenu();
+    }
+  }, 250));
+
+  // Экспорт функций в глобальный объект
+  window.SrubSibir = window.SrubSibir || {};
+  window.SrubSibir.openMobileMenu = openMobileMenu;
+  window.SrubSibir.closeMobileMenu = closeMobileMenu;
+}
+
+/**
+ * Мобильный поиск - скрытый по умолчанию
+ */
+function initMobileSearch() {
+  // Элементы мобильного поиска
+  const mobileSearchToggle = document.getElementById('mobile-search-toggle');
+  const mobileSearch = document.getElementById('mobile-search');
+  const mobileSearchClose = document.getElementById('mobile-search-close');
+  const mobileSearchInput = document.getElementById('mobileSearchInput');
+  const mobileSearchForm = document.querySelector('.mobile-search-form');
+  const body = document.body;
+
+  // Проверяем наличие элементов
+  if (!mobileSearchToggle || !mobileSearch) {
+    console.log('Элементы мобильного поиска не найдены');
+    return;
+  }
+
+  /**
+   * Открытие мобильного поиска
+   */
+  mobileSearchToggle.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Добавляем классы для анимации
+    mobileSearch.classList.remove('closing');
+    mobileSearch.classList.add('active');
+    mobileSearchToggle.classList.add('active');
+
+    // Блокируем скролл body
+    body.classList.add('mobile-search-open');
+
+    // Фокус на поле ввода с задержкой для анимации
+    setTimeout(() => {
+      if (mobileSearchInput) {
+        mobileSearchInput.focus();
+      }
+    }, 300);
+
+    console.log('Мобильный поиск открыт');
+  });
+
+  /**
+   * Закрытие мобильного поиска
+   */
+  function closeMobileSearch() {
+    // Анимация закрытия
+    mobileSearch.classList.add('closing');
+    mobileSearchToggle.classList.remove('active');
+
+    // Убираем блокировку скролла
+    body.classList.remove('mobile-search-open');
+
+    // Очищаем поле ввода
+    if (mobileSearchInput) {
+      mobileSearchInput.value = '';
+    }
+
+    // Скрываем результаты поиска
+    const mobileSearchResults = document.getElementById('mobileSearchResults');
+    if (mobileSearchResults) {
+      mobileSearchResults.style.display = 'none';
+      mobileSearchResults.innerHTML = '';
+    }
+
+    // Удаляем активные классы после анимации
+    setTimeout(() => {
+      mobileSearch.classList.remove('active', 'closing');
+    }, 300);
+
+    console.log('Мобильный поиск закрыт');
+  }
+
+  // Кнопка закрытия
+  if (mobileSearchClose) {
+    mobileSearchClose.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMobileSearch();
+    });
+  }
+
+  /**
+   * Закрытие по Escape
+   */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && mobileSearch.classList.contains('active')) {
+      closeMobileSearch();
+    }
+  });
+
+  /**
+   * Закрытие при клике вне области поиска
+   */
+  document.addEventListener('click', function (e) {
+    // Проверяем, что поиск открыт
+    if (!mobileSearch.classList.contains('active')) return;
+
+    // Если клик внутри области поиска - не закрываем
+    if (mobileSearch.contains(e.target) || mobileSearchToggle.contains(e.target)) {
+      return;
+    }
+
+    // Закрываем поиск
+    closeMobileSearch();
+  });
+
+  /**
+   * Предотвращаем закрытие при клике внутри формы поиска
+   */
+  if (mobileSearchForm) {
+    mobileSearchForm.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
+
+    // Обработка отправки мобильной формы поиска
+    mobileSearchForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const query = mobileSearchInput.value.trim();
+      if (query.length >= 2) {
+        // Показываем состояние загрузки
+        mobileSearchForm.classList.add('loading');
+
+        // Перенаправляем на страницу результатов поиска
+        setTimeout(() => {
+          window.location.href = `/search/?query=${encodeURIComponent(query)}`;
+        }, 300);
+      } else {
+        // Показываем уведомление о минимальной длине запроса
+        showNotification('Введите минимум 2 символа для поиска', 'warning');
+      }
+    });
+  }
+
+  // Экспорт функций в глобальный объект
+  window.SrubSibir = window.SrubSibir || {};
+  window.SrubSibir.openMobileSearch = () => mobileSearchToggle.click();
+  window.SrubSibir.closeMobileSearch = closeMobileSearch;
 }
 
 /**
@@ -89,7 +319,7 @@ function initSmoothScroll() {
       if (target) {
         e.preventDefault();
 
-        const headerHeight = document.querySelector('.header').offsetHeight;
+        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
         const targetPosition = target.offsetTop - headerHeight - 20;
 
         window.scrollTo({
@@ -131,7 +361,7 @@ function initScrollToTop() {
   document.body.appendChild(scrollToTopBtn);
 
   // Показ/скрытие кнопки при прокрутке
-  window.addEventListener('scroll', function () {
+  window.addEventListener('scroll', debounce(function () {
     if (window.pageYOffset > 300) {
       scrollToTopBtn.style.opacity = '1';
       scrollToTopBtn.style.visibility = 'visible';
@@ -139,7 +369,7 @@ function initScrollToTop() {
       scrollToTopBtn.style.opacity = '0';
       scrollToTopBtn.style.visibility = 'hidden';
     }
-  });
+  }, 100));
 
   // Прокрутка наверх при клике
   scrollToTopBtn.addEventListener('click', function () {
@@ -233,11 +463,13 @@ function isValidPhone(phone) {
  */
 function simulateFormSubmission(form, data) {
   const submitBtn = form.querySelector('button[type="submit"]');
-  const originalText = submitBtn.textContent;
+  const originalText = submitBtn ? submitBtn.textContent : '';
 
-  // Показываем процесс отправки
-  submitBtn.textContent = 'Отправка...';
-  submitBtn.disabled = true;
+  if (submitBtn) {
+    // Показываем процесс отправки
+    submitBtn.textContent = 'Отправка...';
+    submitBtn.disabled = true;
+  }
 
   // Имитируем задержку сети
   setTimeout(() => {
@@ -251,9 +483,10 @@ function simulateFormSubmission(form, data) {
     form.reset();
 
     // Восстанавливаем кнопку
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
-
+    if (submitBtn) {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
   }, 2000);
 }
 
@@ -306,7 +539,9 @@ function showNotification(message, type = 'info') {
   setTimeout(() => {
     notification.style.transform = 'translateX(100%)';
     setTimeout(() => {
-      document.body.removeChild(notification);
+      if (document.body.contains(notification)) {
+        document.body.removeChild(notification);
+      }
     }, 300);
   }, 5000);
 }
@@ -386,7 +621,9 @@ function openLightbox(src, alt = '') {
   const closeLightbox = () => {
     lightbox.style.opacity = '0';
     setTimeout(() => {
-      document.body.removeChild(lightbox);
+      if (document.body.contains(lightbox)) {
+        document.body.removeChild(lightbox);
+      }
     }, 300);
   };
 
@@ -446,11 +683,18 @@ function isSupported() {
   };
 }
 
+// Проверка на мобильное устройство
+function isMobileDevice() {
+  return window.innerWidth <= 768;
+}
+
 // Экспорт функций для использования в других скриптах
-window.SrubSibir = {
+window.SrubSibir = window.SrubSibir || {};
+Object.assign(window.SrubSibir, {
   showNotification,
   openLightbox,
   debounce,
   throttle,
-  isSupported
-};
+  isSupported,
+  isMobileDevice
+});

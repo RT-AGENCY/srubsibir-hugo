@@ -31,6 +31,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 p {
   margin: 0;
 }
@@ -183,11 +184,14 @@ p {
   height: 84px;
   padding: 12px 10px;
 }
+
 .header-top-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--spacing-md);
 }
+
 .header-contact-info {
   display: flex;
   flex-direction: column;
@@ -204,25 +208,19 @@ p {
   color: #00a03d;
   cursor: pointer;
 }
+
 .header__button_call {
-  /* flex: 1 1 auto; */
   justify-content: center;
   text-align: center;
   height: 55px;
   padding: 0px 15px;
   background: #00a13d;
   color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-size: 17px;
   font-weight: 700;
   cursor: pointer;
-  text-align: center;
-  -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
 }
 
@@ -279,6 +277,7 @@ p {
   border-radius: var(--radius-sm);
   transition: all 0.5s ease;
 }
+
 .nav-link:hover {
   color: #00a13d !important;
 }
@@ -291,6 +290,12 @@ p {
   cursor: pointer;
   padding: var(--spacing-xs);
 }
+body.mobile-menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
 
 .mobile-menu-toggle span {
   width: 25px;
@@ -302,23 +307,514 @@ p {
 
 .mobile-menu {
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
   background: var(--color-white);
-  box-shadow: var(--shadow-md);
+  z-index: 1001;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
 }
 
 .mobile-menu-content {
-  padding: var(--spacing-md);
+  padding: 20px var(--spacing-md);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .mobile-nav-link {
   display: block;
-  padding: var(--spacing-sm);
+  padding: var(--spacing-md) 0;
   color: var(--color-text);
   border-bottom: 1px solid var(--color-border);
+  font-size: 18px;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .mobile-nav-link:hover {
   color: var(--color-primary);
+}
+.mobile-nav-link:last-child {
+  border-bottom: none;
+}
+@media (max-width: 768px) {
+  .mobile-nav-link {
+    padding: 10px 15px;
+  }
+  .mobile-menu-header {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .mobile-callback-btn {
+    margin: 0 !important;
+    flex: 1;
+  }
+}
+/* Кнопка закрытия мобильного меню */
+.mobile-menu-close {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  width: 40px;
+  height: 40px;
+}
+
+.mobile-menu-close:hover {
+  background: var(--color-light);
+  color: var(--color-primary);
+  transform: rotate(90deg);
+}
+
+.mobile-menu-close:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+.mobile-menu-close svg {
+  transition: all 0.3s ease;
+}
+
+/* Дополнительная информация в мобильном меню */
+.mobile-menu-footer {
+  margin-top: 0;
+  padding: 20px 0;
+}
+.mobile-menu-footer .mobile-contact-info {
+  margin-bottom: 0;
+}
+
+.mobile-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  padding: 0 var(--spacing-md);
+}
+
+.mobile-contact-phone {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.mobile-work-time,
+.mobile-address {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.mobile-callback-btn {
+  display: block;
+  background: var(--color-primary);
+  color: white;
+  padding: 12px 20px;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin: 0 var(--spacing-md);
+}
+
+.mobile-callback-btn:hover {
+  background: var(--color-secondary);
+  transform: translateY(-1px);
+}
+/* Оверлей для затемнения фона */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Анимация гамбургера */
+.mobile-menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Убираем скролл с веб-кита в меню если не нужен */
+.mobile-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobile-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+/* ===============================================
+   MOBILE ACTIONS (ИКОНКИ НА МОБИЛКЕ)
+   =============================================== */
+
+.mobile-actions {
+  display: none;
+  gap: 15px;
+  align-items: center;
+}
+
+.mobile-search-toggle {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-search-toggle:hover {
+  background: rgba(140, 140, 140, 0.1);
+}
+
+.mobile-search-toggle:hover .search-icon {
+  stroke: var(--color-primary);
+  transform: scale(1.1);
+}
+
+.mobile-search-toggle.active {
+  background: rgba(44, 85, 48, 0.1);
+}
+
+.mobile-search-toggle.active .search-icon {
+  stroke: var(--color-primary);
+  transform: rotate(90deg) scale(1.1);
+}
+
+.phone-icon {
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.phone-icon:hover {
+  transform: scale(1.1);
+}
+
+/* ===============================================
+   DESKTOP SEARCH
+   =============================================== */
+
+.header-search {
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-form__fake-input {
+  height: 55px;
+  max-width: 330px;
+  width: 100%;
+  border: 2px solid #eae9ec;
+  background: #fff;
+  box-sizing: border-box;
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0px 15px;
+  margin-left: 10%;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+
+.search-form__fake-input:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+}
+
+.search-form__input {
+  all: initial;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: #8c8c8c;
+  flex: 1 1 auto;
+  outline: none;
+  background: transparent;
+  border: none;
+}
+
+.search-form__input::placeholder {
+  color: #8c8c8c;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.search-form__input:focus {
+  color: var(--color-text);
+}
+
+.search-form__button {
+  flex: 0 0 24px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.search-form__button:hover {
+  transform: scale(1.1);
+}
+
+.search-icon {
+  font-size: 18px;
+  line-height: 1;
+  color: #8c8c8c;
+  transition: color 0.3s ease;
+}
+
+.search-form__button:hover .search-icon {
+  color: var(--color-primary);
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 2px solid #eae9ec;
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-left: 10%;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+}
+
+.search-results.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.search-result-item {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eae9ec;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.search-result-item:hover {
+  background-color: #f8f9fa;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-title {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.search-result-excerpt {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.search-result-url {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+.search-highlight {
+  background: #fff3cd;
+  padding: 1px 2px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+.search-no-results,
+.search-loading {
+  padding: 20px;
+  text-align: center;
+  color: #8c8c8c;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 15px;
+}
+
+.search-result-item.selected {
+  background-color: var(--color-primary) !important;
+  color: #fff !important;
+}
+
+.search-result-item.selected .search-result-title,
+.search-result-item.selected .search-result-excerpt,
+.search-result-item.selected .search-result-url {
+  color: #fff !important;
+}
+
+.search-result-item.selected .search-highlight {
+  background: rgba(255, 255, 255, 0.3) !important;
+  color: #fff !important;
+}
+
+.search-form.has-results .search-form__fake-input {
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+/* ===============================================
+   MOBILE SEARCH
+   =============================================== */
+
+.mobile-search {
+  display: none;
+  background: white;
+  border-bottom: 2px solid #eae9ec;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.mobile-search.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-search-form {
+  padding: 20px 0;
+}
+
+.mobile-search-form .search-form__fake-input {
+  position: relative;
+  margin-left: 0;
+  max-width: 100%;
+  gap: 10px;
+  height: 50px;
+  border: 2px solid #eae9ec;
+  border-radius: var(--radius-sm);
+}
+
+.mobile-search-form .search-form__fake-input:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+}
+
+.mobile-search-close {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex: 0 0 30px;
+  height: 30px;
+}
+
+.mobile-search-close:hover {
+  background: rgba(140, 140, 140, 0.1);
+}
+
+.mobile-search-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mobile-search-results {
+  margin-top: 15px;
+  border: 2px solid #eae9ec;
+  border-radius: var(--radius-sm);
+  max-height: 300px;
+  overflow-y: auto;
+  background: white;
+}
+
+.mobile-search-results .search-result-item {
+  padding: 12px 15px;
+  font-size: 14px;
+}
+
+.mobile-search-results .search-result-title {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.mobile-search-results .search-result-excerpt {
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.mobile-search-results .search-result-url {
+  font-size: 11px;
+  margin-top: 4px;
 }
 
 /* ===============================================
@@ -498,26 +994,164 @@ p {
 }
 
 /* ===============================================
-   RESPONSIVE
+   ANIMATIONS
    =============================================== */
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===============================================
+   STATES & MODIFIERS
+   =============================================== */
+
+.search-form.loading .search-form__button {
+  pointer-events: none;
+}
+
+.search-form.loading .search-icon {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.mobile-search.active {
+  animation: slideDownFade 0.3s ease forwards;
+}
+
+.mobile-search.closing {
+  animation: slideUpFade 0.3s ease forwards;
+}
+
+body.mobile-search-open {
+  overflow: hidden;
+}
+
+/* ===============================================
+   RESPONSIVE DESIGN
+   =============================================== */
+
+/* Desktop Large */
+@media (max-width: 1200px) {
+  .search-form__fake-input {
+    max-width: 280px;
+    margin-left: 5%;
+  }
+
+  .search-results {
+    margin-left: 5%;
+  }
+}
+
+/* Desktop */
+@media (max-width: 992px) {
+  .search-form__fake-input {
+    max-width: 250px;
+    margin-left: 0;
+  }
+
+  .search-results {
+    margin-left: 0;
+  }
+}
+
+/* Tablets and Mobile */
 @media (max-width: 768px) {
   .container {
     padding: 0 var(--spacing-sm);
   }
 
-  .nav {
-    display: none;
+  /* Show mobile elements */
+  .mobile-actions {
+    display: flex;
   }
 
   .mobile-menu-toggle {
     display: flex;
   }
 
-  .mobile-menu.active {
-    display: block;
+  /* Hide desktop elements */
+  .header-search {
+    display: none !important;
   }
 
+  .header__button_call {
+    display: none;
+  }
+
+  .header-contact {
+    display: none;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  /* Mobile menu */
+  .mobile-menu.active {
+    display: block;
+    transform: translateX(0);
+  }
+
+  /* Header adjustments */
+  .header-top-wrapper {
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  .logo {
+    flex: 1;
+    text-align: center;
+  }
+
+  .mobile-menu-toggle {
+    order: 1;
+  }
+
+  .logo {
+    order: 2;
+  }
+
+  .mobile-actions {
+    order: 3;
+  }
+
+  /* Content adjustments */
   .hero h1 {
     font-size: 2rem;
   }
@@ -532,12 +1166,6 @@ p {
     text-align: center;
   }
 
-  .header-contact {
-    flex-direction: column;
-    gap: var(--spacing-xs);
-    text-align: center;
-  }
-
   h1 {
     font-size: 2rem;
   }
@@ -545,9 +1173,39 @@ p {
   h2 {
     font-size: 1.5rem;
   }
+  .mobile-actions a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
+/* Small Mobile */
 @media (max-width: 480px) {
+  .mobile-actions {
+    gap: 20px;
+  }
+
+  .mobile-search-toggle,
+  .mobile-actions a {
+    padding: 6px;
+  }
+
+  .phone-icon,
+  .search-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .mobile-search-form {
+    padding: 15px 0;
+  }
+
+  .mobile-search-form .search-form__fake-input {
+    height: 45px;
+    padding: 0 15px;
+  }
+
   .services-grid,
   .blog-grid {
     grid-template-columns: 1fr;
@@ -562,391 +1220,84 @@ p {
   }
 }
 
-/* search */
-.header-search {
-  flex: 0 0 auto;
-  position: relative;
-}
-
-.search-form {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-/* Основной контейнер поля поиска */
-.search-form__fake-input {
-  height: 55px;
-  max-width: 330px;
-  width: 100%;
-  border: 2px solid #eae9ec;
-  background: #fff;
-  box-sizing: border-box;
-  padding: 0px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0px 15px;
-  margin-left: 10%;
-  border-radius: var(--radius-sm);
-  transition: all 0.3s ease;
-}
-
-.search-form__fake-input:focus-within {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
-}
-
-/* Поле ввода */
-.search-form__input {
-  all: initial;
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-size: 17px;
-  font-weight: 500;
-  color: #8c8c8c;
-  flex: 1 1 auto;
-  outline: none;
-  background: transparent;
-  border: none;
-}
-
-.search-form__input::placeholder {
-  color: #8c8c8c;
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-size: 17px;
-  font-weight: 500;
-}
-
-.search-form__input:focus {
-  color: var(--color-text);
-}
-
-/* Кнопка поиска */
-.search-form__button {
-  flex: 0 0 24px;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.search-form__button:hover {
-  transform: scale(1.1);
-}
-
-.search-icon {
-  font-size: 18px;
-  line-height: 1;
-  color: #8c8c8c;
-  transition: color 0.3s ease;
-}
-
-.search-form__button:hover .search-icon {
-  color: var(--color-primary);
-}
-
-/* Выпадающий список результатов поиска */
-.search-results {
-  position: absolute;
-  top: calc(100% + 2px);
-  left: 0;
-  right: 0;
-  background: #fff;
-  border: 2px solid #eae9ec;
-  border-top: none;
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  max-height: 400px;
-  overflow-y: auto;
-  z-index: 1000;
-  margin-left: 10%;
-}
-
-.search-result-item {
-  padding: 15px 20px;
-  border-bottom: 1px solid #eae9ec;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.search-result-item:hover {
-  background-color: #f8f9fa;
-}
-
-.search-result-item:last-child {
-  border-bottom: none;
-}
-
-.search-result-title {
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: 4px;
-  font-size: 16px;
-  line-height: 1.3;
-}
-
-.search-result-excerpt {
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-size: 14px;
-  color: #666;
-  line-height: 1.4;
-  margin-bottom: 4px;
-}
-
-.search-result-url {
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-size: 12px;
-  color: #8c8c8c;
-}
-
-/* Подсветка найденных слов */
-.search-highlight {
-  background: #fff3cd;
-  padding: 1px 2px;
-  border-radius: 2px;
-  font-weight: 600;
-}
-
-/* Состояния поиска */
-.search-no-results,
-.search-loading {
-  padding: 20px;
-  text-align: center;
-  color: #8c8c8c;
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-size: 15px;
-}
-
-/* Навигация с клавиатуры */
-.search-result-item.selected {
-  background-color: var(--color-primary) !important;
-  color: #fff !important;
-}
-
-.search-result-item.selected .search-result-title,
-.search-result-item.selected .search-result-excerpt,
-.search-result-item.selected .search-result-url {
-  color: #fff !important;
-}
-
-.search-result-item.selected .search-highlight {
-  background: rgba(255, 255, 255, 0.3) !important;
-  color: #fff !important;
-}
-
-/* Состояние с результатами */
-.search-form.has-results .search-form__fake-input {
-  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
-}
-
-/* Мобильные стили */
-.mobile-search {
-  padding: var(--spacing-md);
-  border-bottom: 1px solid #eae9ec;
-}
-
-.mobile-search-form .search-form__fake-input {
-  margin-left: 0;
-  max-width: 100%;
-}
-
-.mobile-search-form .search-form__input {
-  width: 100%;
-}
-
-/* Адаптивность */
-@media (max-width: 1200px) {
-  .search-form__fake-input {
-    max-width: 280px;
-    margin-left: 5%;
-  }
-}
-
-@media (max-width: 992px) {
-  .search-form__fake-input {
-    max-width: 250px;
-    margin-left: 0;
-  }
-
-  .search-results {
-    margin-left: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .header-top-wrapper {
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    text-align: center;
+/* Large Desktop */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mobile-actions {
+    display: none;
   }
 
   .header-search {
-    order: -1;
-    width: 100%;
-  }
-
-  .search-form__fake-input {
-    max-width: 100%;
-    margin-left: 0;
-    height: 50px;
-  }
-
-  .search-form__input {
-    font-size: 16px; /* Предотвращает зум на iOS */
-  }
-
-  .header-contact {
-    font-size: 0.8rem;
-  }
-
-  .header-contact span {
-    display: block;
-    margin-bottom: 2px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-search {
-    display: none; /* Скрываем поиск в шапке на очень маленьких экранах */
+    display: block !important;
   }
 
   .mobile-search {
-    display: block; /* Показываем поиск в мобильном меню */
-  }
-
-  .search-form__fake-input {
-    height: 45px;
-    padding: 0 15px;
-  }
-
-  .search-form__input {
-    font-size: 15px;
+    display: none !important;
   }
 }
 
-@media (min-width: 481px) {
-  .mobile-search {
-    display: none; /* Скрываем мобильный поиск на больших экранах */
-  }
-}
+/* ===============================================
+   ACCESSIBILITY
+   =============================================== */
 
-/* Состояние загрузки */
-.search-form.loading .search-form__button {
-  pointer-events: none;
-}
-
-.search-form.loading .search-icon {
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-/* Анимация для выпадающего списка */
-.search-results {
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.2s ease;
-}
-
-.search-results.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Скроллбар для результатов поиска */
-.search-results::-webkit-scrollbar {
-  width: 6px;
-}
-
-.search-results::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.search-results::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
-}
-
-.search-results::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-
-/* Стили для страницы поиска */
-.search-page .main-search-form .search-form__fake-input {
-  max-width: 600px;
-  margin: 0 auto;
-  height: 60px;
-  border: 2px solid var(--color-primary);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.search-page .main-search-form .search-form__input {
-  font-size: 18px;
-}
-
-.search-page .main-search-form .search-form__button {
-  flex: 0 0 28px;
-}
-
-.search-page .main-search-form .search-icon {
-  font-size: 20px;
-  color: var(--color-primary);
-}
-
-/* Улучшение доступности */
-.search-form__button:focus {
+.search-form__button:focus,
+.mobile-search-toggle:focus,
+.mobile-search-close:focus {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
 .search-form__input:focus {
-  outline: none; /* Убираем стандартный outline, так как есть border-стили */
+  outline: none;
 }
 
-/* Анимация появления результатов */
-.search-result-item {
-  animation: fadeInUp 0.3s ease forwards;
-}
-
-.search-result-item:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.search-result-item:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.search-result-item:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.search-result-item:nth-child(4) {
-  animation-delay: 0.4s;
-}
-.search-result-item:nth-child(5) {
-  animation-delay: 0.5s;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* Подключение шрифта Montserrat (добавьте в head) */
+/* High contrast */
+@media (prefers-contrast: high) {
+  :root {
+    --color-text-primary: #000000;
+    --color-text-secondary: #000000;
+    --color-border: #000000;
+  }
+}
+
+/* ===============================================
+   SCROLLBARS
+   =============================================== */
+
+.search-results::-webkit-scrollbar,
+.mobile-search-results::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-results::-webkit-scrollbar-track,
+.mobile-search-results::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.search-results::-webkit-scrollbar-thumb,
+.mobile-search-results::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.search-results::-webkit-scrollbar-thumb:hover,
+.mobile-search-results::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* ===============================================
+   IMPORT FONTS
+   =============================================== */
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');

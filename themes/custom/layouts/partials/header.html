@@ -1,12 +1,39 @@
 <header class="header">
   <div class="header-top">
     <div class="container header-top-wrapper">
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Открыть меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <div class="logo">
         <a href="{{ .Site.BaseURL }}">
           <img src="/images/logotop.png" alt="{{ .Site.Title }}" class="logo-img">
           <!-- <span class="logo-text">{{ .Site.Title }}</span> -->
         </a>
       </div>
+      <div class="mobile-actions">
+        <!-- Иконка телефона на мобилке -->
+        <a href="tel:88005519592">
+          <svg class="phone-icon mobile-phone-icon" width="32" height="32" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7293C21.7209 20.9845 21.5573 21.2136 21.3521 21.4019C21.1468 21.5901 20.9046 21.7335 20.6407 21.8227C20.3769 21.9119 20.0974 21.9451 19.82 21.92C16.7428 21.5856 13.787 20.5341 11.19 18.85C8.77382 17.3147 6.72533 15.2662 5.18999 12.85C3.49997 10.2412 2.44824 7.27099 2.11999 4.18C2.095 3.90347 2.12787 3.62476 2.21649 3.36162C2.30512 3.09849 2.44756 2.85669 2.63476 2.65162C2.82196 2.44655 3.0498 2.28271 3.30379 2.17052C3.55777 2.05833 3.83233 2.00026 4.10999 2H7.10999C7.59544 1.99522 8.06544 2.16708 8.43999 2.48353C8.81454 2.79999 9.06991 3.23945 9.15999 3.72C9.3281 4.68007 9.62478 5.60273 10.04 6.47C10.1856 6.76352 10.2463 7.0958 10.2145 7.42552C10.1826 7.75524 10.0595 8.06886 9.85999 8.32L8.48999 9.69C9.90011 12.1417 11.8583 14.0999 14.31 15.51L15.68 14.14C15.9311 13.9405 16.2447 13.8174 16.5745 13.7855C16.9042 13.7537 17.2365 13.8144 17.53 13.96C18.3973 14.3752 19.3199 14.6719 20.28 14.84C20.7658 14.9305 21.2094 15.1905 21.5265 15.5705C21.8437 15.9505 22.0122 16.4251 21.9999 16.92H22Z"
+              stroke="#8c8c8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+
+        <!-- Иконка поиска на мобилке -->
+        <button class="mobile-search-toggle" id="mobile-search-toggle" aria-label="Открыть поиск">
+          <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="8" stroke="#8c8c8c" stroke-width="2" />
+            <path d="m21 21-4.35-4.35" stroke="#8c8c8c" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+
       <div class="header-search">
         <form class="search-form" id="searchForm" method="get" action="/search/">
           <div class="search-form__fake-input">
@@ -38,9 +65,35 @@
         </div>
         <span>{{ .Site.Params.address }}</span>
       </div>
-
     </div>
+  </div>
 
+  <!-- Мобильный поиск (выдвигается сверху) -->
+  <div class="mobile-search" id="mobile-search">
+    <div class="container">
+      <form class="search-form mobile-search-form" method="get" action="/search/">
+        <div class="search-form__fake-input">
+          <input type="text" class="search-form__input" name="query" id="mobileSearchInput" placeholder="Поиск по сайту"
+            autocomplete="off">
+          <button class="search-form__button" type="submit">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="8" stroke="#8c8c8c" stroke-width="2" />
+              <path d="m21 21-4.35-4.35" stroke="#8c8c8c" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button type="button" class="mobile-search-close" id="mobile-search-close">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18" stroke="#8c8c8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M6 6L18 18" stroke="#8c8c8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+        <!-- Результаты поиска для мобилки -->
+        <div class="search-results mobile-search-results" id="mobileSearchResults" style="display: none;"></div>
+      </form>
+    </div>
   </div>
 
 
@@ -58,11 +111,7 @@
           {{ end }}
         </nav>
 
-        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Открыть меню">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+
       </div>
     </div>
   </div>
@@ -70,9 +119,35 @@
   <!-- Мобильное меню -->
   <div class="mobile-menu" id="mobile-menu">
     <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Закрыть меню">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <a class="mobile-callback-btn" href="#" data-id="modal-call">Заказать обратный звонок</a>
+      </div>
+      <!-- Навигационные ссылки -->
       {{ range .Site.Menus.main }}
       <a href="{{ .URL }}" class="mobile-nav-link">{{ .Name }}</a>
       {{ end }}
+
+      <!-- Дополнительная информация в мобильном меню -->
+      <div class="mobile-menu-footer">
+        <div class="mobile-contact-info">
+          <a class="mobile-contact-phone" href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a>
+          <a class="mobile-contact-phone" href="tel:89030770399">8 903 077 0399</a>
+          <p>
+            <span class="mobile-work-time">График работы: <br/>Пн-Сб 9.00-20.00</span>
+            <br/>
+            <span class="mobile-address">{{ .Site.Params.address }}</span>
+          </p>
+
+        </div>
+      </div>
     </div>
   </div>
 </header>
