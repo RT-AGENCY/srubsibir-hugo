@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<section class="hero-slider">
+  <div class="swiper hero-swiper">
+    <div class="swiper-wrapper">
+      <!-- Слайд 1 -->
+      <div class="swiper-slide">
+        <a href="https://example.com/page1" class="hero-slide" style="background-image:url('/images/main/sl1.webp')">
+          <span class="sr-only">Slide 1</span>
+        </a>
+      </div>
+      <!-- Слайд 2 -->
+      <div class="swiper-slide">
+        <a href="https://example.com/page2" class="hero-slide" style="background-image:url('/images/main/sl2.webp')">
+          <span class="sr-only">Slide 2</span>
+        </a>
+      </div>
+      <!-- Слайд 3 -->
+      <div class="swiper-slide">
+        <a href="https://example.com/page3" class="hero-slide" style="background-image:url('/images/main/sl3.webp')">
+          <span class="sr-only">Slide 3</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Навигация / пагинация (опционально) -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-scrollbar"></div>
+  </div>
+</section>
+
+<style>
+  .hero-slider {
+    height: 410px;            /* фиксируем высоту */
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-swiper,
+  .hero-swiper .swiper-wrapper,
+  .hero-swiper .swiper-slide {
+    height: 100%;             /* важно для растягивания по высоте */
+  }
+  .hero-slide {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-size: cover;   /* обрезка по контейнеру */
+    background-position: center;
+    text-decoration: none;
+  }
+  /* Вспомогательно: скрытый текст для скринридеров */
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+</style>
+
+<script defer>
+  // Скрипт инициализации загружается ПОСЛЕ swiper-bundle.min.js (оба defer и в правильном порядке)
+  document.addEventListener('DOMContentLoaded', function () {
+    // На всякий случай ждём, пока контейнер появится в DOM
+    var el = document.querySelector('.hero-swiper');
+    if (!el || !window.Swiper) return;
+
+    new Swiper(el, {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      },
+      speed: 800,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        dynamicBullets: true
+      },
+      scrollbar: {
+        el: '.swiper-scrollbar',
+        hide: true
+      },
+      keyboard: {
+        enabled: true,
+        onlyInViewport: true
+      }
+    });
+  });
+</script>

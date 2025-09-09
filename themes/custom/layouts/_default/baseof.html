@@ -35,7 +35,17 @@
   {{ partial "header.html" . }}
 
   <main id="main-content">
-    {{ block "main" . }}{{ end }}
+    <!-- Hero Slider Section -->
+    {{ partial "hero.html" . }}
+    {{ partial "adventages.html" . }}
+    <!-- Services Preview Section -->
+    <section class="services-preview">...</section>
+
+    <!-- About Preview Section -->
+    <section class="about-preview">...</section>
+
+    <!-- Blog Preview Section -->
+    <section class="blog-preview">...</section>
   </main>
 
   {{ partial "footer.html" . }}
@@ -51,5 +61,6 @@
   {{ end }}
   {{ end }}
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
 
 </html>
