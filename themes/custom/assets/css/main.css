@@ -1093,7 +1093,7 @@ body.mobile-search-open {
 /* Tablets and Mobile */
 @media (max-width: 768px) {
   .container {
-    padding: 0 var(--spacing-sm);
+    padding: 0 10px;
   }
 
   /* Show mobile elements */
