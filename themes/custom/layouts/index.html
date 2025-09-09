@@ -1,0 +1,73 @@
+{{ define "main" }}
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>{{ .Site.Title }}</h1>
+      <p>{{ .Site.Params.description }}</p>
+      <div class="hero-buttons">
+        <a href="/services/" class="btn btn-primary">Наши услуги</a>
+        <a href="/contact/" class="btn btn-secondary">Связаться с нами</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-preview">
+  <div class="container">
+    <h2>Наши услуги</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🏠</div>
+        <h3>Строительство домов</h3>
+        <p>Качественное строительство деревянных домов любой сложности</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛁</div>
+        <h3>Строительство бань</h3>
+        <p>Традиционные русские бани из натурального дерева</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌲</div>
+        <h3>Срубы на заказ</h3>
+        <p>Изготовление срубов по индивидуальным проектам</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about-preview">
+  <div class="container">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>О компании</h2>
+        <p>Мы специализируемся на строительстве деревянных домов и бань в Сибири. Наша команда имеет многолетний опыт
+          работы с натуральным деревом.</p>
+        <a href="/about/" class="btn btn-outline">Подробнее о нас</a>
+      </div>
+      <div class="about-image">
+        <img src="/images/about-preview.jpg" alt="О нас">
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ $recentPosts := where site.RegularPages "Type" "blog" | first 3 }}
+{{ if $recentPosts }}
+<section class="blog-preview">
+  <div class="container">
+    <h2>Последние новости</h2>
+    <div class="blog-grid">
+      {{ range $recentPosts }}
+      <article class="blog-card">
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p>{{ .Summary }}</p>
+        <div class="blog-meta">
+          <time>{{ .Date.Format "2 January 2006" }}</time>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}

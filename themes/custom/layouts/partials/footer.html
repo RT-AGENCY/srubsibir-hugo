@@ -1,0 +1,30 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>{{ .Site.Title }}</h3>
+        <p>{{ .Site.Params.description }}</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Контакты</h3>
+        <p>Email: {{ .Site.Params.email }}</p>
+        <p>Телефон: {{ .Site.Params.phone }}</p>
+        <p>Адрес: {{ .Site.Params.address }}</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Навигация</h3>
+        <nav class="footer-nav">
+          {{ range .Site.Menus.main }}
+          <a href="{{ .URL }}">{{ .Name }}</a>
+          {{ end }}
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {{ now.Year }} {{ .Site.Title }}. Все права защищены.</p>
+    </div>
+  </div>
+</footer>

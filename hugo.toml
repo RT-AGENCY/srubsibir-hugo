@@ -1,0 +1,53 @@
+baseURL = 'http://localhost:1313'
+languageCode = 'ru'
+title = 'СрубСибирь - Деревянные дома и бани'
+theme = 'custom'
+
+# Настройки сайта
+[params]
+  description = 'Строительство деревянных домов и бань в Сибири'
+  author = 'СрубСибирь'
+  email = 'contact@srubsibir.ru'
+  phone = '8 800 551 9592'
+  address = 'Саяногорск, Индустриальная 45'
+
+# Меню навигации
+[[menu.main]]
+  name = "Главная"
+  url = "/"
+  weight = 10
+
+[[menu.main]]
+  name = "О компании"
+  url = "/about/"
+  weight = 20
+
+[[menu.main]]
+  name = "Услуги"
+  url = "/services/"
+  weight = 30
+
+[[menu.main]]
+  name = "Проекты"
+  url = "/projects/"
+  weight = 40
+
+[[menu.main]]
+  name = "Блог"
+  url = "/blog/"
+  weight = 50
+
+[[menu.main]]
+  name = "Контакты"
+  url = "/contact/"
+  weight = 60
+
+# Настройки разметки
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# Настройки для Hugo Pipes
+[build]
+  writeStats = true

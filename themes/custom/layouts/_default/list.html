@@ -1,0 +1,149 @@
+{{ define "main" }}
+<div class="page-header">
+  <div class="container">
+    <h1>{{ .Title }}</h1>
+    {{ if .Content }}
+    <div class="page-description">
+      {{ .Content }}
+    </div>
+    {{ end }}
+  </div>
+</div>
+
+<section class="content-section">
+  <div class="container">
+    {{ if .Pages }}
+    <div class="content-grid">
+      {{ range .Pages }}
+      <article class="content-card">
+        {{ if .Params.image }}
+        <div class="card-image">
+          <img src="{{ .Params.image }}" alt="{{ .Title }}">
+        </div>
+        {{ end }}
+
+        <div class="card-content">
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+
+          {{ if .Date }}
+          <div class="card-meta">
+            <time datetime="{{ .Date.Format " 2006-01-02" }}">
+              {{ .Date.Format "2 January 2006" }}
+            </time>
+          </div>
+          {{ end }}
+
+          <div class="card-summary">
+            {{ .Summary }}
+          </div>
+
+          <a href="{{ .RelPermalink }}" class="read-more">Читать далее</a>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    {{ else }}
+    <div class="no-content">
+      <p>Пока здесь нет контента.</p>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+<style>
+  .page-header {
+    background: var(--color-light);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+  }
+
+  .page-header h1 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-description {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--color-text-light);
+  }
+
+  .content-section {
+    padding: var(--spacing-xxl) 0;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .content-card {
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: var(--transition);
+  }
+
+  .content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .card-content {
+    padding: var(--spacing-lg);
+  }
+
+  .card-content h2 {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .card-content h2 a {
+    color: var(--color-text);
+    transition: var(--transition);
+  }
+
+  .card-content h2 a:hover {
+    color: var(--color-primary);
+  }
+
+  .card-meta {
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .card-summary {
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-light);
+  }
+
+  .read-more {
+    color: var(--color-primary);
+    font-weight: 500;
+    transition: var(--transition);
+  }
+
+  .read-more:hover {
+    color: var(--color-secondary);
+  }
+
+  .no-content {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .content-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{{ end }}

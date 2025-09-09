@@ -1,0 +1,19 @@
+# Hugo
+public/
+resources/
+.hugo_build.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Node.js (если используете)
+node_modules/
+package-lock.json
+
+# Logs
+*.log
