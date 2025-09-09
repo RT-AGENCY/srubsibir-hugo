@@ -31,6 +31,9 @@ a {
   text-decoration: none;
   color: inherit;
 }
+p {
+  margin: 0;
+}
 
 ul,
 ol {
@@ -62,7 +65,7 @@ ol {
   --spacing-xxl: 4rem;
 
   /* Container */
-  --container-max-width: 1200px;
+  --container-max-width: 1440px;
   --container-padding: 1rem;
 
   /* Transitions */
@@ -118,7 +121,6 @@ h3 {
 }
 
 p {
-  margin-bottom: var(--spacing-sm);
   color: var(--color-text-light);
 }
 
@@ -178,19 +180,62 @@ p {
 }
 
 .header-top {
-  background: var(--color-light);
-  padding: var(--spacing-xs) 0;
-  font-size: 0.875rem;
+  height: 84px;
+  padding: 12px 10px;
+}
+.header-top-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #8c8c8c;
+  line-height: 1rem;
+}
+
+.header-contact-phone {
+  transition: color 0.5s ease;
+  color: #00a03d;
+  cursor: pointer;
+}
+.header__button_call {
+  /* flex: 1 1 auto; */
+  justify-content: center;
+  text-align: center;
+  height: 55px;
+  padding: 0px 15px;
+  background: #00a13d;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
 }
 
 .header-contact {
   display: flex;
+  align-items: center;
   gap: var(--spacing-md);
   color: var(--color-text-light);
 }
 
 .header-main {
-  padding: var(--spacing-sm) 0;
+  padding: 0;
+  background: #f4f4f5;
 }
 
 .header-content {
@@ -209,27 +254,33 @@ p {
 }
 
 .logo-img {
-  height: 40px;
+  height: 55px;
   width: auto;
 }
 
 .nav {
   display: flex;
-  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
 }
 
 .nav-link {
-  color: var(--color-text);
-  font-weight: 500;
+  min-width: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: 700;
+  font-size: 18px;
+  height: 60px;
   transition: var(--transition);
-  padding: var(--spacing-xs) var(--spacing-sm);
+  padding: 10px 15px;
   border-radius: var(--radius-sm);
+  transition: all 0.5s ease;
 }
-
-.nav-link:hover,
-.nav-link.active {
-  color: var(--color-primary);
-  background-color: var(--color-light);
+.nav-link:hover {
+  color: #00a13d !important;
 }
 
 .mobile-menu-toggle {
@@ -510,3 +561,392 @@ p {
     font-size: 1.75rem;
   }
 }
+
+/* search */
+.header-search {
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Основной контейнер поля поиска */
+.search-form__fake-input {
+  height: 55px;
+  max-width: 330px;
+  width: 100%;
+  border: 2px solid #eae9ec;
+  background: #fff;
+  box-sizing: border-box;
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0px 15px;
+  margin-left: 10%;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+
+.search-form__fake-input:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+}
+
+/* Поле ввода */
+.search-form__input {
+  all: initial;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: #8c8c8c;
+  flex: 1 1 auto;
+  outline: none;
+  background: transparent;
+  border: none;
+}
+
+.search-form__input::placeholder {
+  color: #8c8c8c;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.search-form__input:focus {
+  color: var(--color-text);
+}
+
+/* Кнопка поиска */
+.search-form__button {
+  flex: 0 0 24px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.search-form__button:hover {
+  transform: scale(1.1);
+}
+
+.search-icon {
+  font-size: 18px;
+  line-height: 1;
+  color: #8c8c8c;
+  transition: color 0.3s ease;
+}
+
+.search-form__button:hover .search-icon {
+  color: var(--color-primary);
+}
+
+/* Выпадающий список результатов поиска */
+.search-results {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 2px solid #eae9ec;
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-left: 10%;
+}
+
+.search-result-item {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eae9ec;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+  background-color: #f8f9fa;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-title {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.search-result-excerpt {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.search-result-url {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+/* Подсветка найденных слов */
+.search-highlight {
+  background: #fff3cd;
+  padding: 1px 2px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+/* Состояния поиска */
+.search-no-results,
+.search-loading {
+  padding: 20px;
+  text-align: center;
+  color: #8c8c8c;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 15px;
+}
+
+/* Навигация с клавиатуры */
+.search-result-item.selected {
+  background-color: var(--color-primary) !important;
+  color: #fff !important;
+}
+
+.search-result-item.selected .search-result-title,
+.search-result-item.selected .search-result-excerpt,
+.search-result-item.selected .search-result-url {
+  color: #fff !important;
+}
+
+.search-result-item.selected .search-highlight {
+  background: rgba(255, 255, 255, 0.3) !important;
+  color: #fff !important;
+}
+
+/* Состояние с результатами */
+.search-form.has-results .search-form__fake-input {
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+/* Мобильные стили */
+.mobile-search {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid #eae9ec;
+}
+
+.mobile-search-form .search-form__fake-input {
+  margin-left: 0;
+  max-width: 100%;
+}
+
+.mobile-search-form .search-form__input {
+  width: 100%;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+  .search-form__fake-input {
+    max-width: 280px;
+    margin-left: 5%;
+  }
+}
+
+@media (max-width: 992px) {
+  .search-form__fake-input {
+    max-width: 250px;
+    margin-left: 0;
+  }
+
+  .search-results {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-top-wrapper {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    text-align: center;
+  }
+
+  .header-search {
+    order: -1;
+    width: 100%;
+  }
+
+  .search-form__fake-input {
+    max-width: 100%;
+    margin-left: 0;
+    height: 50px;
+  }
+
+  .search-form__input {
+    font-size: 16px; /* Предотвращает зум на iOS */
+  }
+
+  .header-contact {
+    font-size: 0.8rem;
+  }
+
+  .header-contact span {
+    display: block;
+    margin-bottom: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-search {
+    display: none; /* Скрываем поиск в шапке на очень маленьких экранах */
+  }
+
+  .mobile-search {
+    display: block; /* Показываем поиск в мобильном меню */
+  }
+
+  .search-form__fake-input {
+    height: 45px;
+    padding: 0 15px;
+  }
+
+  .search-form__input {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 481px) {
+  .mobile-search {
+    display: none; /* Скрываем мобильный поиск на больших экранах */
+  }
+}
+
+/* Состояние загрузки */
+.search-form.loading .search-form__button {
+  pointer-events: none;
+}
+
+.search-form.loading .search-icon {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Анимация для выпадающего списка */
+.search-results {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+}
+
+.search-results.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Скроллбар для результатов поиска */
+.search-results::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-results::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.search-results::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Стили для страницы поиска */
+.search-page .main-search-form .search-form__fake-input {
+  max-width: 600px;
+  margin: 0 auto;
+  height: 60px;
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-page .main-search-form .search-form__input {
+  font-size: 18px;
+}
+
+.search-page .main-search-form .search-form__button {
+  flex: 0 0 28px;
+}
+
+.search-page .main-search-form .search-icon {
+  font-size: 20px;
+  color: var(--color-primary);
+}
+
+/* Улучшение доступности */
+.search-form__button:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.search-form__input:focus {
+  outline: none; /* Убираем стандартный outline, так как есть border-стили */
+}
+
+/* Анимация появления результатов */
+.search-result-item {
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.search-result-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.search-result-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.search-result-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.search-result-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.search-result-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Подключение шрифта Montserrat (добавьте в head) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
