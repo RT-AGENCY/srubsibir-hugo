@@ -58,12 +58,14 @@
           <span>График работы:</span>
           <span>Пн-Сб 9.00-20.00</span>
         </div>
-        <!-- <a class="header-contact-phone" href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a> -->
         <div class="header-contact-info">
           <a class="header-contact-phone" href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a>
           <a class="header-contact-phone" href="tel:89030770399">8 903 077 0399</a>
         </div>
-        <span>{{ .Site.Params.address }}</span>
+        <div class="header-contact-info">
+          <span>{{ .Site.Params.address }}</span>
+          <a class="header-contact-phone" href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a>
+        </div>
       </div>
     </div>
   </div>
@@ -141,8 +143,8 @@
           <a class="mobile-contact-phone" href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a>
           <a class="mobile-contact-phone" href="tel:89030770399">8 903 077 0399</a>
           <p>
-            <span class="mobile-work-time">График работы: <br/>Пн-Сб 9.00-20.00</span>
-            <br/>
+            <span class="mobile-work-time">График работы: <br />Пн-Сб 9.00-20.00</span>
+            <br />
             <span class="mobile-address">{{ .Site.Params.address }}</span>
           </p>
 
