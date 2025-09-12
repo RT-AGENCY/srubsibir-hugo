@@ -950,19 +950,25 @@ body.mobile-menu-open {
    =============================================== */
 
 .footer {
-  background: var(--color-primary);
+  background: #302f32;
   color: var(--color-white);
   padding: var(--spacing-xl) 0 var(--spacing-md);
+}
+.footer a {
+  color: #00a13d;
+  font-size: 19px;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .footer-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
 }
 
-.footer-section h3 {
+.footer-section h3,
+.footer-content h3 {
   color: var(--color-white);
   margin-bottom: var(--spacing-md);
 }
@@ -970,8 +976,34 @@ body.mobile-menu-open {
 .footer-section p {
   color: rgba(255, 255, 255, 0.8);
 }
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+@media (max-width: 1200px) {
+  .footer-content {
+    /* grid-template-columns: 1fr; */
+    grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+    gap: 5px;
+  }
+}
+@media (max-width: 768px) {
+  .footer-section {
+    align-items: center;
+    text-align: center;
+  }
+  .footer-content {
+    gap: 10px;
+  }
+  .footer-content div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
-.footer-nav {
+/* .footer-nav {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
@@ -984,14 +1016,14 @@ body.mobile-menu-open {
 
 .footer-nav a:hover {
   color: var(--color-white);
-}
+} */
 
-.footer-bottom {
+/* .footer-bottom {
   text-align: center;
   padding-top: var(--spacing-md);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.7);
-}
+} */
 
 /* ===============================================
    ANIMATIONS

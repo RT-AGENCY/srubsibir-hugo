@@ -1,6 +1,6 @@
 baseURL = 'http://localhost:1313'
 languageCode = 'ru'
-title = 'СрубСибирь - Деревянные дома и бани'
+title = 'Сибирский лес - Деревянные дома и бани'
 theme = 'custom'
 
 # Настройки сайта
