@@ -1129,7 +1129,7 @@ body.mobile-search-open {
 }
 
 /* Tablets and Mobile */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .container {
     padding: 0 10px;
   }
@@ -1258,20 +1258,6 @@ body.mobile-search-open {
   }
 }
 
-/* Large Desktop */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .mobile-actions {
-    display: none;
-  }
-
-  .header-search {
-    display: block !important;
-  }
-
-  .mobile-search {
-    display: none !important;
-  }
-}
 
 /* ===============================================
    ACCESSIBILITY
