@@ -1,0 +1,615 @@
+<style>
+  .order-form-section {
+    padding: 60px 20px;
+    background: #f8f9fa;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .order-form-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(139, 195, 74, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(44, 85, 48, 0.05) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  .order-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .order-form-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    color: #2c5530;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .order-form-title::before,
+  .order-form-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 150px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #8bc34a, transparent);
+  }
+
+  .order-form-title::before {
+    left: -170px;
+  }
+
+  .order-form-title::after {
+    right: -170px;
+  }
+
+  .order-form-wrapper {
+    background: linear-gradient(135deg, #8bc34a 0%, #9cc94f 100%);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .order-form-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #2c5530, #4a7c59);
+  }
+
+  .order-form {
+    display: grid;
+    gap: 30px;
+  }
+
+  .order-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+  }
+
+  @media(max-width: 1200px) {
+    .order-form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .order-form-input {
+      width: 100%;
+    }
+  }
+
+  .order-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* Дополнительный отступ */
+    margin-bottom: 20px;
+    animation: order-fadeInUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+
+  .order-form-group-horizontal {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  @media(max-width: 768px) {
+    .order-form-group {
+      margin-bottom: 0;
+    }
+
+    .order-form-group-horizontal {
+      margin-bottom: 0;
+    }
+  }
+
+  .order-form-label {
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .order-form-input,
+  .order-form-select,
+  .order-form-textarea {
+    padding: 12px 16px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    font-size: 16px;
+    background: #fff;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .order-form-input:focus,
+  .order-form-select:focus,
+  .order-form-textarea:focus {
+    outline: none;
+    border-color: #2c5530;
+    box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .order-form-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 40px;
+    appearance: none;
+  }
+
+  .order-form-textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+  }
+
+  .order-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .order-radio-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .order-radio-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .order-radio-input {
+    width: 18px;
+    height: 18px;
+    accent-color: #fff;
+    cursor: pointer;
+  }
+
+  .order-radio-label {
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .order-form-contacts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .order-form-required {
+    color: #fff;
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .order-form-submit {
+    background: linear-gradient(135deg, #2c5530, #4a7c59);
+    color: #fff;
+    padding: 16px 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+
+  .order-form-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .order-form-submit:hover::before {
+    left: 100%;
+  }
+
+  .order-form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(44, 85, 48, 0.4);
+    background: linear-gradient(135deg, #4a7c59, #2c5530);
+  }
+
+  .order-form-submit:active {
+    transform: translateY(0);
+  }
+
+  .order-form-input.error,
+  .order-form-select.error,
+  .order-form-textarea.error {
+    border-color: #dc3545;
+    background: #ffebee;
+  }
+
+  .order-form-input.success,
+  .order-form-select.success,
+  .order-form-textarea.success {
+    border-color: #28a745;
+    background: #e8f5e8;
+  }
+
+  .order-error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 4px;
+    display: none;
+    background: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .order-error-message.show {
+    display: block;
+  }
+
+  .order-form-submit.loading {
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .order-form-submit.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    animation: order-spin 1s linear infinite;
+  }
+
+  @keyframes order-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 1200px) {
+
+    .order-form-title::before,
+    .order-form-title::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .order-form-section {
+      padding: 40px 15px;
+    }
+
+    .order-form-title {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    .order-form-wrapper {
+      padding: 25px 20px;
+    }
+
+    .order-form-row {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .order-form-group-horizontal {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .order-form-contacts {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .order-radio-group {
+      gap: 8px;
+    }
+
+    .order-radio-item {
+      padding: 6px 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .order-form-title {
+      font-size: 24px;
+    }
+
+    .order-form-wrapper {
+      padding: 20px 15px;
+    }
+
+    .order-form-input,
+    .order-form-select,
+    .order-form-textarea {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+
+    .order-form-submit {
+      padding: 14px 30px;
+      font-size: 16px;
+    }
+  }
+
+  @keyframes order-fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+
+<body>
+  <section class="order-form-section">
+    <div class="order-container">
+      <h2 class="order-form-title">Остались вопросы? Мы на них ответим!</h2>
+
+      <div class="order-form-wrapper">
+        <form class="order-form" id="orderForm">
+          <div class="order-form-row">
+            <!-- Левая колонка -->
+            <div class="order-form-group">
+              <div class="order-form-group-horizontal">
+                <label class="order-form-label">Желаемый диаметр бревна в срубе</label>
+                <select class="order-form-select" name="log_diameter" required>
+                  <option value="">Выберите диаметр</option>
+                  <option value="40-50">Бревно 40 - 50 см</option>
+                  <option value="50-60">Бревно 50 - 60 см</option>
+                  <option value="60-70">Бревно 60 - 70 см</option>
+                  <option value="70+">Бревно 70 см +</option>
+                </select>
+              </div>
+              <div class="order-error-message">Пожалуйста, выберите диаметр бревна</div>
+
+              <div class="order-form-group-horizontal">
+                <label class="order-form-label">Планируемая дата приобретения сруба</label>
+                <select class="order-form-select" name="purchase_date" required>
+                  <option value="">Выберите срок</option>
+                  <option value="soon">В ближайшее время</option>
+                  <option value="year">В течение года</option>
+                </select>
+              </div>
+              <div class="order-error-message">Пожалуйста, выберите планируемую дату</div>
+            </div>
+
+            <!-- Правая колонка -->
+            <div class="order-form-group">
+              <label class="order-form-label">Комплектность поставки (обязательно)</label>
+              <div class="order-radio-group">
+                <label class="order-radio-item">
+                  <input type="radio" class="order-radio-input" name="completeness" value="roof" checked>
+                  <span class="order-radio-label">Сруб под крышу</span>
+                </label>
+                <label class="order-radio-item">
+                  <input type="radio" class="order-radio-input" name="completeness" value="materials">
+                  <span class="order-radio-label">Сруб и отделочные материалы</span>
+                </label>
+                <label class="order-radio-item">
+                  <input type="radio" class="order-radio-input" name="completeness" value="turnkey">
+                  <span class="order-radio-label">Сруб дома или бани под ключ</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-form-row">
+            <!-- Контактная информация -->
+            <div class="order-form-group">
+              <div class="order-form-contacts">
+                <div>
+                  <input type="text" class="order-form-input" name="name" placeholder="Ваше имя*" required>
+                  <div class="order-error-message">Пожалуйста, введите ваше имя</div>
+                </div>
+                <div>
+                  <input type="email" class="order-form-input" name="email" placeholder="Ваш e-mail*" required>
+                  <div class="order-error-message">Пожалуйста, введите корректный email</div>
+                </div>
+              </div>
+
+              <textarea class="order-form-textarea" name="location" placeholder="Местонахождение заказчика"></textarea>
+
+              <p class="order-form-required">Поля со звёздочкой(*) - обязательны для заполнения</p>
+            </div>
+
+            <!-- Дополнительные контакты -->
+            <div class="order-form-group">
+              <div class="order-form-contacts">
+                <div>
+                  <input type="text" class="order-form-input" name="country" placeholder="Страна*" required>
+                  <div class="order-error-message">Пожалуйста, укажите страну</div>
+                </div>
+                <div>
+                  <input type="tel" class="order-form-input" name="phone" placeholder="+7 ___ ___-__-__" required>
+                  <div class="order-error-message">Пожалуйста, введите номер телефона</div>
+                </div>
+              </div>
+
+              <button type="submit" class="order-form-submit">Отправить заявку</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('orderForm');
+      const submitButton = form.querySelector('.order-form-submit');
+
+      // Маска для телефона
+      const phoneInput = form.querySelector('input[name="phone"]');
+      phoneInput.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 0) {
+          if (value[0] === '8') {
+            value = '7' + value.slice(1);
+          }
+          if (value[0] === '7') {
+            value = value.replace(/^7(\d{3})(\d{3})(\d{2})(\d{2}).*/, '+7 ($1) $2-$3-$4');
+          }
+        }
+        e.target.value = value;
+      });
+
+      // Валидация формы
+      function validateField(field) {
+        const errorMessage = field.parentNode.querySelector('.order-error-message');
+        let isValid = true;
+
+        if (field.hasAttribute('required') && !field.value.trim()) {
+          isValid = false;
+        }
+
+        if (field.type === 'email' && field.value) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(field.value)) {
+            isValid = false;
+          }
+        }
+
+        if (field.type === 'tel' && field.value) {
+          const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+          if (!phoneRegex.test(field.value)) {
+            isValid = false;
+          }
+        }
+
+        if (isValid) {
+          field.classList.remove('error');
+          field.classList.add('success');
+          if (errorMessage) {
+            errorMessage.classList.remove('show');
+          }
+        } else {
+          field.classList.remove('success');
+          field.classList.add('error');
+          if (errorMessage) {
+            errorMessage.classList.add('show');
+          }
+        }
+
+        return isValid;
+      }
+
+      // Валидация в реальном времени
+      const inputs = form.querySelectorAll('.order-form-input, .order-form-select');
+      inputs.forEach(input => {
+        input.addEventListener('blur', () => validateField(input));
+        input.addEventListener('input', () => {
+          if (input.classList.contains('error')) {
+            validateField(input);
+          }
+        });
+      });
+
+      // Отправка формы
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        let isFormValid = true;
+        inputs.forEach(input => {
+          if (!validateField(input)) {
+            isFormValid = false;
+          }
+        });
+
+        if (isFormValid) {
+          submitButton.classList.add('loading');
+          submitButton.textContent = 'Отправка...';
+
+          // Имитация отправки
+          setTimeout(() => {
+            submitButton.classList.remove('loading');
+            submitButton.textContent = 'Отправлено!';
+            submitButton.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+
+            // Показываем сообщение об успехе
+            alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+
+            // Сброс формы
+            setTimeout(() => {
+              form.reset();
+              submitButton.textContent = 'Отправить заявку';
+              submitButton.style.background = '';
+              inputs.forEach(input => {
+                input.classList.remove('success', 'error');
+              });
+            }, 2000);
+          }, 2000);
+        } else {
+          // Прокручиваем к первому полю с ошибкой
+          const firstError = form.querySelector('.order-form-input.error, .order-form-select.error');
+          if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstError.focus();
+          }
+        }
+      });
+
+      console.log('Форма заказа сруба инициализирована');
+    });
+  </script>
