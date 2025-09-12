@@ -35,27 +35,57 @@
   {{ partial "header.html" . }}
 
   <main id="main-content">
-    <!-- Hero Slider Section -->
+    <!-- Блок для контента страницы -->
+    {{ block "main" . }}{{ end }}
+
+    <!-- Условные секции - только если включены -->
+    {{ if .Params.showHero | default .Site.Params.sections.hero.enabled }}
     {{ partial "hero.html" . }}
+    {{ end }}
+
+    {{ if .Params.showAdvantages | default .Site.Params.sections.advantages.enabled }}
     {{ partial "adventages.html" . }}
+    {{ end }}
+
+    {{ if .Params.showProjects | default .Site.Params.sections.projects.enabled }}
     {{ partial "projects.html" . }}
+    {{ end }}
+
+    {{ if .Params.showServices | default .Site.Params.sections.services.enabled }}
     {{ partial "services.html" . }}
+    {{ end }}
+
+    {{ if .Params.showTechnology | default .Site.Params.sections.technology.enabled }}
     {{ partial "technology.html" . }}
+    {{ end }}
+
+    {{ if .Params.showStages | default .Site.Params.sections.stages.enabled }}
     {{ partial "stages.html" . }}
+    {{ end }}
+
+    {{ if .Params.showOurJobs | default .Site.Params.sections.ourJobs.enabled }}
     {{ partial "our-jobs.html" . }}
+    {{ end }}
+
+    {{ if .Params.showReviews | default .Site.Params.sections.reviews.enabled }}
     {{ partial "reviews.html" . }}
+    {{ end }}
+
+    {{ if .Params.showCategories | default .Site.Params.sections.categories.enabled }}
     {{ partial "categories.html" . }}
+    {{ end }}
+
+    {{ if .Params.showContactForm | default .Site.Params.sections.contactForm.enabled }}
     {{ partial "form.html" . }}
+    {{ end }}
+
+    {{ if .Params.showWidget | default .Site.Params.sections.widget.enabled }}
     {{ partial "widget.html" . }}
+    {{ end }}
+
+    {{ if .Params.showCallForm | default .Site.Params.sections.callForm.enabled }}
     {{ partial "call-form.html" . }}
-    <!-- Services Preview Section -->
-    <!-- <section class="services-preview">...</section> -->
-
-    <!-- About Preview Section -->
-    <!-- <section class="about-preview">...</section> -->
-
-    <!-- Blog Preview Section -->
-    <!-- <section class="blog-preview">...</section> -->
+    {{ end }}
   </main>
 
   {{ partial "footer.html" . }}
@@ -70,7 +100,8 @@
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
   {{ end }}
   {{ end }}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
 
 </html>

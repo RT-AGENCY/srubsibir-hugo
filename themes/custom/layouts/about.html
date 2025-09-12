@@ -1,0 +1,214 @@
+{{ define "main" }}
+<div class="about-page">
+  <!-- Заголовок страницы -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>{{ .Title }}</h1>
+      <p class="page-subtitle">{{ .Description }}</p>
+    </div>
+  </section>
+
+  <!-- Основной контент -->
+  <section class="about-content">
+    <div class="container">
+      <div class="content-wrapper">
+        {{ .Content }}
+      </div>
+    </div>
+  </section>
+
+  <!-- Виджет "Наши преимущества" -->
+  <section class="advantages-widget">
+    <div class="container">
+      <h2>Почему выбирают нас</h2>
+      <div class="advantages-grid">
+        <div class="advantage-item">
+          <div class="advantage-icon">🏠</div>
+          <h3>15+ лет опыта</h3>
+          <p>Проверенная временем компания</p>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-icon">🌲</div>
+          <h3>Качественные материалы</h3>
+          <p>Отборная сибирская древесина</p>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-icon">⚡</div>
+          <h3>Быстрая сборка</h3>
+          <p>Дом за 5-7 дней</p>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-icon">🛡️</div>
+          <h3>Гарантия 5 лет</h3>
+          <p>Полная гарантия на конструкцию</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Виджет "Команда" -->
+  <section class="team-widget">
+    <div class="container">
+      <h2>Наша команда</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="member-photo">
+            <img src="/images/team/vasiliy.jpg" alt="Василий Ледишев">
+          </div>
+          <h3>Василий Ледишев</h3>
+          <p class="member-role">Основатель, мастер-плотник</p>
+          <p>20+ лет опыта в деревянном строительстве</p>
+        </div>
+        <!-- Добавьте других членов команды -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Виджет "Статистика" -->
+  <section class="stats-widget">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Построенных домов</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15</div>
+          <div class="stat-label">Лет на рынке</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">200+</div>
+          <div class="stat-label">Довольных клиентов</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4.9</div>
+          <div class="stat-label">Средний рейтинг</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .about-page {
+    padding: var(--spacing-xl) 0;
+  }
+
+  .page-hero {
+    background: var(--color-light);
+    padding: var(--spacing-xxl) 0;
+    text-align: center;
+  }
+
+  .page-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-text-light);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .about-content {
+    padding: var(--spacing-xxl) 0;
+  }
+
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .advantages-widget {
+    background: var(--color-light);
+    padding: var(--spacing-xxl) 0;
+  }
+
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+  }
+
+  .advantage-item {
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .advantage-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .team-widget {
+    padding: var(--spacing-xxl) 0;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+  }
+
+  .team-member {
+    text-align: center;
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .member-photo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto var(--spacing-md);
+  }
+
+  .member-role {
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .stats-widget {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--spacing-xxl) 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .stat-label {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+
+    .advantages-grid,
+    .team-grid,
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{{ end }}

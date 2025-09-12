@@ -1,6 +1,20 @@
 ---
-title: 'О компании'
-description: 'Узнайте больше о нашей компании, опыте и подходе к работе'
+title: "О компании"
+description: "Узнайте больше о нашей компании, опыте и подходе к работе"
+
+# Настройки секций для страницы "О нас"
+showHero: false         # НЕ показывать слайдер
+showAdvantages: true    # Показать преимущества
+showProjects: false    # НЕ показывать проекты  
+showServices: false    # НЕ показывать услуги
+showTechnology: false  # НЕ показывать технологии
+showStages: false      # НЕ показывать этапы
+showOurJobs: true      # Показать наши работы
+showReviews: true      # Показать отзывы  
+showCategories: false  # НЕ показывать категории
+showContactForm: true  # Показать форму контактов
+showWidget: true       # Показать виджеты
+showCallForm: true     # Показать форму обратного звонка
 ---
 
 ## История компании

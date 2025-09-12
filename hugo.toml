@@ -1,4 +1,4 @@
-baseURL = 'https://srub-sibir.netlify.app'  # ИЗМЕНИТЕ НА ВАШ URL!
+baseURL = 'https://srub-sibir.netlify.app'
 languageCode = 'ru'
 title = 'Сибирский лес - Деревянные дома и бани'
 theme = 'custom'
@@ -12,6 +12,44 @@ theme = 'custom'
   phone2 = '8 903 077 0399'
   address = 'Саяногорск, Индустриальная 45'
   showRelatedPosts = true
+
+# Настройки секций - глобальные по умолчанию
+[params.sections]
+  [params.sections.hero]
+    enabled = true  # Показывать слайдер на главной
+  
+  [params.sections.advantages]
+    enabled = true  # Показывать преимущества
+  
+  [params.sections.projects]
+    enabled = true  # Показывать проекты
+  
+  [params.sections.services]
+    enabled = true  # Показывать услуги
+  
+  [params.sections.technology]
+    enabled = true  # Показывать технологии
+  
+  [params.sections.stages]
+    enabled = true  # Показывать этапы
+  
+  [params.sections.ourJobs]
+    enabled = true  # Показывать наши работы
+  
+  [params.sections.reviews]
+    enabled = true  # Показывать отзывы
+  
+  [params.sections.categories]
+    enabled = true  # Показывать категории
+  
+  [params.sections.contactForm]
+    enabled = false # По умолчанию форма выключена
+  
+  [params.sections.widget]
+    enabled = false # Виджеты по запросу
+  
+  [params.sections.callForm]
+    enabled = true  # Форма обратного звонка
 
 # Главное меню навигации
 [[menu.main]]
@@ -79,32 +117,15 @@ theme = 'custom'
   url = "/articles/"
   weight = 130
 
-# Настройки разметки
+# Остальные настройки...
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
-  [markup.highlight]
-    style = "github"
-    lineNos = false
-    codeFences = true
-    guessSyntax = true
 
-# Настройки для Hugo Pipes
 [build]
   writeStats = true
 
-# Настройки вывода
 [outputs]
   home = ["HTML", "RSS", "JSON"]
   page = ["HTML"]
-  section = ["HTML", "RSS"]
-
-# Настройки минификации
-[minify]
-  disableCSS = false
-  disableHTML = false
-  disableJS = false
-  disableJSON = false
-  disableSVG = false
-  disableXML = false

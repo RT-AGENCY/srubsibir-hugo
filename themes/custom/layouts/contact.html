@@ -72,8 +72,7 @@
 
           <div class="form-group checkbox-group">
             <input type="checkbox" id="privacy" name="privacy" required>
-            <label for="privacy">Я согласен с <a href="/privacy/" target="_blank">политикой конфиденциальности</a>
-              *</label>
+            <label for="privacy">Я согласен с <a href="/privacy/" target="_blank">политикой конфиденциальности</a> *</label>
           </div>
 
           <button type="submit" class="btn btn-primary">Отправить сообщение</button>
@@ -87,10 +86,8 @@
   <div class="container">
     <h2>Как нас найти</h2>
     <div class="map-wrapper">
-      <!-- Здесь будет карта Google Maps или Яндекс.Карты -->
       <div id="map" class="map-placeholder">
         <p>Карта загружается...</p>
-        <!-- Вставьте сюда iframe с картой или подключите API -->
       </div>
     </div>
   </div>
@@ -99,293 +96,151 @@
 {{ .Content }}
 
 <style>
-  .contact-section {
-    padding: var(--spacing-xxl) 0;
-  }
+.contact-section {
+  padding: var(--spacing-xxl) 0;
+}
 
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xxl);
+  align-items: start;
+}
+
+.contact-info h2,
+.contact-form-wrapper h2 {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-primary);
+}
+
+.contact-item {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: var(--color-light);
+  border-radius: var(--radius-md);
+}
+
+.contact-item h3 {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text);
+  font-size: 1.1rem;
+}
+
+.contact-item p {
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-light);
+}
+
+.contact-item a {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.contact-item a:hover {
+  color: var(--color-secondary);
+}
+
+.contact-form-wrapper {
+  background: var(--color-white);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: var(--transition);
+  background: var(--color-white);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin-top: 2px;
+}
+
+.checkbox-group label {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.checkbox-group a {
+  color: var(--color-primary);
+}
+
+.checkbox-group a:hover {
+  text-decoration: underline;
+}
+
+.map-section {
+  padding: var(--spacing-xxl) 0;
+  background: var(--color-light);
+}
+
+.map-section h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.map-wrapper {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.map-placeholder {
+  height: 400px;
+  background: var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
   .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xxl);
-    align-items: start;
-  }
-
-  .contact-info h2,
-  .contact-form-wrapper h2 {
-    margin-bottom: var(--spacing-lg);
-    color: var(--color-primary);
-  }
-
-  .contact-item {
-    margin-bottom: var(--spacing-lg);
-    padding: var(--spacing-md);
-    background: var(--color-light);
-    border-radius: var(--radius-md);
-  }
-
-  .contact-item h3 {
-    margin-bottom: var(--spacing-sm);
-    color: var(--color-text);
-    font-size: 1.1rem;
-  }
-
-  .contact-item p {
-    margin-bottom: var(--spacing-xs);
-    color: var(--color-text-light);
-  }
-
-  .contact-item a {
-    color: var(--color-primary);
-    font-weight: 500;
-  }
-
-  .contact-item a:hover {
-    color: var(--color-secondary);
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
   }
 
   .contact-form-wrapper {
-    background: var(--color-white);
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-  }
-
-  .form-group {
-    margin-bottom: var(--spacing-md);
-  }
-
-  .form-group label {
-    display: block;
-    margin-bottom: var(--spacing-xs);
-    font-weight: 500;
-    color: var(--color-text);
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    font-size: 1rem;
-    transition: var(--transition);
-    background: var(--color-white);
-  }
-
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+    padding: var(--spacing-md);
   }
 
   .checkbox-group {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-xs);
-  }
-
-  .checkbox-group input[type="checkbox"] {
-    width: auto;
-    margin-top: 2px;
-  }
-
-  .checkbox-group label {
-    margin-bottom: 0;
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
-  .checkbox-group a {
-    color: var(--color-primary);
-  }
-
-  .checkbox-group a:hover {
-    text-decoration: underline;
-  }
-
-  .map-section {
-    padding: var(--spacing-xxl) 0;
-    background: var(--color-light);
-  }
-
-  .map-section h2 {
-    text-align: center;
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .map-wrapper {
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-  }
-
-  .map-placeholder {
-    height: 400px;
-    background: var(--color-border);
-    display: flex;
     align-items: center;
-    justify-content: center;
-    color: var(--color-text-muted);
   }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-      gap: var(--spacing-lg);
-    }
-
-    .contact-form-wrapper {
-      padding: var(--spacing-md);
-    }
-
-    .checkbox-group {
-      align-items: center;
-    }
-  }
-
-  /* Анимации для формы */
-  .form-group input:invalid,
-  .form-group textarea:invalid {
-    border-color: var(--color-danger, #dc3545);
-  }
-
-  .form-group input:valid,
-  .form-group textarea:valid {
-    border-color: var(--color-success, #28a745);
-  }
-
-  /* Стили для загрузки */
-  .contact-form.loading {
-    opacity: 0.7;
-    pointer-events: none;
-  }
-
-  .contact-form.loading .btn {
-    position: relative;
-  }
-
-  .contact-form.loading .btn::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    margin: -10px 0 0 -10px;
-    border: 2px solid transparent;
-    border-top: 2px solid var(--color-white);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+}
 </style>
-
-<script>
-  // Дополнительная обработка формы контактов
-  document.addEventListener('DOMContentLoaded', function () {
-    const contactForm = document.getElementById('contactForm');
-
-    if (contactForm) {
-      // Маска для телефона
-      const phoneInput = document.getElementById('phone');
-      if (phoneInput) {
-        phoneInput.addEventListener('input', function (e) {
-          let value = e.target.value.replace(/\D/g, '');
-          if (value.length > 0) {
-            if (value[0] === '8') {
-              value = '7' + value.slice(1);
-            }
-            if (value[0] === '7') {
-              value = value.replace(/^7(\d{3})(\d{3})(\d{2})(\d{2})$/, '+7 ($1) $2-$3-$4');
-            }
-          }
-          e.target.value = value;
-        });
-      }
-
-      // Обработка отправки формы
-      contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Добавляем класс загрузки
-        contactForm.classList.add('loading');
-
-        // Получаем данные формы
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData.entries());
-
-        // Валидация
-        if (validateContactForm(data)) {
-          // Отправка данных (замените на вашу логику)
-          submitContactForm(data).then(() => {
-            // Успешная отправка
-            window.SrubSibir.showNotification('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.', 'success');
-            contactForm.reset();
-          }).catch(() => {
-            // Ошибка отправки
-            window.SrubSibir.showNotification('Произошла ошибка при отправке. Попробуйте позже.', 'error');
-          }).finally(() => {
-            // Убираем класс загрузки
-            contactForm.classList.remove('loading');
-          });
-        } else {
-          contactForm.classList.remove('loading');
-        }
-      });
-    }
-  });
-
-  function validateContactForm(data) {
-    const errors = [];
-
-    if (!data.name || data.name.trim().length < 2) {
-      errors.push('Введите корректное имя');
-    }
-
-    if (!data.email || !data.email.includes('@')) {
-      errors.push('Введите корректный email');
-    }
-
-    if (!data.message || data.message.trim().length < 10) {
-      errors.push('Сообщение должно содержать минимум 10 символов');
-    }
-
-    if (!data.privacy) {
-      errors.push('Необходимо согласие с политикой конфиденциальности');
-    }
-
-    if (errors.length > 0) {
-      window.SrubSibir.showNotification('Ошибки в форме: ' + errors.join(', '), 'error');
-      return false;
-    }
-
-    return true;
-  }
-
-  async function submitContactForm(data) {
-    // Здесь должна быть ваша логика отправки данных на сервер
-    // Например, через fetch API или другой способ
-
-    return new Promise((resolve, reject) => {
-      // Имитация отправки
-      setTimeout(() => {
-        console.log('Данные формы:', data);
-        resolve();
-      }, 2000);
-    });
-  }
-</script>
 {{ end }}
