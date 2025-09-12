@@ -24,45 +24,39 @@
     <!-- Кастомные кнопки навигации для hero -->
     <div class="hero-nav-btn hero-nav-next">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" />
+        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <div class="hero-nav-btn hero-nav-prev">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" />
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-
+    
     <!-- Кастомная пагинация -->
     <div class="hero-pagination"></div>
   </div>
 </section>
 
 <style>
-  .hero-pagination {
-    display: flex;
-    justify-content: center;
-  }
   .hero-slider {
     height: 700px;
     position: relative;
     overflow: hidden;
   }
-
+  
   @media(max-width: 768px) {
     .hero-slider {
       height: 200px;
     }
   }
-
+  
   .hero-swiper,
   .hero-swiper .swiper-wrapper,
   .hero-swiper .swiper-slide {
     height: 100%;
   }
-
+  
   .hero-slide {
     display: block;
     width: 100%;
@@ -71,7 +65,7 @@
     background-position: center;
     text-decoration: none;
   }
-
+  
   /* Кастомные кнопки навигации только для hero секции */
   .hero-nav-btn {
     position: absolute;
@@ -92,34 +86,34 @@
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.3);
   }
-
+  
   .hero-nav-btn:hover {
     background: rgba(139, 195, 74, 0.9);
     transform: translateY(-50%) scale(1.1);
     box-shadow: 0 6px 30px rgba(139, 195, 74, 0.4);
     border-color: rgba(255, 255, 255, 0.5);
   }
-
+  
   .hero-nav-btn:active {
     transform: translateY(-50%) scale(0.95);
   }
-
+  
   .hero-nav-next {
     right: 30px;
   }
-
+  
   .hero-nav-prev {
     left: 30px;
   }
-
+  
   .hero-nav-btn svg {
     transition: transform 0.3s ease;
   }
-
+  
   .hero-nav-btn:hover svg {
     transform: scale(1.2);
   }
-
+  
   /* Кастомная пагинация только для hero секции */
   .hero-pagination {
     position: absolute;
@@ -130,7 +124,7 @@
     gap: 12px;
     z-index: 100;
   }
-
+  
   .hero-pagination .swiper-pagination-bullet {
     width: 14px;
     height: 14px;
@@ -141,138 +135,139 @@
     border: 2px solid rgba(255, 255, 255, 0.7);
     opacity: 1;
   }
-
+  
   .hero-pagination .swiper-pagination-bullet-active {
     background: #8bc34a;
     border-color: white;
     transform: scale(1.3);
     box-shadow: 0 0 15px rgba(139, 195, 74, 0.6);
   }
-
+  
   .hero-pagination .swiper-pagination-bullet:hover {
     background: rgba(255, 255, 255, 0.8);
     transform: scale(1.1);
   }
-
+  
   /* Мобильная адаптация для кнопок hero */
   @media (max-width: 768px) {
     .hero-nav-btn {
       width: 45px;
       height: 45px;
     }
-
+    
     .hero-nav-next {
       right: 15px;
     }
-
+    
     .hero-nav-prev {
       left: 15px;
     }
-
+    
     .hero-nav-btn svg {
       width: 16px;
       height: 16px;
     }
-
+    
     .hero-pagination {
       bottom: 20px;
       gap: 8px;
     }
-
+    
     .hero-pagination .swiper-pagination-bullet {
       width: 10px;
       height: 10px;
     }
   }
-
+  
   @media (max-width: 480px) {
     .hero-nav-btn {
       width: 40px;
       height: 40px;
     }
-
+    
     .hero-nav-next {
       right: 10px;
     }
-
+    
     .hero-nav-prev {
       left: 10px;
     }
-
+    
     .hero-pagination {
       bottom: 15px;
       gap: 6px;
     }
-
+    
     .hero-pagination .swiper-pagination-bullet {
       width: 8px;
       height: 8px;
     }
   }
-
+  
   /* Анимации для hero кнопок */
   @keyframes heroButtonAppear {
     from {
       opacity: 0;
       transform: translateY(-50%) scale(0.5);
     }
-
     to {
       opacity: 1;
       transform: translateY(-50%) scale(1);
     }
   }
-
+  
   .hero-nav-btn {
     animation: heroButtonAppear 0.6s ease-out 0.5s both;
   }
-
+  
   .hero-nav-next {
     animation-delay: 0.7s;
   }
-
+  
   .hero-pagination {
     animation: fadeInUp 0.8s ease-out 0.9s both;
   }
-
+  
   @keyframes fadeInUp {
     from {
       opacity: 0;
       transform: translateX(-50%) translateY(20px);
     }
-
     to {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
   }
-
+  
   /* Эффекты при наведении на слайд */
-  .hero-slide:hover+.hero-nav-btn {
+  .hero-slide:hover + .hero-nav-btn {
     opacity: 1;
   }
-
+  
   /* Вспомогательно: скрытый текст для скринридеров */
   .sr-only {
     position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
+    width: 1px; 
+    height: 1px; 
+    padding: 0; 
+    margin: -1px; 
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
+    clip: rect(0, 0, 0, 0); 
+    white-space: nowrap; 
     border: 0;
   }
-
+  
   /* Дополнительные эффекты */
   .hero-swiper:hover .hero-nav-btn {
     opacity: 1;
   }
-
+  
   .hero-swiper .hero-nav-btn {
     opacity: 0.7;
     transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+  }
+  .hero-pagination {
+    justify-content: center;
   }
 </style>
 
@@ -291,13 +286,13 @@
         pauseOnMouseEnter: true
       },
       speed: 800,
-
+      
       // Кастомная навигация для hero секции
       navigation: {
         nextEl: '.hero-nav-next',
         prevEl: '.hero-nav-prev'
       },
-
+      
       // Кастомная пагинация для hero секции
       pagination: {
         el: '.hero-pagination',
@@ -305,24 +300,24 @@
         bulletClass: 'swiper-pagination-bullet',
         bulletActiveClass: 'swiper-pagination-bullet-active'
       },
-
+      
       keyboard: {
         enabled: true,
         onlyInViewport: true
       },
-
+      
       // Эффекты
       effect: 'fade',
       fadeEffect: {
         crossFade: true
       },
-
+      
       // События
       on: {
-        init: function () {
+        init: function() {
           console.log('Hero slider инициализирован');
         },
-        slideChange: function () {
+        slideChange: function() {
           // Можно добавить дополнительные эффекты при смене слайда
           console.log('Переход к слайду:', this.realIndex + 1);
         }
