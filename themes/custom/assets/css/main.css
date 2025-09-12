@@ -223,6 +223,11 @@ p {
   cursor: pointer;
   transition: all 0.3s ease 0s;
 }
+@media(max-width: 1200px) {
+  .header__button_call {
+    display: none;
+  }
+}
 
 .header-contact {
   display: flex;
@@ -994,7 +999,8 @@ body.mobile-menu-open {
     text-align: center;
   }
   .footer-content {
-    gap: 10px;
+    gap: 20px;
+    grid-template-columns: 1fr;
   }
   .footer-content div {
     display: flex;
@@ -1113,7 +1119,7 @@ body.mobile-search-open {
 /* Desktop */
 @media (max-width: 992px) {
   .search-form__fake-input {
-    max-width: 250px;
+    /* max-width: 250px; */
     margin-left: 0;
   }
 
