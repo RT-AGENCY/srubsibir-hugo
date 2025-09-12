@@ -1,0 +1,247 @@
+<style>
+  .categories-section {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    color: #2c5530;
+    position: relative;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .section-title::before,
+  .section-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 200px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #8bc34a, transparent);
+  }
+
+  .section-title::before {
+    left: -220px;
+  }
+
+  .section-title::after {
+    right: -220px;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .category-item {
+    background: white;
+    border-radius: 12px;
+    padding: 25px 30px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .category-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #8bc34a, #4a7c59);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .category-item:hover::before {
+    transform: scaleX(1);
+  }
+
+  .category-item:hover {
+    transform: translateY(-8px);
+    border-color: #8bc34a;
+    box-shadow: 0 15px 35px rgba(139, 195, 74, 0.2);
+    background: #fff;
+  }
+
+  .category-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c5530;
+    transition: color 0.3s ease;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .category-item:hover .category-title {
+    color: #8bc34a;
+  }
+
+  /* Адаптивность */
+  @media (max-width: 1200px) {
+
+    .section-title::before,
+    .section-title::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .categories-section {
+      padding: 0 15px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .categories-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .category-item {
+      padding: 20px 25px;
+    }
+
+    .category-title {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding: 20px 10px;
+    }
+
+    .section-title {
+      font-size: 28px;
+    }
+
+    .category-item {
+      padding: 18px 20px;
+    }
+
+    .category-title {
+      font-size: 15px;
+    }
+  }
+
+  /* Дополнительные эффекты при наведении */
+  .category-item:hover {
+    animation: pulse 0.6s ease-in-out;
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      transform: translateY(-8px) scale(1);
+    }
+
+    50% {
+      transform: translateY(-8px) scale(1.02);
+    }
+  }
+
+  /* Вариации для разных категорий */
+  .category-item:nth-child(3n+1):hover {
+    border-color: #8bc34a;
+    box-shadow: 0 15px 35px rgba(139, 195, 74, 0.25);
+  }
+
+  .category-item:nth-child(3n+2):hover {
+    border-color: #4a7c59;
+    box-shadow: 0 15px 35px rgba(74, 124, 89, 0.25);
+  }
+
+  .category-item:nth-child(3n+3):hover {
+    border-color: #2c5530;
+    box-shadow: 0 15px 35px rgba(44, 85, 48, 0.25);
+  }
+</style>
+</head>
+
+<body>
+  <section class="categories-section">
+    <h2 class="section-title">Все разделы:</h2>
+
+    <div class="categories-grid">
+      <div class="category-item" onclick="handleCategoryClick('projects')">
+        <h3 class="category-title">Все проекты деревянных домов и бань</h3>
+      </div>
+
+      <div class="category-item" onclick="handleCategoryClick('brevno-houses')">
+        <h3 class="category-title">Сруб из бревна – проекты и цены</h3>
+      </div>
+
+      <div class="category-item" onclick="handleCategoryClick('brevno-baths')">
+        <h3 class="category-title">Сруб бани из бревна – проекты и цены</h3>
+      </div>
+
+      <div class="category-item" onclick="handleCategoryClick('sosna-houses')">
+        <h3 class="category-title">Срубы из сосны</h3>
+      </div>
+
+      <div class="category-item" onclick="handleCategoryClick('larch-houses')">
+        <h3 class="category-title">Дома из лиственницы под ключ</h3>
+      </div>
+
+      <div class="category-item" onclick="handleCategoryClick('cedar-houses')">
+        <h3 class="category-title">Дома из кедра под ключ</h3>
+      </div>
+
+      <div class="category-item" onclick="handleCategoryClick('brevno-baths-key')">
+        <h3 class="category-title">Сруб бани из бревна под ключ</h3>
+      </div>
+
+      <div class="category-item" onclick="handleCategoryClick('gazebos')">
+        <h3 class="category-title">Деревянные беседки – проекты и цены</h3>
+      </div>
+
+      <div class="category-item" onclick="handleCategoryClick('house-baths')">
+        <h3 class="category-title">Дома-бани – проекты и цены</h3>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function handleCategoryClick(category) {
+      console.log(`Клик по категории: ${category}`);
+      // Здесь можно добавить переход на соответствующую страницу
+      // window.location.href = `/${category}/`;
+
+      // Для демонстрации покажем уведомление
+      alert(`Переход в категорию: ${category}`);
+    }
+
+    // Добавляем плавную анимацию появления при загрузке
+    document.addEventListener('DOMContentLoaded', function () {
+      const categories = document.querySelectorAll('.category-item');
+
+      categories.forEach((category, index) => {
+        category.style.opacity = '0';
+        category.style.transform = 'translateY(20px)';
+
+        setTimeout(() => {
+          category.style.transition = 'all 0.6s ease';
+          category.style.opacity = '1';
+          category.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    });
+  </script>
