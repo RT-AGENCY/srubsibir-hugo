@@ -325,7 +325,7 @@ body.mobile-menu-open {
 }
 
 .mobile-menu-content {
-  padding: 20px var(--spacing-md);
+  padding: 20px 10px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

@@ -56,7 +56,7 @@
 
         <!-- Кнопка отправки -->
         <button type="submit" class="callback-form-submit">
-          <span class="callback-btn-text">Заказать звонок</span>
+          <span class="callback-btn-text callback-btn">Заказать звонок</span>
           <span class="callback-btn-loader" style="display: none;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" opacity="0.3" />
@@ -600,4 +600,13 @@
     initPhoneMask();
     initCallbackForm();
   });
+
+  const mobileCallbackBtn = document.querySelector('.mobile-callback-btn');
+  if (mobileCallbackBtn) {
+    mobileCallbackBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      openCallbackModal();
+
+    });
+  }
 </script>
