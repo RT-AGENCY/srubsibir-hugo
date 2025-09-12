@@ -33,9 +33,10 @@
     right: -220px;
   }
 
+  /* На ПК по 3 карточки */
   .categories-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
@@ -174,74 +175,70 @@
     box-shadow: 0 15px 35px rgba(44, 85, 48, 0.25);
   }
 </style>
-</head>
+<section class="categories-section">
+  <h2 class="section-title">Все разделы:</h2>
 
-<body>
-  <section class="categories-section">
-    <h2 class="section-title">Все разделы:</h2>
-
-    <div class="categories-grid">
-      <div class="category-item" onclick="handleCategoryClick('projects')">
-        <h3 class="category-title">Все проекты деревянных домов и бань</h3>
-      </div>
-
-      <div class="category-item" onclick="handleCategoryClick('brevno-houses')">
-        <h3 class="category-title">Сруб из бревна – проекты и цены</h3>
-      </div>
-
-      <div class="category-item" onclick="handleCategoryClick('brevno-baths')">
-        <h3 class="category-title">Сруб бани из бревна – проекты и цены</h3>
-      </div>
-
-      <div class="category-item" onclick="handleCategoryClick('sosna-houses')">
-        <h3 class="category-title">Срубы из сосны</h3>
-      </div>
-
-      <div class="category-item" onclick="handleCategoryClick('larch-houses')">
-        <h3 class="category-title">Дома из лиственницы под ключ</h3>
-      </div>
-
-      <div class="category-item" onclick="handleCategoryClick('cedar-houses')">
-        <h3 class="category-title">Дома из кедра под ключ</h3>
-      </div>
-
-      <div class="category-item" onclick="handleCategoryClick('brevno-baths-key')">
-        <h3 class="category-title">Сруб бани из бревна под ключ</h3>
-      </div>
-
-      <div class="category-item" onclick="handleCategoryClick('gazebos')">
-        <h3 class="category-title">Деревянные беседки – проекты и цены</h3>
-      </div>
-
-      <div class="category-item" onclick="handleCategoryClick('house-baths')">
-        <h3 class="category-title">Дома-бани – проекты и цены</h3>
-      </div>
+  <div class="categories-grid">
+    <div class="category-item" onclick="handleCategoryClick('projects')">
+      <h3 class="category-title">Все проекты деревянных домов и бань</h3>
     </div>
-  </section>
 
-  <script>
-    function handleCategoryClick(category) {
-      console.log(`Клик по категории: ${category}`);
-      // Здесь можно добавить переход на соответствующую страницу
-      // window.location.href = `/${category}/`;
+    <div class="category-item" onclick="handleCategoryClick('brevno-houses')">
+      <h3 class="category-title">Сруб из бревна – проекты и цены</h3>
+    </div>
 
-      // Для демонстрации покажем уведомление
-      alert(`Переход в категорию: ${category}`);
-    }
+    <div class="category-item" onclick="handleCategoryClick('brevno-baths')">
+      <h3 class="category-title">Сруб бани из бревна – проекты и цены</h3>
+    </div>
 
-    // Добавляем плавную анимацию появления при загрузке
-    document.addEventListener('DOMContentLoaded', function () {
-      const categories = document.querySelectorAll('.category-item');
+    <div class="category-item" onclick="handleCategoryClick('sosna-houses')">
+      <h3 class="category-title">Срубы из сосны</h3>
+    </div>
 
-      categories.forEach((category, index) => {
-        category.style.opacity = '0';
-        category.style.transform = 'translateY(20px)';
+    <div class="category-item" onclick="handleCategoryClick('larch-houses')">
+      <h3 class="category-title">Дома из лиственницы под ключ</h3>
+    </div>
 
-        setTimeout(() => {
-          category.style.transition = 'all 0.6s ease';
-          category.style.opacity = '1';
-          category.style.transform = 'translateY(0)';
-        }, index * 100);
-      });
+    <div class="category-item" onclick="handleCategoryClick('cedar-houses')">
+      <h3 class="category-title">Дома из кедра под ключ</h3>
+    </div>
+
+    <div class="category-item" onclick="handleCategoryClick('brevno-baths-key')">
+      <h3 class="category-title">Сруб бани из бревна под ключ</h3>
+    </div>
+
+    <div class="category-item" onclick="handleCategoryClick('gazebos')">
+      <h3 class="category-title">Деревянные беседки – проекты и цены</h3>
+    </div>
+
+    <div class="category-item" onclick="handleCategoryClick('house-baths')">
+      <h3 class="category-title">Дома-бани – проекты и цены</h3>
+    </div>
+  </div>
+</section>
+<script>
+  function handleCategoryClick(category) {
+    console.log(`Клик по категории: ${category}`);
+    // Здесь можно добавить переход на соответствующую страницу
+    // window.location.href = `/${category}/`;
+
+    // Для демонстрации покажем уведомление
+    alert(`Переход в категорию: ${category}`);
+  }
+
+  // Добавляем плавную анимацию появления при загрузке
+  document.addEventListener('DOMContentLoaded', function () {
+    const categories = document.querySelectorAll('.category-item');
+
+    categories.forEach((category, index) => {
+      category.style.opacity = '0';
+      category.style.transform = 'translateY(20px)';
+
+      setTimeout(() => {
+        category.style.transition = 'all 0.6s ease';
+        category.style.opacity = '1';
+        category.style.transform = 'translateY(0)';
+      }, index * 100);
     });
-  </script>
+  });
+</script>
