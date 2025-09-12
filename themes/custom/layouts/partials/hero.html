@@ -1,4 +1,3 @@
-
 <section class="hero-slider">
   <div class="swiper hero-swiper">
     <div class="swiper-wrapper">
@@ -23,7 +22,7 @@
     </div>
 
     <!-- Навигация / пагинация (опционально) -->
-    <div class="swiper-button-next"></div>
+    <div class="swiper-button-next"> </div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-pagination"></div>
     <div class="swiper-scrollbar"></div>
@@ -32,33 +31,46 @@
 
 <style>
   .hero-slider {
-    height: 700px;            /* фиксируем высоту */
+    height: 700px;
+    /* фиксируем высоту */
     position: relative;
     overflow: hidden;
   }
+
   @media(max-width: 768px) {
     .hero-slider {
       height: 200px;
     }
   }
+
   .hero-swiper,
   .hero-swiper .swiper-wrapper,
   .hero-swiper .swiper-slide {
-    height: 100%;             /* важно для растягивания по высоте */
+    height: 100%;
+    /* важно для растягивания по высоте */
   }
+
   .hero-slide {
     display: block;
     width: 100%;
     height: 100%;
-    background-size: cover;   /* обрезка по контейнеру */
+    background-size: cover;
+    /* обрезка по контейнеру */
     background-position: center;
     text-decoration: none;
   }
+
   /* Вспомогательно: скрытый текст для скринридеров */
   .sr-only {
     position: absolute;
-    width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
-    clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 </style>
 
