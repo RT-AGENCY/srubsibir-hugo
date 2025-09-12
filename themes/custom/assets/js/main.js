@@ -342,7 +342,7 @@ function initScrollToTop() {
   scrollToTopBtn.setAttribute('aria-label', 'Прокрутить наверх');
   scrollToTopBtn.style.cssText = `
         position: fixed;
-        bottom: 90px;
+        bottom: 92px;
         right: 20px;
         width: 50px;
         height: 50px;
