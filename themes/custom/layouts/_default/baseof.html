@@ -56,7 +56,7 @@
   {{ partial "footer.html" . }}
 
   <!-- JavaScript -->
-  {{ $js := resources.Get "js/main.js" }}
+  <!-- {{ $js := resources.Get "js/main.js" }} -->
   {{ if $js }}
   {{ if hugo.IsDevelopment }}
   <script src="{{ $js.RelPermalink }}"></script>

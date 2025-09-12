@@ -4,7 +4,8 @@
 
     <div class="gallery-grid">
       <div class="gallery-item" data-index="0">
-        <img src="/images/main/job/job-1.webp" alt="Строительство деревянного дома">
+        <img src="https://cdn.jsdelivr.net/gh/RT-AGENCY/srubsibir-images@main/main/job/job-1.webp"
+          alt="Строительство деревянного дома" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-info">
             <h3>Деревянный дом из сосны</h3>
@@ -14,7 +15,8 @@
       </div>
 
       <div class="gallery-item" data-index="1">
-        <img src="/images/main/job/job-2.webp" alt="Строительство бани">
+        <img src="https://cdn.jsdelivr.net/gh/RT-AGENCY/srubsibir-images@main/main/job/job-2.webp"
+          alt="Строительство бани" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-info">
             <h3>Русская баня</h3>
@@ -24,7 +26,8 @@
       </div>
 
       <div class="gallery-item" data-index="2">
-        <img src="/images/main/job/job-3.webp" alt="Деревянный дом с резными элементами">
+        <img src="https://cdn.jsdelivr.net/gh/RT-AGENCY/srubsibir-images@main/main/job/job-3.webp"
+          alt="Деревянный дом с резными элементами" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-info">
             <h3>Дом с резными элементами</h3>
@@ -34,7 +37,8 @@
       </div>
 
       <div class="gallery-item" data-index="3">
-        <img src="/images/main/job/job-4.webp" alt="Современный деревянный дом">
+        <img src="https://cdn.jsdelivr.net/gh/RT-AGENCY/srubsibir-images@main/main/job/job-4.webp"
+          alt="Современный деревянный дом" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-info">
             <h3>Современный деревянный дом</h3>
@@ -44,7 +48,8 @@
       </div>
 
       <div class="gallery-item" data-index="4">
-        <img src="/images/main/job/job-5.webp" alt="Двухэтажный дом">
+        <img src="https://cdn.jsdelivr.net/gh/RT-AGENCY/srubsibir-images@main/main/job/job-5.webp" alt="Двухэтажный дом"
+          loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-info">
             <h3>Двухэтажный дом</h3>
@@ -54,7 +59,8 @@
       </div>
 
       <div class="gallery-item" data-index="5">
-        <img src="/images/main/job/job-6.webp" alt="Банный комплекс">
+        <img src="https://cdn.jsdelivr.net/gh/RT-AGENCY/srubsibir-images@main/main/job/job-6.webp" alt="Банный комплекс"
+          loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-info">
             <h3>Банный комплекс</h3>
@@ -64,7 +70,8 @@
       </div>
 
       <div class="gallery-item" data-index="6">
-        <img src="/images/main/job/job-7.webp" alt="Дом из лиственницы">
+        <img src="https://cdn.jsdelivr.net/gh/RT-AGENCY/srubsibir-images@main/main/job/job-7.webp"
+          alt="Дом из лиственницы" loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-info">
             <h3>Дом из лиственницы</h3>
@@ -74,7 +81,8 @@
       </div>
 
       <div class="gallery-item" data-index="7">
-        <img src="/images/main/job/job-8.webp" alt="Дом с мансардой">
+        <img src="https://cdn.jsdelivr.net/gh/RT-AGENCY/srubsibir-images@main/main/job/job-8.webp" alt="Дом с мансардой"
+          loading="lazy">
         <div class="gallery-overlay">
           <div class="gallery-info">
             <h3>Дом с мансардой</h3>
@@ -276,7 +284,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.95);
+    background: #1e1e1e;
     z-index: 10000;
     display: none;
     opacity: 0;
@@ -306,6 +314,17 @@
     justify-content: center;
     align-items: center;
     padding: 60px 20px 20px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    /* Отключаем перетаскивание */
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
   }
 
   .lightbox-close {
@@ -392,20 +411,6 @@
     transform: scale(1.3);
   }
 
-  .slide-counter {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    backdrop-filter: blur(10px);
-  }
-
   .separator {
     margin: 0 8px;
     opacity: 0.7;
@@ -418,6 +423,7 @@
   }
 
   .lightbox-title {
+    color: white;
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 10px;
@@ -425,6 +431,7 @@
   }
 
   .lightbox-description {
+    color: white;
     font-size: 16px;
     opacity: 0.9;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -494,11 +501,6 @@
       max-height: 50vh;
     }
 
-    .slide-counter {
-      top: 10px;
-      font-size: 12px;
-      padding: 6px 12px;
-    }
   }
 </style>
 
@@ -547,21 +549,96 @@
       description: "Уютный дом с мансардным этажом 160 кв.м и балконом"
     }
   ];
-
   let lightboxSwiper;
   let currentSlideIndex = 0;
 
   // Инициализация при загрузке страницы
+  console.log('test')
   document.addEventListener('DOMContentLoaded', function () {
+    console.log('tsss')
     // Добавляем обработчики клика на галерею
     const galleryItems = document.querySelectorAll('.gallery-item');
+    console.log('ga', galleryItems)
     galleryItems.forEach(item => {
       item.addEventListener('click', function () {
         const index = parseInt(this.dataset.index);
+        console.log('ttt')
         openLightbox(index);
       });
     });
 
+    function openLightbox(startIndex = 0) {
+      console.log('test open')
+      const modal = document.getElementById('lightboxModal');
+      const swiperWrapper = modal.querySelector('.swiper-wrapper');
+
+      // Очищаем предыдущие слайды
+      swiperWrapper.innerHTML = '';
+      console.log('gal', galleryData)
+      // Создаем слайды
+      galleryData.forEach((item, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = `<img src="${item.src}" alt="${item.title}" loading="lazy">`;
+        swiperWrapper.appendChild(slide);
+      });
+
+      // Показываем модальное окно
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      // Инициализируем или обновляем Swiper
+      if (lightboxSwiper) {
+        lightboxSwiper.destroy(true, true);
+      }
+
+      setTimeout(() => {
+        lightboxSwiper = new Swiper('.lightbox-swiper', {
+          loop: true,
+          initialSlide: startIndex,
+          centeredSlides: true,
+          spaceBetween: 30,
+          speed: 600,
+          effect: 'slide',
+
+          // Навигация
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+
+          // Пагинация
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            dynamicBullets: true,
+          },
+
+          // Управление клавиатурой
+          keyboard: {
+            enabled: true,
+            onlyInViewport: true,
+          },
+
+          // Управление мышью
+          mousewheel: {
+            enabled: true,
+            sensitivity: 1,
+          },
+
+          // События
+          on: {
+            slideChange: function () {
+              currentSlideIndex = this.realIndex;
+              updateSlideInfo(currentSlideIndex);
+            }
+          }
+        });
+
+        // Обновляем информацию для первого слайда
+        updateSlideInfo(startIndex);
+      }, 100);
+    }
     // Обработчик закрытия по Escape
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
@@ -570,79 +647,7 @@
     });
   });
 
-  function openLightbox(startIndex = 0) {
-    const modal = document.getElementById('lightboxModal');
-    const swiperWrapper = modal.querySelector('.swiper-wrapper');
 
-    // Очищаем предыдущие слайды
-    swiperWrapper.innerHTML = '';
-
-    // Создаем слайды
-    galleryData.forEach((item, index) => {
-      const slide = document.createElement('div');
-      slide.className = 'swiper-slide';
-      slide.innerHTML = `<img src="${item.src}" alt="${item.title}" loading="lazy">`;
-      swiperWrapper.appendChild(slide);
-    });
-
-    // Показываем модальное окно
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    // Инициализируем или обновляем Swiper
-    if (lightboxSwiper) {
-      lightboxSwiper.destroy(true, true);
-    }
-
-    setTimeout(() => {
-      lightboxSwiper = new Swiper('.lightbox-swiper', {
-        loop: true,
-        initialSlide: startIndex,
-        centeredSlides: true,
-        spaceBetween: 30,
-        speed: 600,
-        effect: 'slide',
-
-        // Навигация
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-
-        // Пагинация
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-          dynamicBullets: true,
-        },
-
-        // Управление клавиатурой
-        keyboard: {
-          enabled: true,
-          onlyInViewport: true,
-        },
-
-        // Управление мышью
-        mousewheel: {
-          enabled: true,
-          sensitivity: 1,
-        },
-
-        // События
-        on: {
-          slideChange: function () {
-            currentSlideIndex = this.realIndex;
-            updateSlideInfo(currentSlideIndex);
-            updateSlideCounter(currentSlideIndex + 1, galleryData.length);
-          }
-        }
-      });
-
-      // Обновляем информацию для первого слайда
-      updateSlideInfo(startIndex);
-      updateSlideCounter(startIndex + 1, galleryData.length);
-    }, 100);
-  }
 
   function closeLightbox() {
     const modal = document.getElementById('lightboxModal');
@@ -664,28 +669,31 @@
       description.textContent = galleryData[index].description;
     }
   }
-
-  function updateSlideCounter(current, total) {
-    const currentSlide = document.querySelector('.current-slide');
-    const totalSlides = document.querySelector('.total-slides');
-
-    if (currentSlide && totalSlides) {
-      currentSlide.textContent = current;
-      totalSlides.textContent = total;
-    }
-  }
-
   function showAllProjects() {
     // Здесь можно добавить переход на страницу со всеми проектами
     alert('Переход на страницу со всеми проектами');
   }
 
-  // Предотвращаем закрытие при клике на содержимое
-  document.querySelector('.lightbox-swiper')?.addEventListener('click', function (e) {
-    e.stopPropagation();
-  });
+  // Предотвращаем закрытие при клике на содержимое - добавляем после загрузки DOM
+  document.addEventListener('DOMContentLoaded', function () {
+    // Предотвращаем закрытие при клике на слайдер
+    const lightboxSwiperEl = document.querySelector('.lightbox-swiper');
+    if (lightboxSwiperEl) {
+      lightboxSwiperEl.addEventListener('click', function (e) {
+        e.stopPropagation();
+        console.log('Клик по слайдеру - не закрываем лайтбокс');
+      });
+    }
 
-  document.querySelector('.lightbox-info')?.addEventListener('click', function (e) {
-    e.stopPropagation();
+    // Предотвращаем закрытие при клике на информацию
+    const lightboxInfoEl = document.querySelector('.lightbox-info');
+    if (lightboxInfoEl) {
+      lightboxInfoEl.addEventListener('click', function (e) {
+        e.stopPropagation();
+        console.log('Клик по информации - не закрываем лайтбокс');
+      });
+    }
+
+    console.log('Обработчики предотвращения закрытия добавлены');
   });
 </script>
