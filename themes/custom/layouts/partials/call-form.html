@@ -599,14 +599,40 @@
   document.addEventListener('DOMContentLoaded', function () {
     initPhoneMask();
     initCallbackForm();
+    initCallbackTriggers();
   });
 
-  const mobileCallbackBtn = document.querySelector('.mobile-callback-btn');
-  if (mobileCallbackBtn) {
-    mobileCallbackBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      openCallbackModal();
+  function initCallbackTriggers() {
+    // Все возможные селекторы для кнопок заказа
+    const triggerSelectors = [
+      '.mobile-callback-btn',           // Кнопка в мобильном меню
+      '.callback-trigger',              // Универсальный класс для всех кнопок заказа
+      '.order-callback-btn',            // Кнопки заказа
+      '.request-call-btn',              // Кнопки "Заказать звонок"
+      '[data-callback="true"]',         // Элементы с data-атрибутом
+      '.btn-callback',                  // Еще один вариант класса
+      '.callback-btn'                   // И еще один
+    ];
 
+    // Находим все элементы с этими классами
+    triggerSelectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+
+      elements.forEach(element => {
+        // Проверяем, что обработчик еще не добавлен
+        if (!element.hasAttribute('data-callback-initialized')) {
+          element.setAttribute('data-callback-initialized', 'true');
+
+          element.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            openCallbackModal();
+          });
+        }
+      });
     });
+
+    console.log('Инициализированы триггеры формы обратного звонка');
   }
 </script>

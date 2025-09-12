@@ -1,4 +1,4 @@
-baseURL = 'http://localhost:1313'
+baseURL = 'https://srub-sibir.netlify.app'  # ИЗМЕНИТЕ НА ВАШ URL!
 languageCode = 'ru'
 title = 'Сибирский лес - Деревянные дома и бани'
 theme = 'custom'
@@ -79,43 +79,6 @@ theme = 'custom'
   url = "/articles/"
   weight = 130
 
-# Дополнительные меню для футера
-[[menu.footer]]
-  name = "О компании"
-  url = "/about/"
-  weight = 10
-
-[[menu.footer]]
-  name = "Наши услуги"
-  url = "/services/"
-  weight = 20
-
-[[menu.footer]]
-  name = "Проекты"
-  url = "/projects/"
-  weight = 30
-
-[[menu.footer]]
-  name = "Контакты"
-  url = "/contacts/"
-  weight = 40
-
-# Быстрые ссылки
-[[menu.quick]]
-  name = "Расчет стоимости"
-  url = "/pricing/"
-  weight = 10
-
-[[menu.quick]]
-  name = "Заказать звонок"
-  url = "/callback/"
-  weight = 20
-
-[[menu.quick]]
-  name = "Наши работы"
-  url = "/projects/"
-  weight = 30
-
 # Настройки разметки
 [markup]
   [markup.goldmark]
@@ -131,16 +94,11 @@ theme = 'custom'
 [build]
   writeStats = true
 
-# Настройки вывода (для поиска и RSS)
+# Настройки вывода
 [outputs]
   home = ["HTML", "RSS", "JSON"]
   page = ["HTML"]
   section = ["HTML", "RSS"]
-
-# Настройки изображений
-[imaging]
-  quality = 85
-  resampleFilter = "lanczos"
 
 # Настройки минификации
 [minify]
@@ -150,96 +108,3 @@ theme = 'custom'
   disableJSON = false
   disableSVG = false
   disableXML = false
-
-# Настройки таксономий
-[taxonomies]
-  tag = "tags"
-  category = "categories"
-  service = "services"
-
-# Настройки постоянных ссылок
-[permalinks]
-  articles = "/articles/:year/:month/:title/"
-  projects = "/projects/:title/"
-  services = "/services/:title/"
-
-# Настройки связанного контента
-[related]
-  includeNewer = true
-  threshold = 80
-  toLower = true
-  [[related.indices]]
-    name = "tags"
-    weight = 100
-  [[related.indices]]
-    name = "categories"
-    weight = 80
-
-# Настройки безопасности
-[security]
-  [security.exec]
-    allow = ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$']
-  [security.funcs]
-    getenv = ['^HUGO_', '^CI$']
-
-# Настройки кэширования
-[caches]
-  [caches.getjson]
-    dir = ":cacheDir/:project"
-    maxAge = "1h"
-  [caches.getcsv]
-    dir = ":cacheDir/:project"
-    maxAge = "1h"
-  [caches.images]
-    dir = ":cacheDir/images"
-    maxAge = "1h"
-
-# Дополнительные параметры для разных разделов
-[params.sections]
-  [params.sections.pricing]
-    title = "Наши цены"
-    description = "Прозрачные цены на строительство деревянных домов и бань"
-  
-  [params.sections.services]
-    title = "Услуги"
-    description = "Полный спектр услуг по деревянному строительству"
-  
-  [params.sections.houses_baths]
-    title = "Дома-бани"
-    description = "Комбинированные проекты домов с банными комплексами"
-  
-  [params.sections.gazebos]
-    title = "Беседки"
-    description = "Деревянные беседки для отдыха и торжеств"
-  
-  [params.sections.about]
-    title = "О нас"
-    description = "История компании и наши достижения"
-  
-  [params.sections.discounts]
-    title = "Скидки и акции"
-    description = "Актуальные предложения и скидки"
-  
-  [params.sections.projects]
-    title = "Наши проекты"
-    description = "Галерея выполненных работ"
-  
-  [params.sections.house_logs]
-    title = "Срубы домов"
-    description = "Готовые срубы для жилых домов"
-  
-  [params.sections.bath_logs]
-    title = "Срубы бань"
-    description = "Срубы для бань и саун"
-  
-  [params.sections.contacts]
-    title = "Контакты"
-    description = "Как с нами связаться"
-  
-  [params.sections.reviews]
-    title = "Отзывы клиентов"
-    description = "Что говорят о нас наши клиенты"
-  
-  [params.sections.articles]
-    title = "Полезные статьи"
-    description = "Советы и рекомендации по деревянному строительству"
