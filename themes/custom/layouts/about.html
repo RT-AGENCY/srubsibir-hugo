@@ -54,7 +54,7 @@
 
   /* Основной контент */
   .page-content {
-    padding: 60px 0;
+    padding: 0px 0 60px;
   }
 
   .content-wrapper {
@@ -144,123 +144,6 @@
     color: var(--color-secondary);
   }
 
-  /* Таблицы */
-  .content-wrapper table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 30px 0;
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  }
-
-  .content-wrapper th,
-  .content-wrapper td {
-    padding: 15px 20px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-  }
-
-  .content-wrapper th {
-    background: var(--color-primary);
-    color: white;
-    font-weight: 600;
-    font-size: 1.1rem;
-  }
-
-  .content-wrapper tr:last-child td {
-    border-bottom: none;
-  }
-
-  .content-wrapper tr:nth-child(even) {
-    background: #f8f9fa;
-  }
-
-  .content-wrapper tr:hover {
-    background: rgba(139, 195, 74, 0.1);
-  }
-
-  .content-wrapper td strong {
-    color: var(--color-primary);
-    font-weight: 600;
-  }
-
-  /* Блоки с примерами */
-  .content-wrapper blockquote {
-    background: linear-gradient(135deg, rgba(139, 195, 74, 0.1), rgba(44, 85, 48, 0.05));
-    border-left: 4px solid var(--color-accent);
-    padding: 20px 25px;
-    margin: 30px 0;
-    border-radius: 0 10px 10px 0;
-    position: relative;
-  }
-
-  .content-wrapper blockquote::before {
-    content: "💡";
-    font-size: 1.5rem;
-    position: absolute;
-    top: 15px;
-    left: -12px;
-    background: white;
-    padding: 5px;
-    border-radius: 50%;
-  }
-
-  /* Специальные блоки для доставки */
-  .delivery-specs {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    border-radius: 15px;
-    padding: 25px;
-    margin: 30px 0;
-    border: 2px solid rgba(139, 195, 74, 0.3);
-  }
-
-  .delivery-specs h3 {
-    color: var(--color-primary);
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 1.4rem;
-  }
-
-  .delivery-example {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px 0;
-    border-left: 4px solid var(--color-accent);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  }
-
-  .delivery-example h4 {
-    color: var(--color-primary);
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .delivery-example ul {
-    margin: 0;
-    padding-left: 0;
-  }
-
-  .delivery-example li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-  }
-
-  .delivery-example li:last-child {
-    border-bottom: none;
-  }
-
-  .delivery-example li strong {
-    color: var(--color-primary);
-  }
-
   /* Видео секция */
   .video-section {
     background: var(--color-light);
@@ -278,7 +161,7 @@
     max-width: 800px;
     margin: 0 auto;
     position: relative;
-    padding-bottom: 56.25%;
+    min-height: 400px;
     /* 16:9 */
     height: 0;
     overflow: hidden;
