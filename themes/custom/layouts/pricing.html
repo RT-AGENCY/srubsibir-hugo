@@ -166,7 +166,7 @@
 <!-- Основной контент с ценами -->
 <section class="pricing-content">
   <div class="container">
-    <div class="content-wrapper">
+    <div class="pricing-content-wrapper">
       {{ .Content }}
     </div>
   </div>
@@ -338,13 +338,13 @@
     padding: 80px 0;
   }
 
-  .content-wrapper {
+  .pricing-content-wrapper {
     max-width: 1000px;
     margin: 0 auto;
     line-height: 1.8;
   }
 
-  .content-wrapper h2 {
+  .pricing-content-wrapper h2 {
     color: var(--color-primary);
     font-size: 2.2rem;
     margin: 50px 0 30px 0;
@@ -352,7 +352,7 @@
     position: relative;
   }
 
-  .content-wrapper h2::after {
+  .pricing-content-wrapper h2::after {
     content: '';
     display: block;
     width: 80px;
@@ -361,28 +361,28 @@
     margin: 15px auto 0;
   }
 
-  .content-wrapper h3 {
+  .pricing-content-wrapper h3 {
     color: var(--color-secondary);
     font-size: 1.6rem;
     margin: 40px 0 20px 0;
   }
 
-  .content-wrapper ul {
+  .pricing-content-wrapper ul {
     list-style: none;
     padding-left: 0;
   }
 
-  .content-wrapper ul li {
+  .pricing-content-wrapper ul li {
     padding: 10px 0 10px 0px;
     position: relative;
   }
-  .content-wrapper ol li {
+  .pricing-content-wrapper ol li {
     padding: 10px 0;
   }
 
 
   /* Таблицы цен */
-  .content-wrapper table {
+  .pricing-content-wrapper table {
     width: 100%;
     border-collapse: collapse;
     margin: 40px 0;
@@ -392,33 +392,33 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   }
 
-  .content-wrapper th,
-  .content-wrapper td {
+  .pricing-content-wrapper th,
+  .pricing-content-wrapper td {
     padding: 20px 25px;
     text-align: left;
   }
 
-  .content-wrapper th {
+  .pricing-content-wrapper th {
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     color: white;
     font-weight: 600;
     font-size: 1.1rem;
   }
 
-  .content-wrapper td {
+  .pricing-content-wrapper td {
     border-bottom: 1px solid #f0f0f0;
     font-size: 1.1rem;
   }
 
-  .content-wrapper tr:last-child td {
+  .pricing-content-wrapper tr:last-child td {
     border-bottom: none;
   }
 
-  .content-wrapper tr:nth-child(even) {
+  .pricing-content-wrapper tr:nth-child(even) {
     background: rgba(248, 249, 250, 0.7);
   }
 
-  .content-wrapper tr:hover {
+  .pricing-content-wrapper tr:hover {
     background: rgba(139, 195, 74, 0.1);
   }
 
@@ -506,7 +506,13 @@
     }
 
     .pricing-header h1 {
-      font-size: 1.8rem;
+      font-size: 22px;
+    }
+     .price-calculator h2, .pricing-content-wrapper h2, .pricing-benefits h2 {
+      font-size: 20px;
+    }
+     .pricing-content-wrapper h3 {
+      font-size: 18px;
     }
 
     .pricing-page-description {
@@ -517,7 +523,7 @@
       padding: 50px 0;
     }
 
-    .content-wrapper {
+    .pricing-content-wrapper {
       padding: 0 15px;
     }
   }
