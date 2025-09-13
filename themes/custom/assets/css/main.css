@@ -347,7 +347,7 @@ body.mobile-menu-open {
 .mobile-nav-link:last-child {
   border-bottom: none;
 }
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .mobile-nav-link {
     padding: 10px 15px;
   }
@@ -356,7 +356,7 @@ body.mobile-menu-open {
     gap: 10px;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
   .mobile-callback-btn {
     margin: 0 !important;
