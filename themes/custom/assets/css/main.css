@@ -204,9 +204,9 @@ p {
 }
 
 .header-contact-phone {
-  transition: color 0.5s ease;
   color: #00a03d;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .header__button_call {
@@ -223,7 +223,7 @@ p {
   cursor: pointer;
   transition: all 0.3s ease 0s;
 }
-@media(max-width: 1200px) {
+@media (max-width: 1200px) {
   .header__button_call {
     display: none;
   }
@@ -964,6 +964,14 @@ body.mobile-menu-open {
   font-size: 19px;
   font-weight: 700;
   white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.footer a:hover,
+.header-contact-phone:hover {
+  color: #8bc34a;
+  transform: translateY(-2px);
+  text-shadow: 0 2px 8px rgba(139, 195, 74, 0.4);
 }
 
 .footer-content {
@@ -1257,7 +1265,6 @@ body.mobile-search-open {
     font-size: 1.75rem;
   }
 }
-
 
 /* ===============================================
    ACCESSIBILITY

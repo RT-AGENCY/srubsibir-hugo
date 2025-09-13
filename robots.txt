@@ -1,0 +1,50 @@
+User-agent: *
+Allow: /
+
+# Основные страницы
+Allow: /pricing/
+Allow: /services/
+Allow: /about/
+Allow: /contact/
+Allow: /projects/
+Allow: /payment-delivery/
+
+# Запрещаем индексацию служебных страниц
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /wp-content/
+Disallow: /*?*
+Disallow: /search/
+Disallow: /404/
+
+# Разрешаем доступ к ресурсам
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /fonts/
+
+# Указываем путь к карте сайта
+Sitemap: https://srub-sibir.netlify.app/sitemap.xml
+
+# Настройки для разных поисковиков
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot  
+Allow: /
+Crawl-delay: 1
+
+# Блокируем спам-ботов
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

@@ -1,3 +1,97 @@
+{{ define "head" }}
+<!-- Специфичные для страницы цен структурированные данные -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PriceSpecification",
+  "name": "Цены на строительство срубов",
+  "description": "Прайс-лист на строительство деревянных домов и бань",
+  "priceCurrency": "RUB",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Сруб из сосны",
+      "priceRange": "22000-30000 RUB за м³",
+      "description": "Строительство сруба из сосны"
+    },
+    {
+      "@type": "Offer", 
+      "name": "Сруб из лиственницы",
+      "priceRange": "30000-40000 RUB за м³",
+      "description": "Строительство сруба из лиственницы"
+    },
+    {
+      "@type": "Offer",
+      "name": "Сруб из кедра", 
+      "priceRange": "35000-45000 RUB за м³",
+      "description": "Строительство сруба из кедра"
+    }
+  ],
+  "provider": {
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}",
+    "url": "{{ .Site.BaseURL }}",
+    "telephone": "{{ .Site.Params.phone }}",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "{{ .Site.Params.address }}"
+    }
+  }
+}
+</script>
+
+<!-- FAQ Schema для часто задаваемых вопросов -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Сколько стоит построить сруб дома?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Стоимость сруба дома зависит от типа древесины, диаметра бревна и площади. Цены от 22 000 руб/м³ для сосны до 45 000 руб/м³ для кедра."
+      }
+    },
+    {
+      "@type": "Question", 
+      "name": "Какая схема оплаты за строительство сруба?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Мы работаем по схеме: 30% предоплата, 40% при начале сборки, 30% после приемки перед погрузкой."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что входит в стоимость сруба?",
+      "acceptedAnswer": {
+        "@type": "Answer", 
+        "text": "В стоимость входит: скобление и строжка бревна, антисептирование, маркировка, разборка, погрузка, перевозка и сборка на фундаменте."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Калькулятор как дополнительный сервис -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Калькулятор стоимости сруба",
+  "description": "Онлайн калькулятор для расчета примерной стоимости строительства сруба",
+  "applicationCategory": "CalculatorApplication",
+  "operatingSystem": "Web",
+  "url": "{{ .Permalink }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}"
+  }
+}
+</script>
+{{ end }}
+
 {{ define "main" }}
 <!-- Заголовок страницы -->
 <section class="pricing-header">
@@ -244,13 +338,13 @@
     padding: 80px 0;
   }
 
-  .pricing-content .content-wrapper {
+  .content-wrapper {
     max-width: 1000px;
     margin: 0 auto;
     line-height: 1.8;
   }
 
-  .pricing-content  .content-wrapper h2 {
+  .content-wrapper h2 {
     color: var(--color-primary);
     font-size: 2.2rem;
     margin: 50px 0 30px 0;
@@ -258,7 +352,7 @@
     position: relative;
   }
 
-  .pricing-content .content-wrapper h2::after {
+  .content-wrapper h2::after {
     content: '';
     display: block;
     width: 80px;
@@ -267,31 +361,28 @@
     margin: 15px auto 0;
   }
 
-  .pricing-content .content-wrapper h3 {
+  .content-wrapper h3 {
     color: var(--color-secondary);
     font-size: 1.6rem;
     margin: 40px 0 20px 0;
   }
 
-  .pricing-content .content-wrapper ul {
+  .content-wrapper ul {
     list-style: none;
     padding-left: 0;
   }
 
-  .pricing-content .content-wrapper ul li {
-    padding: 10px 0 10px 10px;
+  .content-wrapper ul li {
+    padding: 10px 0 10px 0px;
     position: relative;
-    margin-bottom: 10px;
+  }
+  .content-wrapper ol li {
+    padding: 10px 0;
   }
 
-  .pricing-content .content-wrapper ul li::before {
-    position: absolute;
-    left: 0;
-    font-size: 1.2rem;
-  }
 
   /* Таблицы цен */
-  .pricing-content .content-wrapper table {
+  .content-wrapper table {
     width: 100%;
     border-collapse: collapse;
     margin: 40px 0;
@@ -301,33 +392,33 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   }
 
-  .pricing-content .content-wrapper th,
-  .pricing-content .content-wrapper td {
+  .content-wrapper th,
+  .content-wrapper td {
     padding: 20px 25px;
     text-align: left;
   }
 
-  .pricing-content .content-wrapper th {
+  .content-wrapper th {
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     color: white;
     font-weight: 600;
     font-size: 1.1rem;
   }
 
-  .pricing-content .content-wrapper td {
+  .content-wrapper td {
     border-bottom: 1px solid #f0f0f0;
     font-size: 1.1rem;
   }
 
-  .pricing-content .content-wrapper tr:last-child td {
+  .content-wrapper tr:last-child td {
     border-bottom: none;
   }
 
-  .pricing-content .content-wrapper tr:nth-child(even) {
+  .content-wrapper tr:nth-child(even) {
     background: rgba(248, 249, 250, 0.7);
   }
 
-  .pricing-content .content-wrapper tr:hover {
+  .content-wrapper tr:hover {
     background: rgba(139, 195, 74, 0.1);
   }
 
@@ -413,25 +504,20 @@
     .pricing-header {
       padding: 50px 0;
     }
-    .pricing-content h3 {
-      font-size: 20px;
-    }
+
     .pricing-header h1 {
-      font-size: 24px;
+      font-size: 1.8rem;
     }
 
     .pricing-page-description {
-      font-size: 14px;
-    }
-    .price-calculator h2, .pricing-content .content-wrapper h2  {
-      font-size: 22px;
+      font-size: 1.1rem;
     }
 
     .price-calculator {
       padding: 50px 0;
     }
 
-    .pricing-content .content-wrapper {
+    .content-wrapper {
       padding: 0 15px;
     }
   }

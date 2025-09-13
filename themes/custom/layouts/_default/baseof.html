@@ -4,12 +4,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Основные SEO мета-теги -->
   <meta name="description"
     content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  {{ if .Params.seo.keywords }}
+  <meta name="keywords" content="{{ delimit .Params.seo.keywords " , " }}">
+  {{ else }}
+  <meta name="keywords"
+    content="срубы домов, строительство бань, деревянные дома, сруб из кедра, сруб из лиственницы, сруб из сосны, строительство под ключ, Сибирский лес">
+  {{ end }}
+
+  <meta name="robots" content="{{ if .Params.seo.robots }}{{ .Params.seo.robots }}{{ else }}index, follow{{ end }}">
+  <meta name="author" content="{{ .Site.Params.author }}">
+  <meta name="copyright" content="{{ .Site.Title }}">
+  <meta name="language" content="ru">
+  <meta name="revisit-after" content="7 days">
+
+  <!-- Дата последнего обновления -->
+  {{ if .Lastmod }}
+  <meta name="last-modified" content="{{ .Lastmod.Format " 2006-01-02T15:04:05Z07:00" }}">
+  {{ end }}
+
+  <!-- Geo мета-теги для локального бизнеса -->
+  <meta name="geo.region" content="RU-KEM">
+  <meta name="geo.placename" content="Саяногорск">
+  <meta name="geo.position" content="53.0908;91.4097">
+  <meta name="ICBM" content="53.0908, 91.4097">
+
+  <!-- Title -->
   <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
+  <!-- Open Graph для социальных сетей -->
+  <meta property="og:title"
+    content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+  <meta property="og:description"
+    content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+  <meta property="og:locale" content="ru_RU">
+  {{ if .Params.image }}
+  <meta property="og:image" content="{{ .Params.image | absURL }}">
+  <meta property="og:image:alt" content="{{ .Params.imageAlt | default .Title }}">
+  {{ else }}
+  <meta property="og:image" content="{{ " /images/og-default.jpg" | absURL }}">
+  <meta property="og:image:alt" content="{{ .Site.Title }} - Строительство деревянных домов и бань">
+  {{ end }}
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title"
+    content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+  <meta name="twitter:description"
+    content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  {{ if .Params.image }}
+  <meta name="twitter:image" content="{{ .Params.image | absURL }}">
+  {{ else }}
+  <meta name="twitter:image" content="{{ " /images/og-default.jpg" | absURL }}">
+  {{ end }}
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ .Permalink }}">
+
   <!-- CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   {{ $css := resources.Get "css/main.css" }}
   {{ if $css }}
   {{ if hugo.IsDevelopment }}
@@ -23,12 +83,81 @@
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.svg">
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ .Permalink }}">
-  <meta property="og:title" content="{{ .Title }}">
-  <meta property="og:description"
-    content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <!-- Структурированные данные Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}",
+    "url": "{{ .Site.BaseURL }}",
+    "logo": "{{ "/images/logo.png" | absURL }}",
+    "description": "{{ .Site.Params.description }}",
+    "telephone": "{{ .Site.Params.phone }}",
+    "email": "{{ .Site.Params.email }}",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Саяногорск",
+      "addressRegion": "Республика Хакасия", 
+      "addressCountry": "RU",
+      "streetAddress": "{{ .Site.Params.address }}"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "53.0908",
+      "longitude": "91.4097"
+    },
+    "sameAs": [
+      "{{ .Site.BaseURL }}"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Строительство срубов",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Строительство деревянных домов"
+          }
+        },
+        {
+          "@type": "Offer", 
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Строительство бань"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb Schema (универсальный) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": "{{ .Site.BaseURL }}"
+      }
+      {{ if not .IsHome }},
+      {
+        "@type": "ListItem", 
+        "position": 2,
+        "name": "{{ .Title }}",
+        "item": "{{ .Permalink }}"
+      }
+      {{ end }}
+    ]
+  }
+  </script>
+
+  <!-- Дополнительные мета-теги для конкретных страниц -->
+  {{ block "head" . }}{{ end }}
 </head>
 
 <body>
