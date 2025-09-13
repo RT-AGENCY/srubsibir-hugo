@@ -1,0 +1,93 @@
+{{ define "main" }}
+<div class="container">
+  <div class="list-content">
+    <h1>{{ .Title }}</h1>
+    {{ if .Content }}
+    <div class="list-description">
+      {{ .Content }}
+    </div>
+    {{ end }}
+
+    {{ if .Pages }}
+    <div class="pages-list">
+      {{ range .Pages }}
+      <article class="page-item">
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        {{ if .Description }}
+        <p>{{ .Description }}</p>
+        {{ else }}
+        <p>{{ .Summary }}</p>
+        {{ end }}
+      </article>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+</div>
+
+<style>
+  .list-content {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    line-height: 1.6;
+  }
+
+  .list-content h1 {
+    margin-bottom: 30px;
+    color: #2c5530;
+  }
+
+  .list-description {
+    margin-bottom: 40px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .pages-list {
+    display: grid;
+    gap: 30px;
+  }
+
+  .page-item {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .page-item:hover {
+    transform: translateY(-2px);
+  }
+
+  .page-item h2 {
+    margin-bottom: 10px;
+  }
+
+  .page-item h2 a {
+    color: #2c5530;
+    text-decoration: none;
+  }
+
+  .page-item h2 a:hover {
+    color: #8bc34a;
+  }
+
+  .page-item p {
+    color: #666;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .list-content {
+      padding: 0 15px;
+    }
+
+    .page-item {
+      padding: 15px;
+    }
+  }
+</style>
+{{ end }}

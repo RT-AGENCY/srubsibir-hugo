@@ -1,0 +1,75 @@
+{{ define "main" }}
+<div class="container">
+  <div class="page-content">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </div>
+</div>
+
+<style>
+  .page-content {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    line-height: 1.6;
+  }
+
+  .page-content h1 {
+    margin-bottom: 30px;
+    color: #2c5530;
+  }
+
+  .page-content h2,
+  .page-content h3 {
+    margin: 30px 0 15px 0;
+    color: #2c5530;
+  }
+
+  .page-content p {
+    margin-bottom: 15px;
+  }
+
+  .page-content ul,
+  .page-content ol {
+    margin: 15px 0;
+    padding-left: 30px;
+  }
+
+  .page-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .page-content th,
+  .page-content td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .page-content th {
+    background: #2c5530;
+    color: white;
+    font-weight: 600;
+  }
+
+  .page-content tr:hover {
+    background: rgba(139, 195, 74, 0.05);
+  }
+
+  @media (max-width: 768px) {
+    .page-content {
+      padding: 0 15px;
+    }
+
+    .page-content h1 {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+{{ end }}
