@@ -52,10 +52,6 @@ theme = 'custom'
     enabled = true  # Форма обратного звонка
 
 # Главное меню навигации
-[[menu.main]]
-  name = "Цены"
-  url = "/pricing/"
-  weight = 10
 
 [[menu.main]]
   name = "Услуги"
@@ -63,29 +59,9 @@ theme = 'custom'
   weight = 20
 
 [[menu.main]]
-  name = "Дома-бани"
-  url = "/houses-baths/"
-  weight = 30
-
-[[menu.main]]
-  name = "Беседки"
-  url = "/gazebos/"
-  weight = 40
-
-[[menu.main]]
-  name = "Оплата и доставка"
-  url = "/payment-delivery/"
-  weight = 50
-
-[[menu.main]]
-  name = "О нас"
+  name = "О компании"
   url = "/about/"
   weight = 60
-
-[[menu.main]]
-  name = "Скидки %"
-  url = "/discounts/"
-  weight = 70
 
 [[menu.main]]
   name = "Проекты"
@@ -93,27 +69,12 @@ theme = 'custom'
   weight = 80
 
 [[menu.main]]
-  name = "Срубы домов"
-  url = "/house-logs/"
-  weight = 90
-
-[[menu.main]]
-  name = "Срубы бань"
-  url = "/bath-logs/"
-  weight = 100
-
-[[menu.main]]
   name = "Контакты"
   url = "/contacts/"
   weight = 110
 
 [[menu.main]]
-  name = "Отзывы"
-  url = "/reviews/"
-  weight = 120
-
-[[menu.main]]
-  name = "Статьи"
+  name = "Новости"
   url = "/articles/"
   weight = 130
 
