@@ -1,6 +1,6 @@
 ---
-title: "Отзывы"
-description: "Отзывы клиентов о компании Сибирский лес"
+title: 'Отзывы'
+description: 'Отзывы клиентов о компании Сибирский лес'
 
 showHero: false
 showAdvantages: false
@@ -14,9 +14,7 @@ showCategories: true
 showContactForm: true
 showWidget: true
 showCallForm: true
-
 ---
-
 
 **От: Михаил, г. Минусинск**
 
@@ -34,9 +32,19 @@ showCallForm: true
 
 ### Видео отзыв о Сибирском лесе, строительство дома из кедра
 
-<div style="position:relative;width:100%;height:450px;max-width:800px;margin: 40px auto;">
+<div class="youtube-wrapper" style="position:relative;width:100%;height:450px;max-width:800px;margin: 40px auto;">
   <iframe width="100%" height="450" src="https://www.youtube.com/embed/80FvnjKFIWY" title="Видео отзыв о Сибирском лесе" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
 </div>
+<style>
+    @media(max-width: 768px) {
+  .youtube-wrapper {
+      height: 300px !important;
+    }
+  .youtube-wrapper iframe {
+    height: 300px !important;
+  }
+  }
+</style>
 
 ---
 

@@ -305,7 +305,8 @@
       "total-slides",
       "video-container",
       "video-section",
-      "whatsapp-icon"
+      "whatsapp-icon",
+      "youtube-wrapper"
     ],
     "ids": [
       "callbackComment",
