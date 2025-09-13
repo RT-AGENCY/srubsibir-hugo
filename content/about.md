@@ -19,11 +19,6 @@ showContactForm: true # НЕ показывать форму контактов
 showWidget: true # НЕ показывать виджеты
 showCallForm: true # Показать форму обратного звонка
 
-# Настройки видео (замените YOUR_VIDEO_ID на реальный ID)
-
-video_url: "https://www.youtube.com/embed/OV_xRBT97iI"
-video_title: "Строительство дома"
-
 ---
 
 Если вы хотите жить загородом в собственном доме, но не сильно разбираетесь в строительстве, то мы готовы помочь вам в этом деле. Наша компания специализируется на строительстве коттеджей из **кедра, сосны и лиственницы**. Мы предлагаем качественные дома по разумным ценам, которые станут радовать вас долгие годы.
@@ -96,3 +91,21 @@ video_title: "Строительство дома"
 **Компания «Сибирский лес» предлагает вам свои услуги!**
 
 Чтобы связаться с нами, достаточно позвонить по указанному на сайте номеру телефона.
+
+---
+
+### Строительство дома
+
+<div class="youtube-wrapper" style="position:relative;width:100%;height:450px;max-width:800px;margin: 40px auto;">
+  <iframe width="100%" height="450" src="https://www.youtube.com/embed/OV_xRBT97iI" title="Видео отзыв о Сибирском лесе" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+</div>
+<style>
+    @media(max-width: 768px) {
+  .youtube-wrapper {
+      height: 300px !important;
+    }
+  .youtube-wrapper iframe {
+    height: 300px !important;
+  }
+  }
+</style>
