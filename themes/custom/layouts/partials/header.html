@@ -107,9 +107,58 @@
 
         <nav class="nav" id="main-nav">
           {{ range .Site.Menus.main }}
-          <a href="{{ .URL }}" class="nav-link {{ if $.IsMenuCurrent " main" . }}active{{ end }}">
+          {{ if or (eq .Name "Проекты") (eq .Name "Услуги") }}
+          <div class="nav-dropdown">
+            <a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>
+            <div class="dropdown-content">
+              {{ if eq .Name "Проекты" }}
+              <!-- Подменю для Проектов -->
+              <div class="dropdown-section">
+                <h4>Проекты</h4>
+                <a href="/projects/">Все проекты</a>
+                <a href="/projects/">Сруб из сосны</a>
+                <a href="/projects/">Сруб из лиственницы</a>
+                <a href="/projects/">Элитные дома из кедра</a>
+                <a href="/projects/">Сруб бани под ключ</a>
+                <a href="/projects/">Проекты домов Post and Beam</a>
+              </div>
+              {{ end }}
+
+              {{ if eq .Name "Услуги" }}
+              <!-- Подменю для Услуг -->
+              <div class="dropdown-section">
+                <a href="/services/">Срубы бань из бревна</a>
+                <a href="/services/">Дома из сосны</a>
+                <a href="/services/">Дома из кедра</a>
+                <a href="/services/">Дома POST&BEAM</a>
+                <a href="/services/">Дома из лиственницы</a>
+              </div>
+              <div class="dropdown-section">
+                <a href="/services/">Проектирование домов</a>
+                <a href="/services/">Монтаж и ремонт кровли</a>
+                <a href="/services/">Строительные материалы</a>
+              </div>
+              {{ end }}
+
+              <!-- Каталог кнопка -->
+              {{ if eq .Name "Проекты" }}
+              <div class="dropdown-catalog">
+                <a href="/projects/" class="catalog-btn projects-btn">Все проекты</a>
+              </div>
+              {{ end }}
+
+              {{ if eq .Name "Услуги" }}
+              <div class="dropdown-catalog">
+                <a href="/services/" class="catalog-btn services-btn">Все услуги</a>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+          {{ else }}
+          <a href="{{ .URL }}" class='nav-link {{ if $.IsMenuCurrent " main" . }}active{{ end }}'>
             {{ .Name }}
           </a>
+          {{ end }}
           {{ end }}
         </nav>
 

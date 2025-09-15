@@ -53,6 +53,12 @@ theme = 'custom'
 
 # Главное меню навигации
 
+
+[[menu.main]]
+  name = "Проекты"
+  url = "/projects/"
+  weight = 10
+
 [[menu.main]]
   name = "Услуги"
   url = "/services/"
@@ -61,22 +67,18 @@ theme = 'custom'
 [[menu.main]]
   name = "О компании"
   url = "/about/"
-  weight = 60
+  weight = 30
 
-[[menu.main]]
-  name = "Проекты"
-  url = "/projects/"
-  weight = 80
 
 [[menu.main]]
   name = "Контакты"
   url = "/contacts/"
-  weight = 110
+  weight = 40
 
 [[menu.main]]
   name = "Новости"
   url = "/articles/"
-  weight = 130
+  weight = 50
 
 # Остальные настройки...
 [markup]
