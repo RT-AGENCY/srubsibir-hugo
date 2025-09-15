@@ -107,7 +107,7 @@
 
         <nav class="nav" id="main-nav">
           {{ range .Site.Menus.main }}
-          {{ if or (eq .Name "Проекты") (eq .Name "Услуги") }}
+          {{ if or (eq .Name "Проекты") (eq .Name "Услуги") (eq .Name "О компании") }}
           <div class="nav-dropdown">
             <a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>
             <div class="dropdown-content">
@@ -137,6 +137,17 @@
                 <a href="/services/">Проектирование домов</a>
                 <a href="/services/">Монтаж и ремонт кровли</a>
                 <a href="/services/">Строительные материалы</a>
+              </div>
+              {{ end }}
+              {{ if eq .Name "О компании" }}
+              <!-- Подменю для О компании -->
+              <div class="dropdown-section">
+                <a href="/review/">Отзывы</a>
+                <a href="/about/">О компании</a>
+                <a href="/about/">Наши работы</a>
+                <a href="/about/">Наши технологии</a>
+                <a href="/payment-delivery/">Оплата и Доставка</a>
+                <a href="/discounts/">Скидки</a>
               </div>
               {{ end }}
 
