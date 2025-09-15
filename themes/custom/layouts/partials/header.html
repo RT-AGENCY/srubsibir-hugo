@@ -181,6 +181,7 @@
   <!-- Мобильное меню -->
   <div class="mobile-menu" id="mobile-menu">
     <div class="mobile-menu-content">
+      <!-- Заголовок с кнопкой закрытия и заказом звонка -->
       <div class="mobile-menu-header">
         <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Закрыть меню">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -192,24 +193,147 @@
         </button>
         <a class="mobile-callback-btn" href="#" data-id="modal-call">Заказать обратный звонок</a>
       </div>
-      <!-- Навигационные ссылки -->
-      {{ range .Site.Menus.main }}
-      <a href="{{ .URL }}" class="mobile-nav-link">{{ .Name }}</a>
-      {{ end }}
 
-      <!-- Дополнительная информация в мобильном меню -->
-      <div class="mobile-menu-footer">
-        <div class="mobile-contact-info">
-          <a class="mobile-contact-phone" href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a>
-          <a class="mobile-contact-phone" href="tel:89030770399">8 903 077 0399</a>
-          <p>
-            <span class="mobile-work-time">График работы: <br />Пн-Сб 9.00-20.00</span>
-            <br />
-            <span class="mobile-address">{{ .Site.Params.address }}</span>
-          </p>
-
+      <!-- Контактная информация -->
+      <div class="mobile-contact-section">
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+          </svg>
+          <div class="contact-text">
+            <div class="contact-title">{{ .Site.Params.address }}</div>
+            <div class="contact-subtitle">info@ideisruba.ru<br>по всем вопросам</div>
+          </div>
         </div>
+
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+          </svg>
+          <div class="contact-text">
+            <a class="contact-title phone-number" href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a>
+
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+          </svg>
+          <div class="contact-text">
+            <a class="contact-title phone-number" href="tel:89030770399">8 903 077 0399</a>
+            <div class="contact-subtitle">
+              График работы: Пн-Сб 9.00-20.00
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Навигационные секции с подменю -->
+      <div class="mobile-nav-sections">
+        <!-- Проекты -->
+        <div class="nav-section">
+          <div class="nav-header" onclick="toggleMobileSubmenu('projects')">
+            Проекты
+            <svg class="arrow" id="projects-arrow" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+            </svg>
+          </div>
+          <div class="nav-submenu" id="projects-submenu">
+            <a class="nav-item" href="/projects/">Все проекты</a>
+            <a class="nav-item" href="/projects/">Сруб из сосны</a>
+            <a class="nav-item" href="/projects/">Сруб из лиственницы</a>
+            <a class="nav-item" href="/projects/">Элитные дома из кедра</a>
+            <a class="nav-item" href="/projects/">Сруб бани под ключ</a>
+            <a class="nav-item" href="/projects/">Проекты домов Post and Beam</a>
+          </div>
+        </div>
+
+        <!-- Услуги -->
+        <div class="nav-section">
+          <div class="nav-header" onclick="toggleMobileSubmenu('services')">
+            Услуги
+            <svg class="arrow" id="services-arrow" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+            </svg>
+          </div>
+          <div class="nav-submenu" id="services-submenu">
+            <a class="nav-item" href="/services/">Срубы бань из бревна</a>
+            <a class="nav-item" href="/services/">Дома из сосны</a>
+            <a class="nav-item" href="/services/">Дома из кедра</a>
+            <a class="nav-item" href="/services/">Дома POST&BEAM</a>
+            <a class="nav-item" href="/services/">Дома из лиственницы</a>
+            <a class="nav-item" href="/services/">Проектирование домов</a>
+            <a class="nav-item" href="/services/">Монтаж и ремонт кровли</a>
+            <a class="nav-item" href="/services/">Строительные материалы</a>
+          </div>
+        </div>
+
+        <!-- О компании -->
+        <div class="nav-section">
+          <div class="nav-header" onclick="toggleMobileSubmenu('about')">
+            О компании
+            <svg class="arrow" id="about-arrow" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+            </svg>
+          </div>
+          <div class="nav-submenu" id="about-submenu">
+            <a class="nav-item" href="/review/">Отзывы</a>
+            <a class="nav-item" href="/about/">О компании</a>
+            <a class="nav-item" href="/about/">Наши работы</a>
+            <a class="nav-item" href="/about/">Наши технологии</a>
+            <a class="nav-item" href="/payment-delivery/">Оплата и Доставка</a>
+            <a class="nav-item" href="/discounts/">Скидки</a>
+          </div>
+        </div>
+
+        <!-- Стандартные ссылки из меню Hugo -->
+        {{ range .Site.Menus.main }}
+        <a href="{{ .URL }}" class="mobile-nav-link">{{ .Name }}</a>
+        {{ end }}
       </div>
     </div>
   </div>
+
+  <script>
+    function toggleMobileSubmenu(section) {
+      const submenu = document.getElementById(section + '-submenu');
+      const arrow = document.getElementById(section + '-arrow');
+      const header = arrow.parentElement;
+
+      const isOpen = submenu.classList.contains('open');
+
+      // Закрыть все другие подменю
+      document.querySelectorAll('.nav-submenu').forEach(menu => {
+        menu.classList.remove('open');
+      });
+      document.querySelectorAll('.arrow').forEach(arr => {
+        arr.classList.remove('rotated');
+      });
+      document.querySelectorAll('.nav-header').forEach(head => {
+        head.classList.remove('active');
+      });
+
+      // Если подменю было закрыто, открыть его
+      if (!isOpen) {
+        submenu.classList.add('open');
+        arrow.classList.add('rotated');
+        header.classList.add('active');
+      }
+    }
+
+    // Добавить обработчик для существующей кнопки закрытия меню
+    document.addEventListener('DOMContentLoaded', function () {
+      const closeBtn = document.getElementById('mobile-menu-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          document.getElementById('mobile-menu').classList.remove('active');
+          document.body.classList.remove('menu-open');
+        });
+      }
+    });
+  </script>
 </header>
