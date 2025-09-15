@@ -1,0 +1,93 @@
+{{ define "main" }}
+<div class="error-page">
+  <div class="error-container">
+    <div class="error-content">
+      <!-- Заголовок ошибки -->
+      <h1 class="error-title">404</h1>
+      <h2 class="error-subtitle">Страница в разработке</h2>
+
+      <!-- Навигация -->
+      <div class="error-actions">
+        <a href="/" class="error-btn primary">На главную</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .error-page {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  }
+
+  .error-container {
+    max-width: 400px;
+    text-align: center;
+    background: white;
+    border-radius: 20px;
+    padding: 60px 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #8bc34a;
+  }
+
+  .error-icon {
+    margin-bottom: 30px;
+    opacity: 0.8;
+  }
+
+  .error-title {
+    font-size: 120px;
+    font-weight: 800;
+    color: #8bc34a;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .error-subtitle {
+    font-size: 32px;
+    font-weight: 600;
+    color: #2c5530;
+    margin: 20px 0 30px 0;
+  }
+
+  .error-btn {
+    padding: 15px 40px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    background: #8bc34a;
+    color: white;
+  }
+
+  .error-btn:hover {
+    background: #4a7c59;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(139, 195, 74, 0.3);
+  }
+
+  /* Мобильная адаптация */
+  @media (max-width: 768px) {
+    .error-container {
+      padding: 50px 30px;
+      margin: 0 15px;
+      max-width: 350px;
+    }
+
+    .error-title {
+      font-size: 80px;
+    }
+
+    .error-subtitle {
+      font-size: 20px;
+    }
+  }
+</style>
+{{ end }}
