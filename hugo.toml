@@ -92,3 +92,13 @@ theme = 'custom'
 [outputs]
   home = ["HTML", "RSS", "JSON"]
   page = ["HTML"]
+
+# Настройки для секции (в разделе [params])
+[params.project_page]
+  show_breadcrumbs = true
+  show_gallery = true
+  show_specifications = true
+  show_pricing = true
+  show_planning = true
+  contact_button_text = "Узнать точную цену!"
+  plan_button_text = "Посмотреть план"

@@ -1,0 +1,671 @@
+{{ define "main" }}
+<div class="project-page">
+  <div class="container">
+    <!-- Хлебные крошки -->
+    <nav class="breadcrumb">
+      <ul class="breadcrumb-list">
+        <li class="breadcrumb-item">
+          <a href="/">Главная</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="/projects">Проекты</a>
+        </li>
+        <li class="breadcrumb-item">
+          <span>{{ .Title }}</span>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Заголовок проекта -->
+    <h1 class="project-title">{{ .Title }}</h1>
+    
+    <div class="project-content">
+      <!-- Левая часть - галерея -->
+      <div class="project-gallery">
+        <!-- Основное изображение -->
+        <div class="main-image">
+          <img src="{{ index .Params.gallery 0 }}" alt="{{ .Title }}" id="mainImage">
+        </div>
+        
+        <!-- Миниатюры -->
+        <div class="thumbnails">
+          {{ range $index, $image := .Params.gallery }}
+          <img src="{{ $image }}" alt="{{ $.Title }}" class="thumbnail {{ if eq $index 0 }}active{{ end }}" onclick="changeImage('{{ $image }}', this)">
+          {{ end }}
+        </div>
+      </div>
+      
+      <!-- Правая часть - характеристики -->
+      <div class="project-info">
+        <!-- Таблица характеристик -->
+        <div class="specs-table">
+          <div class="spec-row">
+            <span class="spec-label">Категория проекта:</span>
+            <span class="spec-value">{{ .Params.category }}</span>
+          </div>
+          
+          {{ if .Params.area }}
+          <div class="spec-row">
+            <span class="spec-label">Площадь дома:</span>
+            <span class="spec-value">{{ .Params.area }}</span>
+          </div>
+          {{ end }}
+          
+          {{ if .Params.dimensions }}
+          <div class="spec-row">
+            <span class="spec-label">Размеры дома:</span>
+            <span class="spec-value">{{ .Params.dimensions }}</span>
+          </div>
+          {{ end }}
+          
+          {{ if .Params.floors }}
+          <div class="spec-row">
+            <span class="spec-label">Этажность:</span>
+            <span class="spec-value">{{ .Params.floors }}</span>
+          </div>
+          {{ end }}
+          
+          {{ if .Params.rooms }}
+          <div class="spec-row">
+            <span class="spec-label">Комнат отдыха:</span>
+            <span class="spec-value">{{ .Params.rooms }}</span>
+          </div>
+          {{ end }}
+          
+          {{ if .Params.diameter }}
+          <div class="spec-row">
+            <span class="spec-label">Диаметр бревна:</span>
+            <span class="spec-value">{{ .Params.diameter }}</span>
+          </div>
+          {{ end }}
+        </div>
+        
+        <!-- Описание -->
+        <div class="project-description">
+          {{ .Content | markdownify }}
+        </div>
+        
+        <!-- Цена -->
+        {{ if .Params.price }}
+        <div class="price-section">
+          <div class="price-label">Цена от:</div>
+          <div class="price-value">{{ .Params.price }}</div>
+          
+          {{ if .Params.wood_volume }}
+          <div class="wood-volume">
+            <div class="volume-label">Объем затрачиваемого бревна:</div>
+            <div class="volume-value">{{ .Params.wood_volume }}</div>
+          </div>
+          {{ end }}
+          
+          <div class="price-note">
+            {{ .Params.price_note | default "Сотрудничая с нашей компанией, клиент получает возможность по хорошей цене заказать постройку на своем участке бани из сруба под ключ по заданее подготовленному проекту. Строительство будет осуществляться из круглого бревна кедрового дерева." }}
+          </div>
+          
+          <!-- Кнопки действий -->
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="contactUs()">Узнать точную цену!</button>
+            
+            {{ if .Params.plan_link }}
+            <a href="{{ .Params.plan_link }}" class="btn btn-secondary" target="_blank">Посмотреть план</a>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    
+    <!-- Планировка -->
+    {{ if .Params.floor_plans }}
+    <div class="planning-section">
+      <h2 class="section-title">Планировка</h2>
+      <div class="planning-description">
+        {{ .Params.planning_description | markdownify }}
+      </div>
+      
+      <div class="floor-plans">
+        {{ range .Params.floor_plans }}
+        <div class="floor-plan">
+          <h3>{{ .title }}</h3>
+          <img src="{{ .image }}" alt="{{ .title }}" onclick="openImageModal('{{ .image }}', '{{ .title }}')">
+          {{ if .description }}
+          <p>{{ .description }}</p>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+    
+    <!-- Дополнительные изображения готовых проектов -->
+    {{ if .Params.completed_photos }}
+    <div class="completed-section">
+      <h2 class="section-title">Готовые проекты</h2>
+      <div class="completed-gallery">
+        {{ range .Params.completed_photos }}
+        <img src="{{ . }}" alt="Готовый проект {{ $.Title }}" onclick="openImageModal('{{ . }}', 'Готовый проект')">
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+
+<!-- Модальное окно для просмотра изображений -->
+<div id="imageModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeImageModal()">&times;</span>
+    <img id="modalImage" src="" alt="">
+    <div id="modalCaption"></div>
+  </div>
+</div>
+
+<script>
+// Смена основного изображения
+function changeImage(src, thumbnail) {
+  document.getElementById('mainImage').src = src;
+  
+  // Убрать активный класс у всех миниатюр
+  document.querySelectorAll('.thumbnail').forEach(thumb => {
+    thumb.classList.remove('active');
+  });
+  
+  // Добавить активный класс к выбранной миниатюре
+  thumbnail.classList.add('active');
+}
+
+// Открыть модальное окно с изображением
+function openImageModal(src, caption) {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImage');
+  const modalCaption = document.getElementById('modalCaption');
+  
+  modal.style.display = 'block';
+  modalImg.src = src;
+  modalCaption.innerHTML = caption;
+}
+
+// Закрыть модальное окно
+function closeImageModal() {
+  document.getElementById('imageModal').style.display = 'none';
+}
+
+// Закрыть модальное окно при клике вне изображения
+window.onclick = function(event) {
+  const modal = document.getElementById('imageModal');
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
+// Функция обратного звонка
+function contactUs() {
+  // Здесь можно добавить логику для открытия формы обратной связи
+  // Например, показать модальное окно с формой или перенаправить на страницу контактов
+  alert('Функция "Узнать точную цену!" - здесь будет ваша логика связи с клиентом');
+  // window.location.href = '/contact';
+}
+</script>
+
+<style>
+/* Основные стили */
+.project-page {
+  padding: 20px 0 60px;
+  min-height: 70vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Хлебные крошки */
+.breadcrumb {
+  margin-bottom: 20px;
+}
+
+.breadcrumb-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.breadcrumb-item a {
+  color: #666;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  color: #2c5530;
+  text-decoration: underline;
+}
+
+.breadcrumb-item:not(:last-child)::after {
+  content: " › ";
+  margin-left: 5px;
+  color: #999;
+}
+
+.breadcrumb-item:last-child span {
+  color: #333;
+}
+
+/* Заголовок */
+.project-title {
+  font-size: 2.2rem;
+  color: #2c5530;
+  margin-bottom: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Основной контент */
+.project-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+/* Галерея */
+.project-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.main-image {
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.main-image img:hover {
+  transform: scale(1.02);
+}
+
+.thumbnails {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+  border-color: #8bc34a;
+  transform: scale(1.05);
+}
+
+/* Характеристики */
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.specs-table {
+  background: #8b4513;
+  color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.spec-row:last-child {
+  border-bottom: none;
+}
+
+.spec-label {
+  font-weight: 500;
+  flex: 1;
+}
+
+.spec-value {
+  font-weight: 600;
+  text-align: right;
+  min-width: 100px;
+}
+
+/* Описание проекта */
+.project-description {
+  line-height: 1.6;
+  color: #333;
+  font-size: 15px;
+}
+
+.project-description p {
+  margin-bottom: 12px;
+}
+
+/* Блок с ценой */
+.price-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 25px;
+  border-radius: 10px;
+  border-left: 4px solid #8bc34a;
+}
+
+.price-label {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.price-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #8bc34a;
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.wood-volume {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.volume-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.volume-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2c5530;
+}
+
+.price-note {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+/* Кнопки */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #8bc34a;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #7cb342;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 195, 74, 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #8bc34a;
+  border: 2px solid #8bc34a;
+}
+
+.btn-secondary:hover {
+  background: #8bc34a;
+  color: white;
+}
+
+/* Секции */
+.section-title {
+  font-size: 1.8rem;
+  color: #2c5530;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Планировка */
+.planning-section {
+  margin-bottom: 50px;
+}
+
+.planning-description {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.floor-plans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.floor-plan {
+  text-align: center;
+}
+
+.floor-plan h3 {
+  color: #2c5530;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.floor-plan img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.floor-plan img:hover {
+  transform: scale(1.02);
+}
+
+.floor-plan p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Готовые проекты */
+.completed-section {
+  margin-bottom: 50px;
+}
+
+.completed-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.completed-gallery img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.completed-gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* Модальное окно */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  position: relative;
+  margin: 5% auto;
+  padding: 20px;
+  max-width: 90%;
+  max-height: 80%;
+  text-align: center;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.close:hover {
+  color: #8bc34a;
+}
+
+#modalCaption {
+  color: white;
+  margin-top: 15px;
+  font-size: 18px;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .project-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .project-title {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  
+  .thumbnails {
+    justify-content: center;
+  }
+  
+  .price-value {
+    font-size: 2rem;
+  }
+  
+  .spec-row {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .spec-value {
+    text-align: left;
+    font-size: 1.1rem;
+  }
+  
+  .floor-plans {
+    grid-template-columns: 1fr;
+  }
+  
+  .completed-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .modal-content {
+    margin: 10% auto;
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .project-page {
+    padding: 15px 0 40px;
+  }
+  
+  .price-value {
+    font-size: 1.8rem;
+  }
+  
+  .volume-value {
+    font-size: 1.4rem;
+  }
+  
+  .completed-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+{{ end }}
