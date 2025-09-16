@@ -60,9 +60,9 @@ planning_description: |
   Компоноке оцилиндрованного сруба придается огнестойкость, долговечность, устойчивость к появлению плесени, влиянию насекомых. Это обеспечивает бане долгий эксплуатационный период.
 
 # Дополнительные фото готовых проектов (если есть)
-completed_photos:
-  - "https://your-cdn.com/images/completed/banya-1.jpg"
-  - "https://your-cdn.com/images/completed/banya-2.jpg"
+# completed_photos:
+#   - "https://your-cdn.com/images/completed/banya-1.jpg"
+#   - "https://your-cdn.com/images/completed/banya-2.jpg"
 
 # Ссылка на план (если есть отдельный файл)
 # plan_link: "https://your-cdn.com/plans/banya-kedroviy-plan.pdf"
