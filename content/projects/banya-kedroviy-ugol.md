@@ -32,21 +32,21 @@ price_note: "Сотрудничая с нашей компанией, клиен
 
 # Галерея изображений (ссылки на внешний хостинг)
 gallery:
-  - "/images/projects/1/item-1.jpg"
-  - "/images/projects/1/item-1-1.jpg"
-  - "/images/projects/1/item-1-2.jpg"
-  - "/images/projects/1/item-1-3.jpg"
-  - "/images/projects/1/item-1-4.jpg"
-  - "/images/projects/1/item-1-5.jpg"
-  - "/images/projects/1/item-1-6.jpg"
-  - "/images/projects/1/item-1-7.jpg"
-  - "/images/projects/1/item-1-8.jpg"
-  - "/images/projects/1/item-1-9.jpg"
+  - "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1.webp"
+  - "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1-1.webp"
+  - "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1-2.webp"
+  - "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1-3.webp"
+  - "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1-4.webp"
+  - "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1-5.webp"
+  - "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1-6.webp"
+  - "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1-7.webp"
+  - "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1-8.webp"
+  - "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1-9.webp"
 
 # Планировка
 floor_plans:
   - title: "План бани"
-    image:  "/images/projects/1/item-1-9.jpg"
+    image:  "https://raw.githubusercontent.com/RT-AGENCY/srubsibir-images/main/main/projects/banya-kedr/item-1-9.webp"
     description: "Планировка включает парную, моечную и комнату отдыха"
 
 # Планировка - описание
@@ -65,7 +65,7 @@ completed_photos:
   - "https://your-cdn.com/images/completed/banya-2.jpg"
 
 # Ссылка на план (если есть отдельный файл)
-plan_link: "https://your-cdn.com/plans/banya-kedroviy-plan.pdf"
+# plan_link: "https://your-cdn.com/plans/banya-kedroviy-plan.pdf"
 
 # SEO
 description: "Баня Кедровый угол 40 м² из оцилиндрованного бревна диаметром 30-34 см. Проект включает террасу, парную и комнату отдыха."

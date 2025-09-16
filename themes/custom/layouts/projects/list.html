@@ -37,48 +37,51 @@
       
       <!-- Правая часть - характеристики -->
       <div class="project-info">
-        <!-- Таблица характеристик -->
-        <div class="specs-table">
-          <div class="spec-row">
-            <span class="spec-label">Категория проекта:</span>
-            <span class="spec-value">{{ .Params.category }}</span>
-          </div>
-          
+        <!-- Карточки характеристик -->
+        <div class="specs-cards">
           {{ if .Params.area }}
-          <div class="spec-row">
-            <span class="spec-label">Площадь дома:</span>
-            <span class="spec-value">{{ .Params.area }}</span>
-          </div>
-          {{ end }}
-          
-          {{ if .Params.dimensions }}
-          <div class="spec-row">
-            <span class="spec-label">Размеры дома:</span>
-            <span class="spec-value">{{ .Params.dimensions }}</span>
-          </div>
-          {{ end }}
-          
-          {{ if .Params.floors }}
-          <div class="spec-row">
-            <span class="spec-label">Этажность:</span>
-            <span class="spec-value">{{ .Params.floors }}</span>
+          <div class="spec-card">
+            <div class="spec-card-label">Площадь</div>
+            <div class="spec-card-value">{{ .Params.area }}</div>
           </div>
           {{ end }}
           
           {{ if .Params.rooms }}
-          <div class="spec-row">
-            <span class="spec-label">Комнат отдыха:</span>
-            <span class="spec-value">{{ .Params.rooms }}</span>
+          <div class="spec-card">
+            <div class="spec-card-label">Спален</div>
+            <div class="spec-card-value">{{ .Params.rooms }}</div>
           </div>
           {{ end }}
           
-          {{ if .Params.diameter }}
-          <div class="spec-row">
-            <span class="spec-label">Диаметр бревна:</span>
-            <span class="spec-value">{{ .Params.diameter }}</span>
+          {{ if .Params.dimensions }}
+          <div class="spec-card">
+            <div class="spec-card-label">Размер</div>
+            <div class="spec-card-value">{{ .Params.dimensions }}</div>
+          </div>
+          {{ end }}
+          
+          {{ if .Params.floors }}
+          <div class="spec-card">
+            <div class="spec-card-label">Этажность</div>
+            <div class="spec-card-value">{{ .Params.floors }}</div>
           </div>
           {{ end }}
         </div>
+        
+        <!-- Дополнительная информация -->
+        {{ if .Params.category }}
+        <div class="project-category">
+          <span class="category-label">Категория проекта:</span>
+          <span class="category-value">{{ .Params.category }}</span>
+        </div>
+        {{ end }}
+        
+        {{ if .Params.diameter }}
+        <div class="project-category">
+          <span class="category-label">Диаметр бревна:</span>
+          <span class="category-value">{{ .Params.diameter }}</span>
+        </div>
+        {{ end }}
         
         <!-- Описание -->
         <div class="project-description">
@@ -328,33 +331,85 @@ function contactUs() {
   gap: 25px;
 }
 
-.specs-table {
-  background: #8b4513;
-  color: white;
-  border-radius: 8px;
+/* Карточки характеристик */
+.specs-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.spec-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 20px 16px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  position: relative;
   overflow: hidden;
 }
 
-.spec-row {
+.spec-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #8bc34a 0%, #7cb342 100%);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.spec-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #8bc34a;
+}
+
+.spec-card:hover::before {
+  transform: scaleX(1);
+}
+
+.spec-card-label {
+  font-size: 13px;
+  color: #6c757d;
+  font-weight: 500;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.spec-card-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #8bc34a;
+  line-height: 1.2;
+}
+
+/* Дополнительная информация */
+.project-category {
   display: flex;
   justify-content: space-between;
-  padding: 12px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(139, 195, 74, 0.05);
+  border: 1px solid rgba(139, 195, 74, 0.2);
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
-.spec-row:last-child {
-  border-bottom: none;
-}
-
-.spec-label {
+.category-label {
+  font-size: 14px;
+  color: #6c757d;
   font-weight: 500;
-  flex: 1;
 }
 
-.spec-value {
+.category-value {
+  font-size: 14px;
+  color: #2c5530;
   font-weight: 600;
-  text-align: right;
-  min-width: 100px;
 }
 
 /* Описание проекта */
@@ -567,10 +622,13 @@ function contactUs() {
   max-width: 90%;
   max-height: 80%;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .modal-content img {
-  max-width: 100%;
+  max-width: 95%;
   max-height: 100%;
   border-radius: 8px;
 }
@@ -641,7 +699,7 @@ function contactUs() {
   }
   
   .modal-content {
-    margin: 10% auto;
+    margin: 20% auto;
     max-width: 95%;
   }
 }
