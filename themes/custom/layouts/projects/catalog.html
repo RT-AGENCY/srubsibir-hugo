@@ -82,9 +82,31 @@
           <input type="text" id="search-filter" class="filter-input" placeholder="Название проекта...">
         </div>
 
+        <!-- Сортировка -->
+        <div class="filter-group">
+          <label for="sort-filter">Сортировка:</label>
+          <select id="sort-filter" class="filter-select">
+            <option value="">По умолчанию</option>
+            <option value="price-asc">Цена: по возрастанию</option>
+            <option value="price-desc">Цена: по убыванию</option>
+            <option value="area-asc">Площадь: по возрастанию</option>
+            <option value="area-desc">Площадь: по убыванию</option>
+            <option value="title-asc">Название: А-Я</option>
+            <option value="title-desc">Название: Я-А</option>
+            <option value="date-desc">Сначала новые</option>
+            <option value="date-asc">Сначала старые</option>
+          </select>
+        </div>
+
         <!-- Кнопка сброса -->
         <button id="reset-filters" class="reset-btn">Сбросить</button>
       </div>
+    </div>
+
+    <!-- Лоадер -->
+    <div id="catalog-loader" class="catalog-loader">
+      <div class="loader-spinner"></div>
+      <p class="loader-text">Загрузка проектов...</p>
     </div>
 
     <!-- Результаты поиска -->
@@ -102,7 +124,8 @@
            data-floors="{{ .Params.floors }}"
            data-price="{{ .Params.price | replaceRE `[^0-9]` `` }}"
            data-material="{{ .Content | lower }}"
-           data-title="{{ .Title | lower }}">
+           data-title="{{ .Title | lower }}"
+           data-date="{{ .Date.Unix }}">
         
         <div class="project-image">
           {{ if .Params.gallery }}
@@ -456,6 +479,70 @@
   color: #333;
 }
 
+/* Лоадер */
+.catalog-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.catalog-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #8bc34a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader-text {
+  color: #2c5530;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Плавное появление карточек */
+.project-card {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.projects-grid.loading .project-card {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
   .filters-container {
@@ -498,86 +585,247 @@ document.addEventListener('DOMContentLoaded', function() {
     material: document.getElementById('material-filter'),
     floors: document.getElementById('floors-filter'),
     price: document.getElementById('price-filter'),
-    search: document.getElementById('search-filter')
+    search: document.getElementById('search-filter'),
+    sort: document.getElementById('sort-filter')
   };
   
   const resetBtn = document.getElementById('reset-filters');
   const projectsGrid = document.getElementById('projects-grid');
   const resultsCount = document.getElementById('results-count');
   const noResults = document.getElementById('no-results');
+  const loader = document.getElementById('catalog-loader');
   
-  // Функция фильтрации
-  function filterProjects() {
-    const projects = projectsGrid.querySelectorAll('.project-card');
-    let visibleCount = 0;
-    
-    projects.forEach(project => {
-      let visible = true;
-      
-      // Фильтр по категории
-      if (filters.category.value && project.dataset.category !== filters.category.value) {
-        visible = false;
-      }
-      
-      // Фильтр по площади
-      if (filters.area.value) {
-        const area = parseInt(project.dataset.area) || 0;
-        const [min, max] = filters.area.value.split('-').map(v => v === '+' ? Infinity : parseInt(v));
-        if (area < min || area > max) {
-          visible = false;
-        }
-      }
-      
-      // Фильтр по материалу
-      if (filters.material.value && !project.dataset.material.includes(filters.material.value)) {
-        visible = false;
-      }
-      
-      // Фильтр по этажам
-      if (filters.floors.value && project.dataset.floors !== filters.floors.value) {
-        visible = false;
-      }
-      
-      // Фильтр по цене
-      if (filters.price.value) {
-        const price = parseInt(project.dataset.price) || 0;
-        const [min, max] = filters.price.value.split('-').map(v => v === '+' ? Infinity : parseInt(v));
-        if (price < min || price > max) {
-          visible = false;
-        }
-      }
-      
-      // Поиск по названию
-      if (filters.search.value && !project.dataset.title.includes(filters.search.value.toLowerCase())) {
-        visible = false;
-      }
-      
-      // Показать/скрыть проект
-      project.style.display = visible ? 'block' : 'none';
-      if (visible) visibleCount++;
-    });
-    
-    // Обновить счетчик
-    resultsCount.textContent = visibleCount;
-    
-    // Показать/скрыть сообщение "ничего не найдено"
-    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-    projectsGrid.style.display = visibleCount === 0 ? 'none' : 'grid';
+  let isLoading = false;
+  let imagesLoaded = 0;
+  let totalImages = 0;
+  
+  // Показать лоадер
+  function showLoader(text = 'Загрузка проектов...') {
+    if (isLoading) return;
+    isLoading = true;
+    loader.querySelector('.loader-text').textContent = text;
+    loader.classList.remove('hidden');
+    projectsGrid.classList.add('loading');
   }
   
-  // Обработчики событий
+  // Скрыть лоадер
+  function hideLoader() {
+    isLoading = false;
+    loader.classList.add('hidden');
+    projectsGrid.classList.remove('loading');
+    
+    // Анимация появления карточек
+    setTimeout(() => {
+      const visibleCards = document.querySelectorAll('.project-card[style*="display: block"]');
+      visibleCards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('visible');
+        }, index * 50);
+      });
+    }, 100);
+  }
+  
+  // Отложенная функция (debounce) для поиска
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  
+  // Функция сортировки
+  function sortProjects(projects) {
+    const sortValue = filters.sort.value;
+    if (!sortValue) return projects;
+    
+    return Array.from(projects).sort((a, b) => {
+      switch (sortValue) {
+        case 'price-asc':
+          return (parseInt(a.dataset.price) || 0) - (parseInt(b.dataset.price) || 0);
+        case 'price-desc':
+          return (parseInt(b.dataset.price) || 0) - (parseInt(a.dataset.price) || 0);
+        case 'area-asc':
+          return (parseInt(a.dataset.area) || 0) - (parseInt(b.dataset.area) || 0);
+        case 'area-desc':
+          return (parseInt(b.dataset.area) || 0) - (parseInt(a.dataset.area) || 0);
+        case 'title-asc':
+          return a.dataset.title.localeCompare(b.dataset.title);
+        case 'title-desc':
+          return b.dataset.title.localeCompare(a.dataset.title);
+        case 'date-desc':
+          return (parseInt(b.dataset.date) || 0) - (parseInt(a.dataset.date) || 0);
+        case 'date-asc':
+          return (parseInt(a.dataset.date) || 0) - (parseInt(b.dataset.date) || 0);
+        default:
+          return 0;
+      }
+    });
+  }
+  
+  // Функция фильтрации
+  // Функция фильтрации с лоадером
+  function filterProjects() {
+    showLoader('Применение фильтров...');
+    
+    // Убираем класс visible у всех карточек
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.classList.remove('visible');
+    });
+    
+    // Небольшая задержка для плавности
+    setTimeout(() => {
+      const allProjects = projectsGrid.querySelectorAll('.project-card');
+      let visibleProjects = [];
+      
+      // Сначала фильтруем
+      allProjects.forEach(project => {
+        let visible = true;
+        
+        // Фильтр по категории
+        if (filters.category.value && project.dataset.category !== filters.category.value) {
+          visible = false;
+        }
+        
+        // Фильтр по площади
+        if (filters.area.value) {
+          const area = parseInt(project.dataset.area) || 0;
+          const [min, max] = filters.area.value.split('-').map(v => v === '+' ? Infinity : parseInt(v));
+          if (area < min || area > max) {
+            visible = false;
+          }
+        }
+        
+        // Фильтр по материалу
+        if (filters.material.value && !project.dataset.material.includes(filters.material.value)) {
+          visible = false;
+        }
+        
+        // Фильтр по этажам
+        if (filters.floors.value && project.dataset.floors !== filters.floors.value) {
+          visible = false;
+        }
+        
+        // Фильтр по цене
+        if (filters.price.value) {
+          const price = parseInt(project.dataset.price) || 0;
+          const [min, max] = filters.price.value.split('-').map(v => v === '+' ? Infinity : parseInt(v));
+          if (price < min || price > max) {
+            visible = false;
+          }
+        }
+        
+        // Поиск по названию
+        if (filters.search.value && !project.dataset.title.includes(filters.search.value.toLowerCase())) {
+          visible = false;
+        }
+        
+        if (visible) {
+          visibleProjects.push(project);
+        }
+        
+        // Временно скрываем все
+        project.style.display = 'none';
+      });
+      
+      // Сортируем видимые проекты
+      const sortedProjects = sortProjects(visibleProjects);
+      
+      // Показываем отсортированные проекты в правильном порядке
+      sortedProjects.forEach((project, index) => {
+        project.style.display = 'block';
+        project.style.order = index;
+      });
+      
+      // Обновить счетчик
+      resultsCount.textContent = visibleProjects.length;
+      
+      // Показать/скрыть сообщение "ничего не найдено"
+      noResults.style.display = visibleProjects.length === 0 ? 'block' : 'none';
+      projectsGrid.style.display = visibleProjects.length === 0 ? 'none' : 'grid';
+      
+      // Скрыть лоадер
+      setTimeout(hideLoader, 300);
+    }, 150);
+  }
+  
+  // Обработчики событий с debounce для поиска
   Object.values(filters).forEach(filter => {
-    filter.addEventListener('change', filterProjects);
-    filter.addEventListener('input', filterProjects);
+    if (filter === filters.search) {
+      // Для поиска используем debounce
+      filter.addEventListener('input', debounce(filterProjects, 300));
+    } else {
+      filter.addEventListener('change', filterProjects);
+    }
   });
   
   // Сброс фильтров
   resetBtn.addEventListener('click', function() {
-    Object.values(filters).forEach(filter => {
-      filter.value = '';
-    });
-    filterProjects();
+    showLoader('Сброс фильтров...');
+    setTimeout(() => {
+      Object.values(filters).forEach(filter => {
+        filter.value = '';
+      });
+      filterProjects();
+    }, 100);
   });
+  
+  // Отслеживание загрузки изображений
+  function initImageLoading() {
+    const images = document.querySelectorAll('.project-card img');
+    totalImages = images.length;
+    imagesLoaded = 0;
+    
+    if (totalImages === 0) {
+      hideLoader();
+      return;
+    }
+    
+    images.forEach(img => {
+      if (img.complete) {
+        imagesLoaded++;
+      } else {
+        img.addEventListener('load', () => {
+          imagesLoaded++;
+          if (imagesLoaded === totalImages) {
+            hideLoader();
+          }
+        });
+        
+        img.addEventListener('error', () => {
+          imagesLoaded++;
+          if (imagesLoaded === totalImages) {
+            hideLoader();
+          }
+        });
+      }
+    });
+    
+    // Если все изображения уже загружены
+    if (imagesLoaded === totalImages) {
+      hideLoader();
+    }
+  }
+  
+  // Инициализация при загрузке страницы
+  showLoader('Загрузка каталога...');
+  
+  // Сначала показываем все карточки как видимые
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.classList.add('visible');
+  });
+  
+  setTimeout(() => {
+    initImageLoading();
+    // Если изображения загрузились быстро, скрываем лоадер через секунду
+    setTimeout(() => {
+      if (isLoading) hideLoader();
+    }, 1000);
+  }, 100);
   
   // Обработчик кнопок "Узнать цену"
   document.addEventListener('click', function(e) {
