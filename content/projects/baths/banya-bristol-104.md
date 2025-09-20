@@ -22,7 +22,7 @@ category: "Баня"
 area: "104 м²"
 dimensions: "8,35х12,5"
 floors: 2
-rooms: 3
+rest_rooms: 3
 diameter: "30 см"
 
 # Цена и объем

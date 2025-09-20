@@ -23,7 +23,7 @@ category: "Проекты бань с террасой"
 area: "245 м²"
 dimensions: "18500*12400"
 floors: 1
-rooms: 1
+rest_rooms: 1
 diameter: "30"
 
 # Цена и объем

@@ -52,7 +52,12 @@
             <div class="spec-card-value">{{ .Params.rooms }}</div>
           </div>
           {{ end }}
-          
+          {{ if .Params.rest_rooms }}
+            <div class="spec-card">
+              <div class="spec-card-label">Комнат отдыха</div>
+              <div class="spec-card-value">{{ .Params.rest_rooms }}</div>
+            </div>
+          {{ end }}
           {{ if .Params.dimensions }}
           <div class="spec-card">
             <div class="spec-card-label">Размер</div>
@@ -308,6 +313,11 @@ ol, ul {
 ul {
   list-style-type: disc;
 }
+.plan-images {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
 /* Галерея */
 .project-gallery {
@@ -327,7 +337,7 @@ ul {
 .main-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -599,6 +609,12 @@ ul {
   cursor: pointer;
   transition: transform 0.3s ease;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+@media(min-width: 1000px) {
+  .floor-plan img  {
+    max-height: 1000px;
+    object-fit: contain;
+  }
 }
 
 .floor-plan img:hover {
