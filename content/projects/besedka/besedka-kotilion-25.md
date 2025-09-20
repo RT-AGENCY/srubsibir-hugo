@@ -48,11 +48,6 @@ gallery:
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/besedka/besedka-kotilion-25/besedka-1-13.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/besedka/besedka-kotilion-25/besedka-1-14.jpg"
 
-# Планировка
-floor_plans:
-  - title: "План беседки"
-    image: "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/gazebos/kotilion/plan-kotilion.webp"
-
 # SEO
 description: "Проект беседки из бревна Котильон 25 м² из лиственницы диаметром 26 см. Открытая беседка 5х5 м для семейного отдыха на участке."
 keywords: ["беседка", "котильон", "25 м2", "лиственница", "5х5", "открытая беседка", "семейный отдых"]
