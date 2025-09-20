@@ -19,6 +19,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Дома из бревна в стиле Шале"
+main_category: "Дом"
 area: "238 м²"
 dimensions: "15*14"
 floors: 1

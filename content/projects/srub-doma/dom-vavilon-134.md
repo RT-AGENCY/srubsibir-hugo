@@ -19,6 +19,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Дома с террасой, мансардой"
+main_category: "Дом"
 area: "134 м²"
 dimensions: "8*8 м"
 floors: 2

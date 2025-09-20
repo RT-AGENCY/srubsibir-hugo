@@ -3,7 +3,7 @@
   <div class="callback-modal-overlay" onclick="closeCallbackModal()"></div>
   <div class="callback-modal-content">
     <div class="callback-modal-header">
-      <h2>Заказать обратный звонок</h2>
+      <h2 id="callbackModalTitle">Заказать обратный звонок</h2>
       <button class="callback-modal-close" onclick="closeCallbackModal()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -14,18 +14,41 @@
 
     <div class="callback-modal-body">
       <form class="callback-form" id="callbackForm">
+        
+        <!-- Информация о проекте (показывается только для проектов) -->
+        <div class="project-info-block" id="projectInfoBlock" style="display: none;">
+          <h3>Интересующий проект:</h3>
+          <div class="project-details">
+            <div class="project-detail-row">
+              <span class="project-detail-label">Название:</span>
+              <span class="project-detail-value" id="projectTitle"></span>
+            </div>
+            <div class="project-detail-row">
+              <span class="project-detail-label">Площадь:</span>
+              <span class="project-detail-value" id="projectArea"></span>
+            </div>
+            <div class="project-detail-row">
+              <span class="project-detail-label">Категория:</span>
+              <span class="project-detail-value" id="projectCategory"></span>
+            </div>
+            <div class="project-detail-row">
+              <span class="project-detail-label">Цена:</span>
+              <span class="project-detail-value" id="projectPrice"></span>
+            </div>
+          </div>
+          <input type="hidden" id="projectDataInput" name="project_data" value="">
+        </div>
+
         <!-- Имя -->
         <div class="callback-form-group">
           <label for="callbackName" class="callback-form-label">Ваше имя *</label>
-          <input type="text" id="callbackName" name="name" class="callback-form-input" placeholder="Введите ваше имя"
-            required>
+          <input type="text" id="callbackName" name="name" class="callback-form-input" placeholder="Введите ваше имя" required>
         </div>
 
         <!-- Телефон -->
         <div class="callback-form-group">
           <label for="callbackPhone" class="callback-form-label">Номер телефона *</label>
-          <input type="tel" id="callbackPhone" name="phone" class="callback-form-input" placeholder="+7 (___) ___-__-__"
-            required>
+          <input type="tel" id="callbackPhone" name="phone" class="callback-form-input" placeholder="+7 (___) ___-__-__" required>
         </div>
 
         <!-- Время звонка -->
@@ -42,8 +65,7 @@
         <!-- Комментарий -->
         <div class="callback-form-group">
           <label for="callbackComment" class="callback-form-label">Комментарий</label>
-          <textarea id="callbackComment" name="comment" class="callback-form-textarea"
-            placeholder="Дополнительные пожелания или вопросы" rows="3"></textarea>
+          <textarea id="callbackComment" name="comment" class="callback-form-textarea" placeholder="Дополнительные пожелания или вопросы" rows="3"></textarea>
         </div>
 
         <!-- Согласие -->
@@ -56,7 +78,7 @@
 
         <!-- Кнопка отправки -->
         <button type="submit" class="callback-form-submit">
-          <span class="callback-btn-text callback-btn">Заказать звонок</span>
+          <span class="callback-btn-text">Заказать звонок</span>
           <span class="callback-btn-loader" style="display: none;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" opacity="0.3" />
@@ -75,7 +97,7 @@
           </svg>
         </div>
         <h3>Спасибо за заявку!</h3>
-        <p>Мы свяжемся с вами в ближайшее время</p>
+        <p>Мы свяжемся с вами в ближайшее время для обсуждения проекта</p>
         <button class="callback-success-btn" onclick="closeCallbackModal()">Закрыть</button>
       </div>
     </div>
@@ -83,556 +105,585 @@
 </div>
 
 <style>
-  /* Модальное окно */
-  .callback-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10000;
-    font-family: Arial, sans-serif;
-  }
+/* Базовые стили модального окна */
+.callback-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  font-family: Arial, sans-serif;
+}
 
-  .callback-modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.3s ease;
-  }
+.callback-modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
 
-  .callback-modal-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    cursor: pointer;
-  }
+.callback-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
 
+.callback-modal-content {
+  position: relative;
+  background: white;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideInUp 0.3s ease;
+  margin: 20px;
+}
+
+/* Заголовок */
+.callback-modal-header {
+  padding: 25px 30px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.callback-modal-header h2 {
+  margin: 0;
+  color: #2c5530;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.callback-modal-close {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.callback-modal-close:hover {
+  background: #f0f0f0;
+  color: #2c5530;
+  transform: rotate(90deg);
+}
+
+/* Тело модального окна */
+.callback-modal-body {
+  padding: 30px;
+}
+
+/* Информация о проекте */
+.project-info-block {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-left: 4px solid #8bc34a;
+}
+
+.project-info-block h3 {
+  margin: 0 0 15px 0;
+  color: #2c5530;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.project-details {
+  display: grid;
+  gap: 10px;
+}
+
+.project-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(139, 195, 74, 0.1);
+}
+
+.project-detail-row:last-child {
+  border-bottom: none;
+}
+
+.project-detail-label {
+  font-weight: 600;
+  color: #666;
+  font-size: 14px;
+  padding-right: 10px;
+}
+
+.project-detail-value {
+  color: #2c5530;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: right;
+}
+
+/* Форма */
+.callback-form-group {
+  margin-bottom: 20px;
+}
+
+.callback-form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c5530;
+  font-size: 14px;
+}
+
+.callback-form-input,
+.callback-form-select,
+.callback-form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: white;
+  box-sizing: border-box;
+}
+
+.callback-form-input:focus,
+.callback-form-select:focus,
+.callback-form-textarea:focus {
+  outline: none;
+  border-color: #8bc34a;
+  box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1);
+}
+
+.callback-form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.callback-form-select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  appearance: none;
+}
+
+/* Чекбокс */
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.callback-checkbox-label {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #666;
+}
+
+.callback-checkbox-label a {
+  color: #8bc34a;
+  text-decoration: none;
+}
+
+.callback-checkbox-label a:hover {
+  text-decoration: underline;
+}
+
+/* Кнопка отправки */
+.callback-form-submit {
+  width: 100%;
+  background: linear-gradient(135deg, #8bc34a 0%, #7cb342 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.callback-form-submit:hover {
+  background: linear-gradient(135deg, #7cb342 0%, #689f38 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+}
+
+.callback-form-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.callback-btn-loader svg {
+  animation: spin 1s linear infinite;
+}
+
+/* Успешная отправка */
+.callback-success {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.callback-success-icon {
+  margin-bottom: 20px;
+}
+
+.callback-success h3 {
+  color: #2c5530;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.callback-success p {
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.callback-success-btn {
+  background: #8bc34a;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.callback-success-btn:hover {
+  background: #7cb342;
+  transform: translateY(-1px);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
   .callback-modal-content {
-    position: relative;
-    background: white;
-    border-radius: 15px;
-    width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: slideInUp 0.3s ease;
-    margin: 20px;
+    margin: 10px;
+    max-height: 95vh;
   }
 
-  /* Заголовок */
   .callback-modal-header {
-    padding: 25px 30px 20px;
-    border-bottom: 1px solid #f0f0f0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 20px 20px 15px;
   }
 
   .callback-modal-header h2 {
-    margin: 0;
-    color: #2c5530;
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 20px;
   }
 
-  .callback-modal-close {
-    background: none;
-    border: none;
-    color: #666;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .callback-modal-close:hover {
-    background: #f0f0f0;
-    color: #2c5530;
-    transform: rotate(90deg);
-  }
-
-  /* Тело модального окна */
   .callback-modal-body {
-    padding: 30px;
+    padding: 20px;
   }
 
-  /* Форма */
-  .callback-form-group {
-    margin-bottom: 20px;
-  }
-
-  .callback-form-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #2c5530;
-    font-size: 14px;
+  .project-detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
   }
 
   .callback-form-input,
   .callback-form-select,
   .callback-form-textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    background: white;
-    box-sizing: border-box;
-  }
-
-  .callback-form-input:focus,
-  .callback-form-select:focus,
-  .callback-form-textarea:focus {
-    outline: none;
-    border-color: #8bc34a;
-    box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1);
-  }
-
-  .callback-form-textarea {
-    resize: vertical;
-    min-height: 80px;
-  }
-
-  .callback-form-select {
-    cursor: pointer;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 16px;
-    appearance: none;
-  }
-
-  /* Чекбокс */
-  .checkbox-group {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .checkbox-group input[type="checkbox"] {
-    width: auto;
-    margin: 0;
-    margin-top: 2px;
-    flex-shrink: 0;
-  }
-
-  .callback-checkbox-label {
-    font-size: 14px;
-    line-height: 1.4;
-    color: #666;
-    margin: 0;
-    cursor: pointer;
-  }
-
-  .callback-checkbox-label a {
-    color: #8bc34a;
-    text-decoration: none;
-  }
-
-  .callback-checkbox-label a:hover {
-    text-decoration: underline;
-  }
-
-  /* Кнопка отправки */
-  .callback-form-submit {
-    width: 100%;
-    background: linear-gradient(135deg, #8bc34a, #4a7c59);
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    margin-top: 10px;
-  }
-
-  .callback-form-submit:hover:not(:disabled) {
-    background: linear-gradient(135deg, #4a7c59, #2c5530);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
-  }
-
-  .callback-form-submit:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .callback-btn-loader {
-    animation: spin 1s linear infinite;
-  }
-
-  /* Сообщение об успешной отправке */
-  .callback-success {
-    text-align: center;
-    padding: 20px;
-  }
-
-  .callback-success-icon {
-    margin-bottom: 20px;
-  }
-
-  .callback-success h3 {
-    color: #2c5530;
-    margin-bottom: 10px;
-    font-size: 22px;
-  }
-
-  .callback-success p {
-    color: #666;
-    margin-bottom: 25px;
     font-size: 16px;
   }
+}
 
-  .callback-success-btn {
-    background: linear-gradient(135deg, #8bc34a, #4a7c59);
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+@media (max-width: 480px) {
+  .callback-modal-content {
+    margin: 5px;
   }
 
-  .callback-success-btn:hover {
-    background: linear-gradient(135deg, #4a7c59, #2c5530);
-    transform: translateY(-2px);
+  .callback-modal-header {
+    padding: 15px 15px 10px;
   }
 
-  /* Анимации */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
+  .callback-modal-body {
+    padding: 15px;
   }
+}
 
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
+/* Валидация */
+.callback-form-input:invalid,
+.callback-form-textarea:invalid {
+  border-color: #dc3545;
+}
 
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+.callback-form-input:valid,
+.callback-form-textarea:valid {
+  border-color: #28a745;
+}
 
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  /* Мобильная адаптация */
-  @media (max-width: 768px) {
-    .callback-modal-content {
-      margin: 10px;
-      max-height: 95vh;
-    }
-
-    .callback-modal-header {
-      padding: 20px 20px 15px;
-    }
-
-    .callback-modal-header h2 {
-      font-size: 20px;
-    }
-
-    .callback-modal-body {
-      padding: 20px;
-    }
-
-    .callback-form-input,
-    .callback-form-select,
-    .callback-form-textarea {
-      font-size: 16px;
-      /* Предотвращает zoom на iOS */
-    }
-  }
-
-  @media (max-width: 480px) {
-    .callback-modal-content {
-      margin: 5px;
-    }
-
-    .callback-modal-header {
-      padding: 15px 15px 10px;
-    }
-
-    .callback-modal-body {
-      padding: 15px;
-    }
-  }
-
-  /* Валидация */
-  .callback-form-input:invalid,
-  .callback-form-textarea:invalid {
-    border-color: #dc3545;
-  }
-
-  .callback-form-input:valid,
-  .callback-form-textarea:valid {
-    border-color: #28a745;
-  }
-
-  /* Состояние загрузки формы */
-  .callback-form.loading {
-    opacity: 0.7;
-    pointer-events: none;
-  }
+/* Состояние загрузки формы */
+.callback-form.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
 </style>
 
 <script>
-  // Функции управления модальным окном
-  function openCallbackModal() {
-    const modal = document.getElementById('callbackModal');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+// Основные функции управления модальным окном
+function openCallbackModal() {
+  const modal = document.getElementById('callbackModal');
+  const projectBlock = document.getElementById('projectInfoBlock');
+  const modalTitle = document.getElementById('callbackModalTitle');
+  
+  // Скрываем информацию о проекте для обычного звонка
+  projectBlock.style.display = 'none';
+  modalTitle.textContent = 'Заказать обратный звонок';
+  
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
 
-    // Фокус на первое поле
-    setTimeout(() => {
-      document.getElementById('callbackName').focus();
-    }, 300);
-  }
+  setTimeout(() => {
+    document.getElementById('callbackName').focus();
+  }, 300);
+}
 
-  function closeCallbackModal() {
-    const modal = document.getElementById('callbackModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
+function openCallbackModalWithProject(projectData) {
+  const modal = document.getElementById('callbackModal');
+  const projectBlock = document.getElementById('projectInfoBlock');
+  const modalTitle = document.getElementById('callbackModalTitle');
+  
+  // Показываем информацию о проекте
+  projectBlock.style.display = 'block';
+  modalTitle.textContent = 'Узнать цену проекта';
+  
+  // Заполняем данные о проекте
+  document.getElementById('projectTitle').textContent = projectData.title || 'Не указано';
+  document.getElementById('projectArea').textContent = projectData.area || 'Не указано';
+  document.getElementById('projectCategory').textContent = projectData.category || 'Не указано';
+  document.getElementById('projectPrice').textContent = projectData.price || 'Уточнить';
+  
+  // Сохраняем данные в скрытое поле для отправки
+  document.getElementById('projectDataInput').value = JSON.stringify(projectData);
+  
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
 
-    // Сброс формы
-    resetCallbackForm();
-  }
+  setTimeout(() => {
+    document.getElementById('callbackName').focus();
+  }, 300);
+}
 
-  function resetCallbackForm() {
-    const form = document.getElementById('callbackForm');
-    const success = document.getElementById('callbackSuccess');
+function closeCallbackModal() {
+  const modal = document.getElementById('callbackModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+  resetCallbackForm();
+}
 
-    form.style.display = 'block';
-    success.style.display = 'none';
-    form.reset();
+function resetCallbackForm() {
+  const form = document.getElementById('callbackForm');
+  const success = document.getElementById('callbackSuccess');
+  const projectBlock = document.getElementById('projectInfoBlock');
 
-    // Сброс состояния кнопки
+  form.style.display = 'block';
+  success.style.display = 'none';
+  projectBlock.style.display = 'none';
+  form.reset();
+
+  const submitBtn = form.querySelector('.callback-form-submit');
+  submitBtn.disabled = false;
+  submitBtn.querySelector('.callback-btn-text').style.display = 'inline';
+  submitBtn.querySelector('.callback-btn-loader').style.display = 'none';
+}
+
+// Инициализация формы
+function initCallbackForm() {
+  const form = document.getElementById('callbackForm');
+  if (!form) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    if (!validateCallbackForm()) return;
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
     const submitBtn = form.querySelector('.callback-form-submit');
-    submitBtn.disabled = false;
-    submitBtn.querySelector('.callback-btn-text').style.display = 'inline';
-    submitBtn.querySelector('.callback-btn-loader').style.display = 'none';
-  }
+    submitBtn.disabled = true;
+    submitBtn.querySelector('.callback-btn-text').style.display = 'none';
+    submitBtn.querySelector('.callback-btn-loader').style.display = 'inline';
+    form.classList.add('loading');
 
-  // Обновляем функцию в виджете
-  function showCallbackForm() {
-    openCallbackModal();
-
-    // Закрываем виджет
-    const widget = document.getElementById('contactWidget');
-    if (widget) {
-      widget.classList.remove('active');
-    }
-  }
-
-  // Маска для телефона
-  function initPhoneMask() {
-    const phoneInput = document.getElementById('callbackPhone');
-    if (!phoneInput) return;
-
-    phoneInput.addEventListener('input', function (e) {
-      let value = e.target.value.replace(/\D/g, '');
-
-      if (value.length > 0) {
-        if (value[0] === '8') {
-          value = '7' + value.slice(1);
-        }
-        if (value[0] === '7') {
-          value = value.replace(/^7(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/, function (match, p1, p2, p3, p4) {
-            let result = '+7';
-            if (p1) result += ' (' + p1;
-            if (p1 && p1.length === 3) result += ')';
-            if (p2) result += ' ' + p2;
-            if (p3) result += '-' + p3;
-            if (p4) result += '-' + p4;
-            return result;
-          });
-        }
-      }
-
-      e.target.value = value;
-    });
-
-    // Placeholder исчезает при фокусе
-    phoneInput.addEventListener('focus', function (e) {
-      if (e.target.value === '') {
-        e.target.value = '+7 (';
-      }
-    });
-
-    phoneInput.addEventListener('blur', function (e) {
-      if (e.target.value === '+7 (') {
-        e.target.value = '';
-      }
-    });
-  }
-
-  // Обработка формы
-  function initCallbackForm() {
-    const form = document.getElementById('callbackForm');
-    if (!form) return;
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      // Валидация
-      if (!validateCallbackForm()) {
-        return;
-      }
-
-      // Состояние загрузки
-      const submitBtn = form.querySelector('.callback-form-submit');
-      submitBtn.disabled = true;
-      submitBtn.querySelector('.callback-btn-text').style.display = 'none';
-      submitBtn.querySelector('.callback-btn-loader').style.display = 'inline';
-
-      form.classList.add('loading');
-
-      // Получаем данные формы
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-
-      // Отправка данных (замените на ваш API)
-      submitCallbackForm(data)
-        .then(() => {
-          // Показываем сообщение об успехе
-          form.style.display = 'none';
-          document.getElementById('callbackSuccess').style.display = 'block';
-        })
-        .catch((error) => {
-          console.error('Ошибка отправки:', error);
-          alert('Произошла ошибка при отправке заявки. Попробуйте позже.');
-        })
-        .finally(() => {
-          form.classList.remove('loading');
-          submitBtn.disabled = false;
-          submitBtn.querySelector('.callback-btn-text').style.display = 'inline';
-          submitBtn.querySelector('.callback-btn-loader').style.display = 'none';
-        });
-    });
-  }
-
-  // Валидация формы
-  function validateCallbackForm() {
-    const name = document.getElementById('callbackName').value.trim();
-    const phone = document.getElementById('callbackPhone').value.trim();
-    const privacy = document.getElementById('callbackPrivacy').checked;
-
-    if (!name || name.length < 2) {
-      alert('Введите корректное имя');
-      return false;
-    }
-
-    if (!phone || phone.length < 10) {
-      alert('Введите корректный номер телефона');
-      return false;
-    }
-
-    if (!privacy) {
-      alert('Необходимо согласие на обработку персональных данных');
-      return false;
-    }
-
-    return true;
-  }
-
-  // Отправка данных (замените на ваш API)
-  async function submitCallbackForm(data) {
-    // Имитация отправки
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log('Данные формы обратного звонка:', data);
-
-        // Здесь должна быть реальная отправка на сервер
-        // fetch('/api/callback', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify(data)
-        // })
-
-        resolve();
-      }, 2000);
-    });
-  }
-
-  // Закрытие по Escape
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      const modal = document.getElementById('callbackModal');
-      if (modal && modal.classList.contains('active')) {
-        closeCallbackModal();
-      }
-    }
-  });
-
-  // Инициализация при загрузке
-  document.addEventListener('DOMContentLoaded', function () {
-    initPhoneMask();
-    initCallbackForm();
-    initCallbackTriggers();
-  });
-
-  function initCallbackTriggers() {
-    // Все возможные селекторы для кнопок заказа
-    const triggerSelectors = [
-      '.mobile-callback-btn',           // Кнопка в мобильном меню
-      '.callback-trigger',              // Универсальный класс для всех кнопок заказа
-      '.order-callback-btn',            // Кнопки заказа
-      '.request-call-btn',              // Кнопки "Заказать звонок"
-      '[data-callback="true"]',         // Элементы с data-атрибутом
-      '.btn-callback',                  // Еще один вариант класса
-      '.callback-btn'                   // И еще один
-    ];
-
-    // Находим все элементы с этими классами
-    triggerSelectors.forEach(selector => {
-      const elements = document.querySelectorAll(selector);
-
-      elements.forEach(element => {
-        // Проверяем, что обработчик еще не добавлен
-        if (!element.hasAttribute('data-callback-initialized')) {
-          element.setAttribute('data-callback-initialized', 'true');
-
-          element.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            openCallbackModal();
-          });
-        }
+    submitCallbackForm(data)
+      .then(() => {
+        form.style.display = 'none';
+        document.getElementById('callbackSuccess').style.display = 'block';
+      })
+      .catch(() => {
+        alert('Произошла ошибка при отправке. Попробуйте позже.');
+      })
+      .finally(() => {
+        form.classList.remove('loading');
+        submitBtn.disabled = false;
+        submitBtn.querySelector('.callback-btn-text').style.display = 'inline';
+        submitBtn.querySelector('.callback-btn-loader').style.display = 'none';
       });
-    });
+  });
+}
 
-    console.log('Инициализированы триггеры формы обратного звонка');
+function validateCallbackForm() {
+  const name = document.getElementById('callbackName').value.trim();
+  const phone = document.getElementById('callbackPhone').value.trim();
+  const privacy = document.getElementById('callbackPrivacy').checked;
+
+  if (!name || name.length < 2) {
+    alert('Введите корректное имя');
+    return false;
   }
+
+  if (!phone || phone.length < 10) {
+    alert('Введите корректный номер телефона');
+    return false;
+  }
+
+  if (!privacy) {
+    alert('Необходимо согласие на обработку персональных данных');
+    return false;
+  }
+
+  return true;
+}
+
+async function submitCallbackForm(data) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log('Данные формы обратного звонка:', data);
+      
+      // Если есть данные о проекте, выводим их отдельно
+      if (data.project_data) {
+        console.log('Данные о проекте:', JSON.parse(data.project_data));
+      }
+      
+      resolve();
+    }, 2000);
+  });
+}
+
+// Маска для телефона
+function initPhoneMask() {
+  const phoneInput = document.getElementById('callbackPhone');
+  if (!phoneInput) return;
+
+  phoneInput.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    
+    if (value.startsWith('8')) {
+      value = '7' + value.slice(1);
+    }
+    
+    if (value.startsWith('7')) {
+      const match = value.match(/^7(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})$/);
+      if (match) {
+        e.target.value = '+7' + 
+          (match[1] ? ' (' + match[1] : '') +
+          (match[2] ? ') ' + match[2] : '') +
+          (match[3] ? '-' + match[3] : '') +
+          (match[4] ? '-' + match[4] : '');
+      }
+    }
+  });
+}
+
+// Закрытие по Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('callbackModal');
+    if (modal && modal.classList.contains('active')) {
+      closeCallbackModal();
+    }
+  }
+});
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+  initPhoneMask();
+  initCallbackForm();
+  initCallbackTriggers();
+});
+
+function initCallbackTriggers() {
+  const triggerSelectors = [
+    '.callback-btn:not([data-project-title])',  // Обычные кнопки без проекта
+    '.mobile-callback-btn',
+    '.header-callback-btn',
+    '.widget-callback-btn'
+  ];
+
+  triggerSelectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(element => {
+      if (!element.hasAttribute('data-callback-initialized')) {
+        element.setAttribute('data-callback-initialized', 'true');
+        element.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          openCallbackModal();
+        });
+      }
+    });
+  });
+}
+
+// Обновляем функцию в виджете
+function showCallbackForm() {
+  openCallbackModal();
+  const widget = document.getElementById('contactWidget');
+  if (widget) {
+    widget.classList.remove('active');
+  }
+}
 </script>
