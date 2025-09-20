@@ -19,6 +19,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Кедровый сруб дома"
+main_category: "Дом"
 area: "175,45 м²"
 dimensions: "12,1х14,5"
 floors: 2

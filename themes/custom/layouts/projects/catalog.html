@@ -97,7 +97,7 @@
       {{ range .Pages }}
       {{ if .Params.category }}
       <div class="project-card" 
-           data-category="{{ .Params.category }}"
+           data-category="{{ .Params.main_category | default .Params.category }}"
            data-area="{{ .Params.area | replaceRE `[^0-9]` `` }}"
            data-floors="{{ .Params.floors }}"
            data-price="{{ .Params.price | replaceRE `[^0-9]` `` }}"

@@ -19,6 +19,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Дома с террасой"
+main_category: "Дом"
 area: "134 м²"
 dimensions: "14,8x15"
 floors: 2

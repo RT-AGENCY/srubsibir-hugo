@@ -20,6 +20,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Проекты бань с террасой"
+main_category: "Баня"
 area: "245 м²"
 dimensions: "18500*12400"
 floors: 1

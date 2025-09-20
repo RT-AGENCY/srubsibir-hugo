@@ -19,6 +19,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Рубленный дом из кедра"
+main_category: "Дом"
 area: "250 м²"
 dimensions: "11.5х18,7"
 floors: 2
