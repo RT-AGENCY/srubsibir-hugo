@@ -177,7 +177,7 @@
           {{ end }}
 
           <div class="project-actions">
-            <a href="{{ .RelPermalink }}" class="btn-primary">Подробнее</a>
+            <a href="{{ .RelPermalink }}" class="btn-secondary">Подробнее</a>
             <button class="btn-secondary callback-btn" 
                     data-project-title="{{ .Title }}"
                     data-project-area="{{ .Params.area }}"
@@ -340,6 +340,8 @@
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card:hover {
@@ -391,6 +393,9 @@
 
 .project-content {
   padding: 25px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .project-title {
@@ -430,6 +435,7 @@
   line-height: 1.5;
   margin-bottom: 20px;
   font-size: 14px;
+  flex: 1;
 }
 
 .project-actions {
