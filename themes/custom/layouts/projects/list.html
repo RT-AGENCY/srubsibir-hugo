@@ -118,7 +118,7 @@
       </div>
     </div>
     
-    <!-- Планировка -->
+<!-- Планировка -->
     {{ if .Params.floor_plans }}
     <div class="planning-section">
       <h2 class="section-title">Планировка</h2>
@@ -130,9 +130,33 @@
         {{ range .Params.floor_plans }}
         <div class="floor-plan">
           <h3>{{ .title }}</h3>
-          <img src="{{ .image }}" alt="{{ .title }}" onclick="openImageModal('{{ .image }}', '{{ .title }}')">
+          
+          <!-- Обработка одного или нескольких изображений -->
+          {{ if .images }}
+            <!-- Если есть массив images -->
+            <div class="plan-images">
+              {{ $planTitle := .title }}
+              {{ range .images }}
+              <img src="{{ . }}" alt="{{ $planTitle }}" onclick="openImageModal('{{ . }}', '{{ $planTitle }}')">
+              {{ end }}
+            </div>
+          {{ else if .image }}
+            <!-- Если есть одно изображение -->
+            <img src="{{ .image }}" alt="{{ .title }}" onclick="openImageModal('{{ .image }}', '{{ .title }}')">
+          {{ end }}
+          
           {{ if .description }}
           <p>{{ .description }}</p>
+          {{ end }}
+          
+          <!-- Ссылка на план, если есть -->
+          {{ if .link }}
+          <div class="plan-link">
+            <a href="{{ .link }}" class="btn btn-secondary plan-download-btn" target="_blank">
+              <span class="download-icon">📄</span>
+              Скачать план
+            </a>
+          </div>
           {{ end }}
         </div>
         {{ end }}
@@ -277,7 +301,9 @@ function contactUs() {
 ol, ul {
   padding-left: 20px;
   list-style: auto;
-
+}
+ul {
+  list-style-type: disc;
 }
 
 /* Галерея */
