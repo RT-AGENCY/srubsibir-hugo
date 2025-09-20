@@ -122,9 +122,12 @@
     {{ if .Params.floor_plans }}
     <div class="planning-section">
       <h2 class="section-title">Планировка</h2>
+      
+      {{ if .Params.planning_description }}
       <div class="planning-description">
         {{ .Params.planning_description | markdownify }}
       </div>
+      {{ end }}
       
       <div class="floor-plans">
         {{ range .Params.floor_plans }}
