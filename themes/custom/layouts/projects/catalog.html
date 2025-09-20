@@ -178,7 +178,13 @@
 
           <div class="project-actions">
             <a href="{{ .RelPermalink }}" class="btn-primary">Подробнее</a>
-            <button class="btn-secondary callback-btn">Узнать цену</button>
+            <button class="btn-secondary callback-btn" 
+                    data-project-title="{{ .Title }}"
+                    data-project-area="{{ .Params.area }}"
+                    data-project-price="{{ .Params.price }}"
+                    data-project-category="{{ .Params.main_category | default .Params.category }}">
+              Узнать цену
+            </button>
           </div>
         </div>
       </div>
@@ -830,8 +836,18 @@ document.addEventListener('DOMContentLoaded', function() {
   // Обработчик кнопок "Узнать цену"
   document.addEventListener('click', function(e) {
     if (e.target.classList.contains('callback-btn')) {
-      alert('Здесь будет форма обратной связи');
-      // Добавь здесь логику открытия модального окна
+      e.preventDefault();
+      
+      // Получаем данные о проекте из data-атрибутов
+      const projectData = {
+        title: e.target.dataset.projectTitle,
+        area: e.target.dataset.projectArea,
+        price: e.target.dataset.projectPrice,
+        category: e.target.dataset.projectCategory
+      };
+      
+      // Открываем форму с данными проекта
+      openCallbackModalWithProject(projectData);
     }
   });
 });
