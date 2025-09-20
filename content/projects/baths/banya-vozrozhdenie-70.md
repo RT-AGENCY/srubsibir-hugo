@@ -22,7 +22,7 @@ category: "Баня"
 area: "70 м²"
 dimensions: "5х7 м"
 floors: 2
-rooms: 2
+rest_rooms: 2
 diameter: "46-52 см"
 
 # Цена и объем

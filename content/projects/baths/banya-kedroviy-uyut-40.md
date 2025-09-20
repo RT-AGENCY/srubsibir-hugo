@@ -21,7 +21,7 @@ showCallForm: true
 category: "Баня с террасой"
 area: "40 м²"
 floors: 1
-rooms: 1
+rest_rooms: 1
 diameter: "30-34 см"
 
 # Цена и объем

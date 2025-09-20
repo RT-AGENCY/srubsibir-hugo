@@ -52,7 +52,12 @@
             <div class="spec-card-value">{{ .Params.rooms }}</div>
           </div>
           {{ end }}
-          
+          {{ if .Params.rest_rooms }}
+            <div class="spec-card">
+              <div class="spec-card-label">Комнат отдыха</div>
+              <div class="spec-card-value">{{ .Params.rest_rooms }}</div>
+            </div>
+          {{ end }}
           {{ if .Params.dimensions }}
           <div class="spec-card">
             <div class="spec-card-label">Размер</div>
