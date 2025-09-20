@@ -1,0 +1,591 @@
+{{ define "main" }}
+<div class="projects-catalog">
+  <div class="container">
+    
+    <!-- Хлебные крошки -->
+    <nav class="breadcrumb">
+      <ul class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+        <li class="breadcrumb-item"><span>Проекты</span></li>
+      </ul>
+    </nav>
+
+    <!-- Заголовок -->
+    <h1 class="catalog-title">{{ .Title | default "Каталог проектов" }}</h1>
+
+    <!-- Фильтры -->
+    <div class="filters-section">
+      <div class="filters-container">
+        
+        <!-- Тип строения -->
+        <div class="filter-group">
+          <label for="category-filter">Тип строения:</label>
+          <select id="category-filter" class="filter-select">
+            <option value="">Все</option>
+            <option value="Дом">Дома</option>
+            <option value="Баня">Бани</option>
+            <option value="Дом-баня">Дома-бани</option>
+            <option value="Беседка">Беседки</option>
+          </select>
+        </div>
+
+        <!-- Площадь -->
+        <div class="filter-group">
+          <label for="area-filter">Площадь:</label>
+          <select id="area-filter" class="filter-select">
+            <option value="">Любая</option>
+            <option value="0-50">До 50 м²</option>
+            <option value="50-100">50-100 м²</option>
+            <option value="100-150">100-150 м²</option>
+            <option value="150-200">150-200 м²</option>
+            <option value="200+">Свыше 200 м²</option>
+          </select>
+        </div>
+
+        <!-- Материал -->
+        <div class="filter-group">
+          <label for="material-filter">Материал:</label>
+          <select id="material-filter" class="filter-select">
+            <option value="">Любой</option>
+            <option value="кедр">Кедр</option>
+            <option value="лиственница">Лиственница</option>
+            <option value="сосна">Сосна</option>
+          </select>
+        </div>
+
+        <!-- Этажность -->
+        <div class="filter-group">
+          <label for="floors-filter">Этажей:</label>
+          <select id="floors-filter" class="filter-select">
+            <option value="">Любое</option>
+            <option value="1">1 этаж</option>
+            <option value="2">2 этажа</option>
+            <option value="2.5">2.5 этажа</option>
+          </select>
+        </div>
+
+        <!-- Цена -->
+        <div class="filter-group">
+          <label for="price-filter">Цена:</label>
+          <select id="price-filter" class="filter-select">
+            <option value="">Любая</option>
+            <option value="0-2000000">До 2 млн</option>
+            <option value="2000000-4000000">2-4 млн</option>
+            <option value="4000000-6000000">4-6 млн</option>
+            <option value="6000000+">Свыше 6 млн</option>
+          </select>
+        </div>
+
+        <!-- Поиск -->
+        <div class="filter-group search-group">
+          <label for="search-filter">Поиск:</label>
+          <input type="text" id="search-filter" class="filter-input" placeholder="Название проекта...">
+        </div>
+
+        <!-- Кнопка сброса -->
+        <button id="reset-filters" class="reset-btn">Сбросить</button>
+      </div>
+    </div>
+
+    <!-- Результаты поиска -->
+    <div class="results-info">
+      <span id="results-count">{{ len .Pages }}</span> {{ if eq (len .Pages) 1 }}проект{{ else if and (ge (len .Pages) 2) (le (len .Pages) 4) }}проекта{{ else }}проектов{{ end }}
+    </div>
+
+    <!-- Сетка проектов -->
+    <div class="projects-grid" id="projects-grid">
+      {{ range .Pages }}
+      {{ if .Params.category }}
+      <div class="project-card" 
+           data-category="{{ .Params.category }}"
+           data-area="{{ .Params.area | replaceRE `[^0-9]` `` }}"
+           data-floors="{{ .Params.floors }}"
+           data-price="{{ .Params.price | replaceRE `[^0-9]` `` }}"
+           data-material="{{ .Content | lower }}"
+           data-title="{{ .Title | lower }}">
+        
+        <div class="project-image">
+          {{ if .Params.gallery }}
+            {{ $firstImage := index .Params.gallery 0 }}
+            <img src="{{ $firstImage }}" alt="{{ .Title }}" loading="lazy">
+          {{ else }}
+            <img src="/images/placeholder-project.jpg" alt="{{ .Title }}" loading="lazy">
+          {{ end }}
+          
+          <!-- Бейдж категории -->
+          <div class="project-badge">{{ .Params.category }}</div>
+          
+          <!-- Цена в углу -->
+          {{ if .Params.price }}
+          <div class="project-price">{{ .Params.price }}</div>
+          {{ end }}
+        </div>
+
+        <div class="project-content">
+          <h3 class="project-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h3>
+          
+          <div class="project-specs">
+            {{ if .Params.area }}
+            <span class="spec-item">
+              <i class="icon-area"></i>
+              {{ .Params.area }}
+            </span>
+            {{ end }}
+            
+            {{ if .Params.dimensions }}
+            <span class="spec-item">
+              <i class="icon-dimensions"></i>
+              {{ .Params.dimensions }}
+            </span>
+            {{ end }}
+            
+            {{ if .Params.floors }}
+            <span class="spec-item">
+              <i class="icon-floors"></i>
+              {{ .Params.floors }} {{ if eq .Params.floors 1 }}этаж{{ else }}этажа{{ end }}
+            </span>
+            {{ end }}
+          </div>
+
+          {{ if .Params.description }}
+          <p class="project-description">{{ .Params.description | truncate 120 }}</p>
+          {{ end }}
+
+          <div class="project-actions">
+            <a href="{{ .RelPermalink }}" class="btn-primary">Подробнее</a>
+            <button class="btn-secondary callback-btn">Узнать цену</button>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+      {{ end }}
+    </div>
+
+    <!-- Пустое состояние -->
+    <div id="no-results" class="no-results" style="display: none;">
+      <h3>Ничего не найдено</h3>
+      <p>Попробуйте изменить параметры поиска</p>
+    </div>
+
+  </div>
+</div>
+
+<style>
+.projects-catalog {
+  padding: 20px 0 60px;
+  min-height: 70vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Хлебные крошки */
+.breadcrumb {
+  margin-bottom: 20px;
+}
+
+.breadcrumb-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.breadcrumb-item a {
+  color: #666;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  color: #2c5530;
+}
+
+.breadcrumb-item:not(:last-child)::after {
+  content: " › ";
+  margin-left: 5px;
+  color: #999;
+}
+
+/* Заголовок */
+.catalog-title {
+  font-size: 2.5rem;
+  color: #2c5530;
+  margin-bottom: 40px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Фильтры */
+.filters-section {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.filters-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  align-items: end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.filter-select,
+.filter-input {
+  padding: 10px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.filter-select:focus,
+.filter-input:focus {
+  outline: none;
+  border-color: #8bc34a;
+  box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1);
+}
+
+.search-group {
+  grid-column: span 2;
+}
+
+.reset-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  height: fit-content;
+}
+
+.reset-btn:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+/* Результаты */
+.results-info {
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #666;
+}
+
+/* Сетка проектов */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.project-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+.project-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.project-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(44, 85, 48, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.project-price {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(139, 195, 74, 0.95);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.project-content {
+  padding: 25px;
+}
+
+.project-title {
+  margin: 0 0 15px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.project-title a {
+  color: #2c5530;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.project-title a:hover {
+  color: #8bc34a;
+}
+
+.project-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.spec-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.project-description {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.project-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+  flex: 1;
+}
+
+.btn-primary {
+  background: #2c5530;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1e3a21;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #8bc34a;
+  border: 2px solid #8bc34a;
+}
+
+.btn-secondary:hover {
+  background: #8bc34a;
+  color: white;
+}
+
+/* Пустое состояние */
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.no-results h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .filters-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .search-group {
+    grid-column: span 1;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .catalog-title {
+    font-size: 2rem;
+  }
+  
+  .project-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .filters-section {
+    padding: 20px 15px;
+  }
+  
+  .project-content {
+    padding: 20px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filters = {
+    category: document.getElementById('category-filter'),
+    area: document.getElementById('area-filter'),
+    material: document.getElementById('material-filter'),
+    floors: document.getElementById('floors-filter'),
+    price: document.getElementById('price-filter'),
+    search: document.getElementById('search-filter')
+  };
+  
+  const resetBtn = document.getElementById('reset-filters');
+  const projectsGrid = document.getElementById('projects-grid');
+  const resultsCount = document.getElementById('results-count');
+  const noResults = document.getElementById('no-results');
+  
+  // Функция фильтрации
+  function filterProjects() {
+    const projects = projectsGrid.querySelectorAll('.project-card');
+    let visibleCount = 0;
+    
+    projects.forEach(project => {
+      let visible = true;
+      
+      // Фильтр по категории
+      if (filters.category.value && project.dataset.category !== filters.category.value) {
+        visible = false;
+      }
+      
+      // Фильтр по площади
+      if (filters.area.value) {
+        const area = parseInt(project.dataset.area) || 0;
+        const [min, max] = filters.area.value.split('-').map(v => v === '+' ? Infinity : parseInt(v));
+        if (area < min || area > max) {
+          visible = false;
+        }
+      }
+      
+      // Фильтр по материалу
+      if (filters.material.value && !project.dataset.material.includes(filters.material.value)) {
+        visible = false;
+      }
+      
+      // Фильтр по этажам
+      if (filters.floors.value && project.dataset.floors !== filters.floors.value) {
+        visible = false;
+      }
+      
+      // Фильтр по цене
+      if (filters.price.value) {
+        const price = parseInt(project.dataset.price) || 0;
+        const [min, max] = filters.price.value.split('-').map(v => v === '+' ? Infinity : parseInt(v));
+        if (price < min || price > max) {
+          visible = false;
+        }
+      }
+      
+      // Поиск по названию
+      if (filters.search.value && !project.dataset.title.includes(filters.search.value.toLowerCase())) {
+        visible = false;
+      }
+      
+      // Показать/скрыть проект
+      project.style.display = visible ? 'block' : 'none';
+      if (visible) visibleCount++;
+    });
+    
+    // Обновить счетчик
+    resultsCount.textContent = visibleCount;
+    
+    // Показать/скрыть сообщение "ничего не найдено"
+    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    projectsGrid.style.display = visibleCount === 0 ? 'none' : 'grid';
+  }
+  
+  // Обработчики событий
+  Object.values(filters).forEach(filter => {
+    filter.addEventListener('change', filterProjects);
+    filter.addEventListener('input', filterProjects);
+  });
+  
+  // Сброс фильтров
+  resetBtn.addEventListener('click', function() {
+    Object.values(filters).forEach(filter => {
+      filter.value = '';
+    });
+    filterProjects();
+  });
+  
+  // Обработчик кнопок "Узнать цену"
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('callback-btn')) {
+      alert('Здесь будет форма обратной связи');
+      // Добавь здесь логику открытия модального окна
+    }
+  });
+});
+</script>
+{{ end }}
