@@ -332,7 +332,7 @@ ul {
 .main-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -604,6 +604,12 @@ ul {
   cursor: pointer;
   transition: transform 0.3s ease;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+@media(min-width: 1000px) {
+  .floor-plan img  {
+    max-height: 1000px;
+    object-fit: contain;
+  }
 }
 
 .floor-plan img:hover {
