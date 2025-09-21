@@ -12,7 +12,9 @@
 
     <!-- Заголовок -->
     <h1 class="catalog-title">{{ .Title | default "Каталог проектов" }}</h1>
-
+    <button id="mobile-filters-toggle" class="mobile-filters-toggle">
+      Показать фильтры
+    </button>
     <!-- Фильтры -->
     <div class="filters-section">
       <div class="filters-container">
@@ -244,110 +246,210 @@
     text-align: center;
   }
 
-  /* Фильтры */
-/* Фильтры */
-.filters-section {
-  background: #fafafa;
-  padding: 20px;
-  border-radius: 0;
-  margin-bottom: 30px;
-  border: 1px solid #d0d0d0;
-}
+  /* Кнопка фильтров для мобильных устройств */
+  .mobile-filters-toggle {
+    display: none;
+    width: 100%;
+    background: #444;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    margin-bottom: 16px;
+    position: relative;
+  }
 
-.filters-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  align-items: end;
-}
+  .mobile-filters-toggle:hover {
+    background: #333;
+  }
 
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+  .mobile-filters-toggle::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid white;
+    transition: transform 0.2s ease;
+  }
 
-.filter-group label {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 17px;
-  font-weight: 500;
-  color: #444;
-  height: 38px;
-  user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
-}
+  .mobile-filters-toggle.active::after {
+    transform: translateY(-50%) rotate(180deg);
+  }
 
-.filter-select,
-.filter-input {
-  padding: 10px 12px;
-  border: 1px solid #d0d0d0;
-  border-radius: 0;
-  font-size: 14px;
-  line-height: 20px;
-  min-height: 38px;
-  transition: all 0.2s ease;
-  background: white;
-  box-sizing: border-box;
-  color: #444;
-  font-family: inherit;
-}
+  /* Обновленные стили фильтров */
+  .filters-section {
+    background: #fafafa;
+    padding: 20px;
+    border-radius: 0;
+    margin-bottom: 30px;
+    border: 1px solid #d0d0d0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+  }
 
-.filter-select:focus,
-.filter-input:focus {
-  outline: none;
-  border-color: #999;
-  background: #fafafa;
-}
+  .filters-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    align-items: end;
+  }
 
-.filter-input::placeholder {
-  color: #999;
-  font-size: 14px;
-  font-weight: normal;
-}
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
 
-.filter-select {
-  cursor: pointer;
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='1.5'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 14px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: 35px;
-}
+  .filter-group label {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 17px;
+    font-weight: 500;
+    color: #444;
+    height: 38px;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+  }
 
-.search-group {
-  grid-column: span 2;
-}
+  .filter-select,
+  .filter-input {
+    padding: 10px 12px;
+    border: 1px solid #d0d0d0;
+    border-radius: 0;
+    font-size: 14px;
+    line-height: 20px;
+    min-height: 38px;
+    transition: all 0.2s ease;
+    background: white;
+    box-sizing: border-box;
+    color: #444;
+    font-family: inherit;
+  }
 
-.reset-btn {
-  background: #666;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 0;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  height: fit-content;
-  min-height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-}
+  .filter-select:focus,
+  .filter-input:focus {
+    outline: none;
+    border-color: #999;
+    background: #fafafa;
+  }
 
-.reset-btn:hover {
-  background: #555;
-}
+  .filter-input::placeholder {
+    color: #999;
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  .filter-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='1.5'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 35px;
+  }
+
+  .search-group {
+    grid-column: span 2;
+  }
+
+  .reset-btn {
+    background: #666;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    height: fit-content;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+  }
+
+  .reset-btn:hover {
+    background: #555;
+  }
+
+  /* Мобильные стили */
+  @media (max-width: 768px) {
+
+    /* Показываем кнопку фильтров */
+    .mobile-filters-toggle {
+      display: block;
+    }
+
+    /* Скрываем секцию фильтров по умолчанию */
+    .filters-section {
+      max-height: 0;
+      opacity: 0;
+      padding: 0 20px;
+      margin-bottom: 16px;
+      border: none;
+      background: transparent;
+    }
+
+    /* Показываем секцию фильтров при активации */
+    .filters-section.active {
+      max-height: 1000px;
+      /* Достаточно большое значение */
+      opacity: 1;
+      padding: 20px;
+      background: #fafafa;
+      border: 1px solid #d0d0d0;
+    }
+
+    .filters-container {
+      grid-template-columns: 1fr;
+    }
+
+    .search-group {
+      grid-column: span 1;
+    }
+
+    /* Компактные лейблы на мобильных */
+    .filter-group label {
+      font-size: 16px;
+      height: auto;
+      min-height: 32px;
+      margin-bottom: 4px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .mobile-filters-toggle {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+
+    .filters-section.active {
+      padding: 16px;
+    }
+
+    .filter-group label {
+      font-size: 15px;
+    }
+  }
 
   /* Результаты */
   .results-info {
@@ -891,6 +993,36 @@
 
         // Открываем форму с данными проекта
         openCallbackModalWithProject(projectData);
+      }
+    });
+    // Мобильные фильтры
+    const mobileFiltersToggle = document.getElementById('mobile-filters-toggle');
+    const filtersSection = document.querySelector('.filters-section');
+
+    if (mobileFiltersToggle && filtersSection) {
+      mobileFiltersToggle.addEventListener('click', function () {
+        const isActive = filtersSection.classList.contains('active');
+
+        if (isActive) {
+          // Скрываем фильтры
+          filtersSection.classList.remove('active');
+          mobileFiltersToggle.classList.remove('active');
+          mobileFiltersToggle.innerHTML = 'Показать фильтры';
+        } else {
+          // Показываем фильтры
+          filtersSection.classList.add('active');
+          mobileFiltersToggle.classList.add('active');
+          mobileFiltersToggle.innerHTML = 'Скрыть фильтры';
+        }
+      });
+    }
+
+    // Автоматически скрываем фильтры при изменении размера экрана
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) {
+        // На десктопе убираем классы активности
+        filtersSection.classList.remove('active');
+        mobileFiltersToggle.classList.remove('active');
       }
     });
   });
