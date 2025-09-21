@@ -125,7 +125,8 @@
     <div class="projects-grid" id="projects-grid">
       {{ range .Pages }}
       {{ if .Params.category }}
-      <div class="project-card" data-category="{{ .Params.main_category | default .Params.category }}"
+      <div class="project-card"
+        data-category='{{ if .Params.categories }}{{ delimit .Params.categories "," }}{{ else }}{{ .Params.main_category | default .Params.category }}{{ end }}'
         data-area="{{ .Params.area | replaceRE `[^0-9]` `` }}" data-floors="{{ .Params.floors }}"
         data-price="{{ .Params.price | replaceRE `[^0-9]` `` }}" data-material="{{ .Content | lower }}"
         data-title="{{ .Title | lower }}" data-date="{{ .Date.Unix }}">
@@ -933,8 +934,11 @@
           let visible = true;
 
           // Фильтр по категории
-          if (filters.category.value && project.dataset.category !== filters.category.value) {
-            visible = false;
+          if (filters.category.value) {
+            const projectCategories = project.dataset.category.split(',');
+            if (!projectCategories.includes(filters.category.value)) {
+              visible = false;
+            }
           }
 
           // Фильтр по площади
