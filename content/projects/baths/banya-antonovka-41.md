@@ -24,6 +24,7 @@ dimensions: "5,4x5,4"
 floors: 1
 rest_rooms: 0
 diameter: "28-30 см"
+material: "лиственница"
 
 # Цена и объем
 price: "900 000 руб"

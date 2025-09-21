@@ -26,6 +26,7 @@ dimensions: "18500*12400"
 floors: 1
 rest_rooms: 1
 diameter: "30"
+material: "кедр"
 
 # Цена и объем
 price: "6 700 000 руб"

@@ -24,6 +24,7 @@ dimensions: "5х7 м"
 floors: 2
 rest_rooms: 2
 diameter: "46-52 см"
+material: "кедр"
 
 # Цена и объем
 price: "6 000 000 руб"

@@ -63,7 +63,7 @@
             <option value="">Любое</option>
             <option value="1">1 этаж</option>
             <option value="2">2 этажа</option>
-            <option value="2.5">2.5 этажа</option>
+            <!-- <option value="2.5">2.5 этажа</option> -->
           </select>
         </div>
 
@@ -122,12 +122,13 @@
     </div>
 
     <!-- Сетка проектов -->
-    <div class="projects-grid" id="projects-grid">
+  <div class="projects-grid" id="projects-grid">
       {{ range .Pages }}
       {{ if .Params.category }}
       <div class="project-card"
         data-category='{{ if .Params.categories }}{{ delimit .Params.categories "," }}{{ else }}{{ .Params.main_category | default .Params.category }}{{ end }}'
         data-area="{{ .Params.area | replaceRE `[^0-9]` `` }}" data-floors="{{ .Params.floors }}"
+        data-material='{{ .Params.material | default "" }}'
         data-price="{{ .Params.price | replaceRE `[^0-9]` `` }}" data-material="{{ .Content | lower }}"
         data-title="{{ .Title | lower }}" data-date="{{ .Date.Unix }}">
 
@@ -960,8 +961,25 @@
           }
 
           // Фильтр по материалу
-          if (filters.material.value && !project.dataset.material.includes(filters.material.value)) {
-            visible = false;
+          if (filters.material.value) {
+            const selectedMaterial = filters.material.value.toLowerCase();
+            let materialFound = false;
+            
+            // Проверяем поле material из front matter
+            if (project.dataset.material) {
+              const materials = project.dataset.material.toLowerCase().split(',').map(m => m.trim());
+              materialFound = materials.some(material => material.includes(selectedMaterial));
+            }
+            
+            // Если поле material пустое, проверяем в тексте (fallback для старых проектов)
+            if (!materialFound && !project.dataset.material) {
+              const projectContent = project.textContent.toLowerCase();
+              materialFound = projectContent.includes(selectedMaterial);
+            }
+            
+            if (!materialFound) {
+              visible = false;
+            }
           }
 
           // Фильтр по этажам

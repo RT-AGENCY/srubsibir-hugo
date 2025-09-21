@@ -25,6 +25,7 @@ dimensions: "15*14"
 floors: 1
 rest_rooms: 3      # Количество комнат отдыха
 diameter: "40 см"
+material: "кедр"
 
 # Цена и объем
 price: "10 000 000 руб"
