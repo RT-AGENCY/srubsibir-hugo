@@ -51,6 +51,16 @@ theme = 'custom'
   [params.sections.callForm]
     enabled = true  # Форма обратного звонка
 
+[permalinks]
+  projects = "/projects/:section/:slug/"
+  blog = "/blog/:year/:month/:slug/"
+  services = "/services/:slug/"
+
+[sitemap]
+  changefreq = "monthly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
 # Главное меню навигации
 
 
