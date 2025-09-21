@@ -1,0 +1,16 @@
+{{- $pages := where site.RegularPages "Type" "!=" "search" -}}
+[
+{{- range $index, $page := $pages -}}
+  {{- if $index -}},{{- end }}
+  {
+    "title": {{ $page.Title | jsonify }},
+    "content": {{ $page.Plain | jsonify }},
+    "summary": {{ $page.Summary | jsonify }},
+    "url": {{ $page.RelPermalink | jsonify }},
+    "type": {{ $page.Type | jsonify }},
+    "section": {{ $page.Section | jsonify }},
+    "date": {{ $page.Date.Format "2006-01-02" | jsonify }},
+    "tags": {{ $page.Params.tags | jsonify }}
+  }
+{{- end -}}
+]
