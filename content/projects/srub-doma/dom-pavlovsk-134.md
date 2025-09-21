@@ -19,6 +19,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Дома с террасой"
+categories: ["Дом", "Дом-баня"]
 main_category: "Дом"
 area: "134 м²"
 dimensions: "10x12"
