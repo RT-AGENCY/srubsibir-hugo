@@ -1,0 +1,659 @@
+{{ define "main" }}
+<!-- Заголовок страницы поиска -->
+<section class="page-header search-header">
+  <div class="container">
+    <h1>Поиск по сайту</h1>
+    {{ $query := "" }}
+    <p class="search-description">
+      {{ if $query }}
+      Результаты поиска для: <span class="search-query">"{{ $query }}"</span>
+      {{ else }}
+      Введите запрос для поиска по сайту
+      {{ end }}
+    </p>
+  </div>
+</section>
+
+<!-- Форма поиска на странице -->
+<section class="search-form-section">
+  <div class="container">
+    <form class="search-page-form" method="get" action="/search/">
+      <div class="search-input-wrapper">
+        <input type="text" name="query" id="searchPageInput" placeholder="Поиск по сайту..." value="{{ $query }}"
+          autocomplete="off" required>
+        <button type="submit" class="search-submit-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+            <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          Найти
+        </button>
+      </div>
+      <!-- Убираем выпадающий список результатов из формы -->
+    </form>
+  </div>
+</section>
+
+<!-- Результаты поиска -->
+<section class="search-results-section">
+  <div class="container">
+
+    <!-- Фильтры поиска -->
+    <div class="search-filters">
+      <h3>Фильтр по разделам:</h3>
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Все результаты</button>
+        <button class="filter-btn" data-filter="projects">Проекты</button>
+        <button class="filter-btn" data-filter="services">Услуги</button>
+        <button class="filter-btn" data-filter="articles">Статьи</button>
+        <button class="filter-btn" data-filter="pages">Страницы</button>
+      </div>
+    </div>
+
+    <!-- Счетчик результатов -->
+    <div class="search-stats">
+      <p id="resultsCount">Поиск...</p>
+    </div>
+
+    <!-- Результаты поиска -->
+    <div class="page-search-results" id="searchResults">
+      <!-- Здесь будут отображаться результаты поиска через JavaScript -->
+      <div class="search-loading">
+        <div class="loader"></div>
+        <p>Поиск результатов...</p>
+      </div>
+    </div>
+
+    <!-- Пагинация (если нужна) -->
+    <div class="search-pagination" id="searchPagination" style="display: none;">
+      <button class="pagination-btn" id="prevPage">← Предыдущие</button>
+      <div class="pagination-info">
+        Страница <span id="currentPage">1</span> из <span id="totalPages">1</span>
+      </div>
+      <button class="pagination-btn" id="nextPage">Следующие →</button>
+    </div>
+
+    <!-- Сообщение "Ничего не найдено" -->
+    <div class="no-results" id="noResults" style="display: none;">
+      <div class="no-results-icon">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="11" cy="11" r="8" stroke="#ccc" stroke-width="2" />
+          <path d="m21 21-4.35-4.35" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <h3>Ничего не найдено</h3>
+      <p>По вашему запросу результатов не найдено. Попробуйте:</p>
+      <ul>
+        <li>Проверить правильность написания</li>
+        <li>Использовать более общие слова</li>
+        <li>Попробовать синонимы</li>
+        <li>Уменьшить количество слов в запросе</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Заголовок страницы поиска */
+  .search-header {
+    background: var(--color-light);
+    padding: 40px 0;
+    text-align: center;
+  }
+
+  .search-header h1 {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+  }
+
+  .search-description {
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+  }
+
+  .search-query {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  /* Форма поиска на странице */
+  .search-form-section {
+    background: white;
+    padding: 30px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .search-page-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .search-input-wrapper {
+    display: flex;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .search-input-wrapper:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+  }
+
+  #searchPageInput {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Montserrat', Arial, sans-serif;
+  }
+
+  .search-submit-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s;
+  }
+
+  .search-submit-btn:hover {
+    background: var(--color-secondary);
+  }
+
+  /* Результаты поиска */
+  .search-results-section {
+    padding: 40px 0 80px;
+  }
+
+  /* Фильтры */
+  .search-filters {
+    margin-bottom: 30px;
+  }
+
+  .search-filters h3 {
+    color: var(--color-text);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  .filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    border: 2px solid #e9ecef;
+    background: white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+  }
+
+  /* Счетчик результатов */
+  .search-stats {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .search-stats p {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+  }
+
+  /* Результаты поиска */
+  .page-search-results {
+    display: block !important;
+    visibility: visible !important;
+    position: relative;
+    /* Убираем absolute */
+    width: 100%;
+  }
+
+  .page-search-result-item {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
+    /* Убираем absolute */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .page-search-result-item:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .page-search-result-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .page-search-result-type {
+    background: var(--color-accent);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .page-search-result-date {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+  }
+
+  .page-search-result-title {
+    font-size: 1.3rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .page-search-result-title:hover {
+    color: var(--color-secondary);
+  }
+
+  .page-search-result-snippet {
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .page-search-result-url {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  /* Загрузка */
+  .search-loading {
+    text-align: center;
+    padding: 40px 0;
+  }
+
+  .loader {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Пагинация */
+  .search-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+
+  .pagination-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+
+  .pagination-btn:hover:not(:disabled) {
+    background: var(--color-secondary);
+  }
+
+  .pagination-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  .pagination-info {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  /* Сообщение "Ничего не найдено" */
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .no-results-icon {
+    margin-bottom: 20px;
+  }
+
+  .no-results h3 {
+    color: var(--color-text);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .no-results p {
+    color: var(--color-text-light);
+    margin-bottom: 20px;
+  }
+
+  .no-results ul {
+    text-align: left;
+    max-width: 300px;
+    margin: 0 auto;
+    color: var(--color-text-light);
+  }
+
+  .no-results li {
+    margin-bottom: 8px;
+  }
+
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .search-header h1 {
+      font-size: 2rem;
+    }
+
+    .search-input-wrapper {
+      flex-direction: column;
+    }
+
+    .search-submit-btn {
+      justify-content: center;
+    }
+
+    .filter-buttons {
+      justify-content: center;
+    }
+
+    .search-pagination {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+  }
+</style>
+
+<script>
+  // JavaScript для функциональности поиска
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('searchPageInput');
+    const searchForm = document.querySelector('.search-page-form');
+    const resultsContainer = document.getElementById('searchResults'); // Основной контейнер на странице
+    const resultsCount = document.getElementById('resultsCount');
+    const noResults = document.getElementById('noResults');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    console.log('Контейнер результатов:', resultsContainer); // Для отладки
+
+    let searchData = [];
+    let currentFilter = 'all';
+
+    // Получаем параметр поиска из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('query');
+
+    if (searchQuery) {
+      searchInput.value = searchQuery;
+      performSearch(searchQuery);
+    } else {
+      showNoResults();
+    }
+
+    // Обработка отправки формы
+    searchForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const query = searchInput.value.trim();
+      if (query.length >= 2) {
+        // Обновляем URL
+        window.history.pushState({}, '', `/search/?query=${encodeURIComponent(query)}`);
+        performSearch(query);
+      }
+    });
+
+    // Фильтры
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', function () {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentFilter = this.dataset.filter;
+        filterResults();
+      });
+    });
+
+    // Функция выполнения поиска
+    async function performSearch(query) {
+      console.log('Начинаем поиск для:', query); // Для отладки
+      showLoading();
+
+      try {
+        // Загружаем индекс поиска
+        const response = await fetch('/index.json');
+        console.log('Ответ сервера:', response.status, response.ok); // Для отладки
+
+        if (response.ok) {
+          const searchIndex = await response.json();
+          console.log('Загружен индекс, страниц:', searchIndex.length); // Для отладки
+          searchData = searchInIndex(searchIndex, query);
+        } else {
+          console.log('Индекс не найден, используем fallback'); // Для отладки
+          searchData = await simpleSearch(query);
+        }
+
+        console.log('Финальные результаты поиска:', searchData); // Для отладки
+        displayResults();
+      } catch (error) {
+        console.error('Ошибка поиска:', error);
+        showNoResults();
+      }
+    }
+
+    // Простой поиск (fallback)
+    async function simpleSearch(query) {
+      // Здесь можно добавить статичные данные или API-запрос
+      const mockResults = [
+        {
+          title: 'Пример результата поиска',
+          content: 'Описание найденного контента...',
+          url: '/example/',
+          type: 'pages',
+          date: '2024-01-15'
+        }
+      ];
+
+      return mockResults.filter(item =>
+        item.title.toLowerCase().includes(query.toLowerCase()) ||
+        item.content.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+
+    // Поиск в индексе
+    function searchInIndex(index, query) {
+      console.log('Ищем в индексе:', query, 'Количество страниц:', index.length); // Для отладки
+
+      const results = [];
+      const queryLower = query.toLowerCase();
+
+      index.forEach((item, idx) => {
+        let score = 0;
+        const titleLower = (item.title || '').toLowerCase();
+        const contentLower = (item.content || '').toLowerCase();
+        const summaryLower = (item.summary || '').toLowerCase();
+
+        // Подсчет релевантности
+        if (titleLower.includes(queryLower)) score += 10;
+        if (summaryLower.includes(queryLower)) score += 7;
+        if (contentLower.includes(queryLower)) score += 5;
+
+        if (score > 0) {
+          console.log(`Найден результат ${idx + 1}:`, item.title, 'Score:', score); // Для отладки
+          results.push({
+            ...item,
+            score: score,
+            snippet: generateSnippet(item.content || item.summary || '', query)
+          });
+        }
+      });
+
+      const sortedResults = results.sort((a, b) => b.score - a.score);
+      console.log('Итого найдено результатов:', sortedResults.length); // Для отладки
+      return sortedResults;
+    }
+
+    // Генерация сниппета
+    function generateSnippet(content, query) {
+      const queryLower = query.toLowerCase();
+      const contentLower = content.toLowerCase();
+      const index = contentLower.indexOf(queryLower);
+
+      if (index === -1) {
+        return content.substring(0, 150) + '...';
+      }
+
+      const start = Math.max(0, index - 75);
+      const end = Math.min(content.length, index + query.length + 75);
+
+      let snippet = content.substring(start, end);
+      if (start > 0) snippet = '...' + snippet;
+      if (end < content.length) snippet = snippet + '...';
+
+      return snippet;
+    }
+
+    // Фильтрация результатов
+    function filterResults() {
+      const filteredData = currentFilter === 'all'
+        ? searchData
+        : searchData.filter(item => item.type === currentFilter);
+      displayResults(filteredData);
+    }
+
+    // Отображение результатов
+    function displayResults(data = searchData) {
+      console.log('Отображаем результаты:', data); // Для отладки
+
+      resultsContainer.innerHTML = '';
+
+      if (data.length === 0) {
+        showNoResults();
+        return;
+      }
+
+      hideNoResults();
+
+      // Обновляем счетчик
+      resultsCount.textContent = `Найдено ${data.length} результат${getWordEnding(data.length)}`;
+
+      // Отображаем результаты
+      data.forEach((item, index) => {
+        console.log(`Создаем элемент ${index + 1}:`, item); // Для отладки
+        const resultElement = createResultElement(item);
+        resultsContainer.appendChild(resultElement);
+      });
+
+      console.log('Элементов в контейнере:', resultsContainer.children.length); // Для отладки
+    }
+
+    // Создание элемента результата
+    function createResultElement(item) {
+      const div = document.createElement('div');
+      div.className = 'page-search-result-item';
+
+      const typeLabels = {
+        'projects': 'Проект',
+        'services': 'Услуга',
+        'articles': 'Статья',
+        'pages': 'Страница'
+      };
+
+      div.innerHTML = `
+      <div class="page-search-result-header">
+        <span class="page-search-result-type">${typeLabels[item.type] || 'Страница'}</span>
+        ${item.date ? `<span class="page-search-result-date">${formatDate(item.date)}</span>` : ''}
+      </div>
+      <a href="${item.url}" class="page-search-result-title">${item.title}</a>
+      <div class="page-search-result-snippet">${item.snippet || item.content.substring(0, 150) + '...'}</div>
+      <a href="${item.url}" class="page-search-result-url">${window.location.origin}${item.url}</a>
+    `;
+
+      return div;
+    }
+
+    // Вспомогательные функции
+    function showLoading() {
+      resultsContainer.innerHTML = `
+      <div class="search-loading">
+        <div class="loader"></div>
+        <p>Поиск результатов...</p>
+      </div>
+    `;
+      hideNoResults();
+    }
+
+    function showNoResults() {
+      resultsContainer.innerHTML = '';
+      resultsCount.textContent = 'Результатов не найдено';
+      noResults.style.display = 'block';
+    }
+
+    function hideNoResults() {
+      noResults.style.display = 'none';
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('ru-RU');
+    }
+
+    function getWordEnding(count) {
+      if (count % 10 === 1 && count % 100 !== 11) return '';
+      if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) return 'а';
+      return 'ов';
+    }
+  });
+</script>
+{{ end }}

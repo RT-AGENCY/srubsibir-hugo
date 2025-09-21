@@ -20,9 +20,11 @@ showCallForm: true
 # Основные характеристики
 category: "Баня с террасой"
 main_category: "Баня"
+categories: ["Баня", "Дом-баня"]
 area: "40 м²"
 floors: 1
 rest_rooms: 1
+material: "кедр"
 diameter: "30-34 см"
 
 # Цена и объем

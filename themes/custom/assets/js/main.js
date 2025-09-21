@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Инициализация всех компонентов
   initMobileMenu();
   initMobileSearch();
+  initDesktopSearch();
   initSmoothScroll();
   initScrollToTop();
   initContactForm();
@@ -158,6 +159,34 @@ function initMobileMenu() {
   window.SrubSibir = window.SrubSibir || {};
   window.SrubSibir.openMobileMenu = openMobileMenu;
   window.SrubSibir.closeMobileMenu = closeMobileMenu;
+}
+
+function initDesktopSearch() {
+  const searchForm = document.getElementById('searchForm');
+  const searchInput = document.getElementById('searchInput');
+
+  if (!searchForm || !searchInput) {
+    return;
+  }
+
+  // Обработка отправки десктопной формы поиска
+  searchForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const query = searchInput.value.trim();
+    if (query.length >= 2) {
+      // Показываем состояние загрузки
+      searchForm.classList.add('loading');
+
+      // Перенаправляем на страницу результатов поиска
+      setTimeout(() => {
+        window.location.href = `/search/?query=${encodeURIComponent(query)}`;
+      }, 300);
+    } else {
+      // Показываем уведомление о минимальной длине запроса
+      showNotification('Введите минимум 2 символа для поиска', 'warning');
+    }
+  });
 }
 
 /**

@@ -31,6 +31,7 @@ diameter: "28-30 см"
 price: "3 500 000 руб"
 wood_volume: "95 м³"
 price_note: ""
+material: "лиственница"
 
 # Галерея изображений
 gallery:

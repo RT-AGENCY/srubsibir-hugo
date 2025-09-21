@@ -19,6 +19,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Дома с террасой"
+categories: ["Дом", "Дом-баня"]
 main_category: "Дом"
 area: "134 м²"
 dimensions: "10x12"
@@ -26,6 +27,7 @@ floors: 2
 rooms: ""          # Не указано количество спален
 rest_rooms: 4      # Количество комнат отдыха
 diameter: "30 см"
+material: "сосна"
 
 # Цена и объем
 price: "4 800 000 руб"
