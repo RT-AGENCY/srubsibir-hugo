@@ -475,6 +475,9 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
   }
 
   .project-card:hover {
@@ -675,18 +678,22 @@
   }
 
   /* Плавное появление карточек */
-  .project-card {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
+
 
   .project-card.visible {
     opacity: 1;
-    transform: translateY(0);
+    visibility: visible;
+    transform: scale(1);
+    transition: all 0.3s ease;
+    /* Возвращаем исходные значения */
+    height: auto;
+    min-height: 500px;
+    padding: initial;
+    margin: initial;
   }
 
   .project-card.hidden {
-    opacity: 0;
-    transform: translateY(20px);
+    display: none !important;
   }
 
   .projects-grid.loading .project-card {
@@ -862,12 +869,14 @@
       loader.classList.add('hidden');
       projectsGrid.classList.remove('loading');
 
-      // Анимация появления карточек
+      // Анимация появления карточек (ИСПРАВЛЕНО)
       setTimeout(() => {
-        const visibleCards = document.querySelectorAll('.project-card[style*="display: block"]');
+        // Используем класс visible вместо проверки style
+        const visibleCards = document.querySelectorAll('.project-card.visible');
         visibleCards.forEach((card, index) => {
           setTimeout(() => {
-            card.classList.add('visible');
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
           }, index * 50);
         });
       }, 100);
@@ -933,7 +942,7 @@
         allProjects.forEach(project => {
           let visible = true;
 
-          // Фильтр по категории
+          // Фильтр по категории (ОБНОВЛЕНО для множественных категорий)
           if (filters.category.value) {
             const projectCategories = project.dataset.category.split(',');
             if (!projectCategories.includes(filters.category.value)) {
@@ -944,8 +953,8 @@
           // Фильтр по площади
           if (filters.area.value) {
             const area = parseInt(project.dataset.area) || 0;
-            const [min, max] = filters.area.value.split('-').map(v => parseInt(v) || Infinity);
-            if (area < min || (max !== Infinity && area > max)) {
+            const [min, max] = filters.area.value.split('-').map(v => v === '+' ? Infinity : parseInt(v));
+            if (area < min || area > max) {
               visible = false;
             }
           }
@@ -978,16 +987,21 @@
             visibleProjects.push(project);
           }
 
-          // Временно скрываем все
-          project.style.display = 'none';
+          // ИСПРАВЛЕНИЕ: Используем классы вместо display
+          if (visible) {
+            project.classList.remove('hidden');
+            project.classList.add('visible');
+          } else {
+            project.classList.remove('visible');
+            project.classList.add('hidden');
+          }
         });
 
         // Сортируем видимые проекты
         const sortedProjects = sortProjects(visibleProjects);
 
-        // Показываем отсортированные проекты в правильном порядке
+        // Применяем порядок через CSS order
         sortedProjects.forEach((project, index) => {
-          project.style.display = 'block';
           project.style.order = index;
         });
 
@@ -1002,7 +1016,6 @@
         setTimeout(hideLoader, 300);
       }, 150);
     }
-
     // Функция фильтрации с обновлением URL
     function filterProjectsWithURL() {
       updateURL(); // Обновляем URL
