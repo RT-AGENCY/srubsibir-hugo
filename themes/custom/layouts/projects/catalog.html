@@ -15,6 +15,7 @@
     <button id="mobile-filters-toggle" class="mobile-filters-toggle">
       Показать фильтры
     </button>
+
     <!-- Фильтры -->
     <div class="filters-section">
       <div class="filters-container">
@@ -40,7 +41,7 @@
             <option value="50-100">50-100 м²</option>
             <option value="100-150">100-150 м²</option>
             <option value="150-200">150-200 м²</option>
-            <option value="200+">Свыше 200 м²</option>
+            <option value="200-99999">Свыше 200 м²</option>
           </select>
         </div>
 
@@ -74,7 +75,7 @@
             <option value="0-2000000">До 2 млн</option>
             <option value="2000000-4000000">2-4 млн</option>
             <option value="4000000-6000000">4-6 млн</option>
-            <option value="6000000+">Свыше 6 млн</option>
+            <option value="6000000-99999999">Свыше 6 млн</option>
           </select>
         </div>
 
@@ -101,10 +102,12 @@
         </div>
 
         <!-- Кнопка сброса -->
-        <button id="reset-filters" class="reset-btn">Сбросить</button>
+        <button id="reset-filters" class="reset-btn">Сбросить фильтры</button>
+
+        <!-- Кнопка поделиться фильтрами -->
+        <button id="share-filters" class="share-btn">Поделиться ссылкой</button>
       </div>
     </div>
-
     <!-- Лоадер -->
     <div id="catalog-loader" class="catalog-loader">
       <div class="loader-spinner"></div>
@@ -113,8 +116,9 @@
 
     <!-- Результаты поиска -->
     <div class="results-info">
-      <span id="results-count">{{ len .Pages }}</span> {{ if eq (len .Pages) 1 }}проект{{ else if and (ge (len .Pages)
-      2) (le (len .Pages) 4) }}проекта{{ else }}проектов{{ end }}
+      <span id="results-count">{{ len .Pages }}</span>
+      {{ if eq (len .Pages) 1 }}проект{{ else if and (ge (len .Pages) 2) (le (len .Pages) 4) }}проекта{{ else
+      }}проектов{{ end }}
     </div>
 
     <!-- Сетка проектов -->
@@ -186,10 +190,11 @@
       {{ end }}
     </div>
 
-    <!-- Пустое состояние -->
+    <!-- Сообщение "ничего не найдено" -->
     <div id="no-results" class="no-results" style="display: none;">
       <h3>Ничего не найдено</h3>
-      <p>Попробуйте изменить параметры поиска</p>
+      <p>Попробуйте изменить параметры поиска или <button id="reset-from-empty" class="link-btn">сбросить все
+          фильтры</button></p>
     </div>
 
   </div>
@@ -688,6 +693,62 @@
     pointer-events: none;
   }
 
+  .share-btn {
+    background: #2c5530;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    height: 44px;
+    transition: background 0.2s ease;
+  }
+
+  .share-btn:hover {
+    background: #1a3319;
+  }
+
+
+  .link-btn {
+    background: none;
+    border: none;
+    color: #2c5530;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: inherit;
+  }
+
+  .link-btn:hover {
+    color: #1a3319;
+  }
+
+  .share-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #2c5530;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+
   /* Адаптивность */
   @media (max-width: 768px) {
     .filters-container {
@@ -743,6 +804,47 @@
     let isLoading = false;
     let imagesLoaded = 0;
     let totalImages = 0;
+
+    // === НОВЫЕ ФУНКЦИИ ДЛЯ РАБОТЫ С URL ===
+
+    // Получаем значения фильтров из URL при загрузке страницы
+    function restoreFiltersFromURL() {
+      const params = new URLSearchParams(window.location.search);
+
+      Object.keys(filters).forEach(key => {
+        const value = params.get(key);
+        if (value && filters[key]) {
+          filters[key].value = value;
+        }
+      });
+    }
+
+    // Обновляем URL с текущими значениями фильтров
+    function updateURL() {
+      const params = new URLSearchParams();
+
+      Object.keys(filters).forEach(key => {
+        const value = filters[key].value.trim();
+        if (value) {
+          params.set(key, value);
+        }
+      });
+
+      const newURL = params.toString()
+        ? `${window.location.pathname}?${params.toString()}`
+        : window.location.pathname;
+
+      // Обновляем URL без перезагрузки страницы
+      window.history.pushState({}, '', newURL);
+    }
+
+    // Обработчик кнопок "Назад/Вперед" браузера
+    window.addEventListener('popstate', function () {
+      restoreFiltersFromURL();
+      filterProjects();
+    });
+
+    // === ОБНОВЛЕННЫЕ ФУНКЦИИ ===
 
     // Показать лоадер
     function showLoader(text = 'Загрузка проектов...') {
@@ -812,8 +914,7 @@
       });
     }
 
-    // Функция фильтрации
-    // Функция фильтрации с лоадером
+    // Обновленная функция фильтрации с URL
     function filterProjects() {
       showLoader('Применение фильтров...');
 
@@ -839,8 +940,8 @@
           // Фильтр по площади
           if (filters.area.value) {
             const area = parseInt(project.dataset.area) || 0;
-            const [min, max] = filters.area.value.split('-').map(v => v === '+' ? Infinity : parseInt(v));
-            if (area < min || area > max) {
+            const [min, max] = filters.area.value.split('-').map(v => parseInt(v) || Infinity);
+            if (area < min || (max !== Infinity && area > max)) {
               visible = false;
             }
           }
@@ -898,26 +999,42 @@
       }, 150);
     }
 
-    // Обработчики событий с debounce для поиска
+    // Функция фильтрации с обновлением URL
+    function filterProjectsWithURL() {
+      updateURL(); // Обновляем URL
+      filterProjects(); // Применяем фильтры
+    }
+
+    // === ОБРАБОТЧИКИ СОБЫТИЙ ===
+
+    // Обработчики событий с debounce для поиска и обновлением URL
     Object.values(filters).forEach(filter => {
       if (filter === filters.search) {
         // Для поиска используем debounce
-        filter.addEventListener('input', debounce(filterProjects, 300));
+        filter.addEventListener('input', debounce(filterProjectsWithURL, 300));
       } else {
-        filter.addEventListener('change', filterProjects);
+        filter.addEventListener('change', filterProjectsWithURL);
       }
     });
 
-    // Сброс фильтров
+    // Обновленная функция сброса фильтров
     resetBtn.addEventListener('click', function () {
       showLoader('Сброс фильтров...');
       setTimeout(() => {
+        // Очищаем все фильтры
         Object.values(filters).forEach(filter => {
           filter.value = '';
         });
+
+        // Очищаем URL
+        window.history.pushState({}, '', window.location.pathname);
+
+        // Применяем фильтры
         filterProjects();
       }, 100);
     });
+
+    // === ОСТАЛЬНЫЕ ФУНКЦИИ (БЕЗ ИЗМЕНЕНИЙ) ===
 
     // Отслеживание загрузки изображений
     function initImageLoading() {
@@ -956,22 +1073,6 @@
       }
     }
 
-    // Инициализация при загрузке страницы
-    showLoader('Загрузка каталога...');
-
-    // Сначала показываем все карточки как видимые
-    document.querySelectorAll('.project-card').forEach(card => {
-      card.classList.add('visible');
-    });
-
-    setTimeout(() => {
-      initImageLoading();
-      // Если изображения загрузились быстро, скрываем лоадер через секунду
-      setTimeout(() => {
-        if (isLoading) hideLoader();
-      }, 1000);
-    }, 100);
-
     // Обработчик кнопок "Узнать цену"
     document.addEventListener('click', function (e) {
       if (e.target.classList.contains('callback-btn')) {
@@ -989,6 +1090,7 @@
         openCallbackModalWithProject(projectData);
       }
     });
+
     // Мобильные фильтры
     const mobileFiltersToggle = document.getElementById('mobile-filters-toggle');
     const filtersSection = document.querySelector('.filters-section');
@@ -1019,6 +1121,133 @@
         mobileFiltersToggle.classList.remove('active');
       }
     });
+
+    // === ИНИЦИАЛИЗАЦИЯ ===
+
+    // Восстанавливаем фильтры из URL при загрузке
+    restoreFiltersFromURL();
+
+    // Инициализация при загрузке страницы
+    showLoader('Загрузка каталога...');
+
+    // Сначала показываем все карточки как видимые
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.classList.add('visible');
+    });
+
+    setTimeout(() => {
+      initImageLoading();
+
+      // Применяем фильтры с учетом параметров из URL
+      filterProjects();
+
+      // Если изображения загрузились быстро, скрываем лоадер через секунду
+      setTimeout(() => {
+        if (isLoading) hideLoader();
+      }, 1000);
+    }, 100);
+
+    // === ДОПОЛНИТЕЛЬНЫЕ УТИЛИТЫ ===
+
+    // Функция для программного установки фильтра (может понадобиться для внешних ссылок)
+    window.setFilter = function (filterName, value) {
+      if (filters[filterName]) {
+        filters[filterName].value = value;
+        filterProjectsWithURL();
+      }
+    };
+
+    // Функция для получения текущих фильтров
+    window.getCurrentFilters = function () {
+      const currentFilters = {};
+      Object.keys(filters).forEach(key => {
+        const value = filters[key].value.trim();
+        if (value) {
+          currentFilters[key] = value;
+        }
+      });
+      return currentFilters;
+    };
+
+    // Функция для создания ссылки с фильтрами
+    window.createFilterLink = function (additionalFilters = {}) {
+      const currentFilters = window.getCurrentFilters();
+      const allFilters = { ...currentFilters, ...additionalFilters };
+
+      const params = new URLSearchParams();
+      Object.entries(allFilters).forEach(([key, value]) => {
+        if (value) {
+          params.set(key, value);
+        }
+      });
+
+      return params.toString()
+        ? `${window.location.pathname}?${params.toString()}`
+        : window.location.pathname;
+    };
+    // === ДОПОЛНИТЕЛЬНЫЕ ОБРАБОТЧИКИ ===
+
+    // Кнопка поделиться фильтрами
+    const shareBtn = document.getElementById('share-filters');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', function () {
+        if (navigator.share) {
+          navigator.share({
+            title: 'Каталог проектов с фильтрами',
+            url: window.location.href
+          }).catch(err => console.log('Ошибка при попытке поделиться:', err));
+        } else {
+          // Копируем ссылку в буфер обмена
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            // Показываем уведомление
+            showShareNotification('Ссылка скопирована в буфер обмена!');
+          }).catch(() => {
+            // Fallback для старых браузеров
+            const textArea = document.createElement('textarea');
+            textArea.value = window.location.href;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showShareNotification('Ссылка скопирована!');
+          });
+        }
+      });
+    }
+
+    // Кнопка сброса из пустого состояния
+    const resetFromEmpty = document.getElementById('reset-from-empty');
+    if (resetFromEmpty) {
+      resetFromEmpty.addEventListener('click', function () {
+        // Очищаем все фильтры
+        Object.values(filters).forEach(filter => {
+          filter.value = '';
+        });
+
+        // Очищаем URL
+        window.history.pushState({}, '', window.location.pathname);
+
+        // Применяем фильтры
+        filterProjects();
+      });
+    }
+
+    // Функция показа уведомления
+    function showShareNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'share-notification';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease forwards';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, 3000);
+    }
   });
 </script>
 {{ end }}

@@ -1,5 +1,5 @@
 ---
-title: "Каталог проектов домов и бань"
+title: "Каталог проектов"
 layout: "catalog"
 
 showHero: false
