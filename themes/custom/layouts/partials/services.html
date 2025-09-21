@@ -2,391 +2,444 @@
   <div class="container">
     <h2 class="services-title">НАШИ УСЛУГИ</h2>
 
-    <!-- УРОВЕНЬ 1: Основные направления -->
+    <!-- Основные направления -->
     <div class="primary-services">
       <div class="primary-service">
-        <div class="primary-icon">🏠</div>
+        <div class="primary-icon">
+          <svg viewBox="0 0 100 100" fill="currentColor">
+            <!-- Дом с фронтоном и трубой -->
+            <path d="M10 45 L50 15 L90 45 L90 85 L10 85 Z"/>
+            <rect x="20" y="60" width="15" height="25" fill="white"/>
+            <rect x="25" y="50" width="8" height="12" fill="white"/>
+            <rect x="65" y="50" width="15" height="12" fill="white"/>
+            <rect x="65" y="65" width="15" height="12" fill="white"/>
+            <rect x="45" y="15" width="10" height="20"/>
+            <rect x="47" y="10" width="6" height="8"/>
+          </svg>
+        </div>
         <h3 class="primary-title">Строительство домов</h3>
         <p class="primary-description">
           Полный цикл строительства деревянных домов от фундамента до крыши
         </p>
-        <button class="primary-btn callback-btn">Заказать услугу</button>
       </div>
 
       <div class="primary-service">
-        <div class="primary-icon">🌡️</div>
+        <div class="primary-icon">
+          <svg viewBox="0 0 100 100" fill="currentColor">
+            <!-- Баня с паром -->
+            <path d="M15 50 L85 50 L85 85 L15 85 Z"/>
+            <path d="M20 40 L50 25 L80 40 L80 50 L20 50 Z"/>
+            <rect x="30" y="60" width="12" height="25" fill="white"/>
+            <rect x="58" y="60" width="15" height="15" fill="white"/>
+            <rect x="45" y="25" width="10" height="15"/>
+            <rect x="47" y="20" width="6" height="8"/>
+            <!-- Пар -->
+            <circle cx="25" cy="15" r="2" opacity="0.6"/>
+            <circle cx="35" cy="12" r="1.5" opacity="0.6"/>
+            <circle cx="28" cy="8" r="1" opacity="0.6"/>
+            <circle cx="75" cy="18" r="2" opacity="0.6"/>
+            <circle cx="68" cy="12" r="1.5" opacity="0.6"/>
+            <circle cx="72" cy="8" r="1" opacity="0.6"/>
+          </svg>
+        </div>
         <h3 class="primary-title">Строительство бань</h3>
         <p class="primary-description">
           Традиционные русские бани и современные банные комплексы
         </p>
-        <button class="primary-btn callback-btn">Заказать услугу</button>
       </div>
     </div>
 
-    <!-- УРОВЕНЬ 2: Популярные услуги -->
-    <h3 class="secondary-title">Популярные услуги</h3>
-    <div class="secondary-services">
-      <div class="secondary-service">
-        <div class="secondary-icon">🧱</div>
-        <h4 class="secondary-title-text">Продажа материалов</h4>
-        <p class="secondary-description">
-          Качественные пиломатериалы из сибирской древесины
-        </p>
-        <button class="secondary-btn callback-btn">Купить</button>
-      </div>
-
-      <div class="secondary-service">
-        <div class="secondary-icon">📐</div>
-        <h4 class="secondary-title-text">Проектирование</h4>
-        <p class="secondary-description">
-          Индивидуальные проекты деревянных домов и бань
-        </p>
-        <button class="secondary-btn callback-btn">Заказать</button>
-      </div>
-
-      <div class="secondary-service">
-        <div class="secondary-icon">🌲</div>
-        <h4 class="secondary-title-text">Резные изделия</h4>
-        <p class="secondary-description">
-          Декоративные элементы из дерева на заказ
-        </p>
-        <button class="secondary-btn callback-btn">Заказать</button>
-      </div>
+    <!-- Единая кнопка призыва к действию -->
+    <div class="cta-section">
+      <button class="main-cta-btn callback-btn">
+        <span class="cta-text">ПОЛУЧИТЬ КОНСУЛЬТАЦИЮ</span>
+        <span class="cta-subtext">Бесплатный расчет стоимости</span>
+      </button>
     </div>
 
-    <!-- УРОВЕНЬ 3: Дополнительные услуги -->
-    <h3 class="tertiary-title">Дополнительные услуги</h3>
-    <div class="tertiary-services">
-      <div class="tertiary-service">
-        <div class="tertiary-icon">🔨</div>
-        <h5 class="tertiary-title-text">Монтаж и ремонт крыши</h5>
-        <p class="tertiary-description">Профессиональные кровельные работы</p>
-        <button class="tertiary-btn callback-btn">Заказать</button>
+    <!-- Дополнительные услуги (компактно) -->
+    <div class="additional-services">
+      <h3 class="additional-title">Дополнительные услуги</h3>
+      <div class="additional-grid">
+        <div class="additional-service">
+          <div class="additional-icon">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <!-- Стопка досок -->
+              <rect x="10" y="70" width="80" height="6"/>
+              <rect x="12" y="62" width="76" height="6"/>
+              <rect x="14" y="54" width="72" height="6"/>
+              <rect x="16" y="46" width="68" height="6"/>
+              <rect x="18" y="38" width="64" height="6"/>
+              <rect x="20" y="30" width="60" height="6"/>
+            </svg>
+          </div>
+          <span class="additional-name">Пиломатериалы</span>
+        </div>
+
+        <div class="additional-service">
+          <div class="additional-icon">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <!-- Циркуль и линейка -->
+              <line x1="20" y1="80" x2="80" y2="20" stroke="currentColor" stroke-width="3"/>
+              <circle cx="30" cy="70" r="3"/>
+              <line x1="30" y1="70" x2="50" y2="50" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="50" r="2"/>
+              <rect x="10" y="85" width="60" height="4"/>
+              <rect x="15" y="10" width="4" height="60"/>
+            </svg>
+          </div>
+          <span class="additional-name">Проектирование</span>
+        </div>
+
+        <div class="additional-service">
+          <div class="additional-icon">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <!-- Резной орнамент -->
+              <path d="M50 10 Q30 30 50 50 Q70 30 50 10"/>
+              <path d="M50 50 Q30 70 50 90 Q70 70 50 50"/>
+              <path d="M10 50 Q30 30 50 50 Q30 70 10 50"/>
+              <path d="M90 50 Q70 30 50 50 Q70 70 90 50"/>
+              <circle cx="50" cy="50" r="8" fill="white"/>
+            </svg>
+          </div>
+          <span class="additional-name">Резные изделия</span>
+        </div>
+
+        <div class="additional-service">
+          <div class="additional-icon">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <!-- Крыша с черепицей -->
+              <path d="M10 60 L50 30 L90 60 L85 60 L50 35 L15 60 Z"/>
+              <!-- Черепица -->
+              <path d="M20 60 Q25 55 30 60 Q35 55 40 60 Q45 55 50 60 Q55 55 60 60 Q65 55 70 60 Q75 55 80 60"/>
+              <path d="M22 65 Q27 60 32 65 Q37 60 42 65 Q47 60 52 65 Q57 60 62 65 Q67 60 72 65 Q77 60 78 65"/>
+              <path d="M24 70 Q29 65 34 70 Q39 65 44 70 Q49 65 54 70 Q59 65 64 70 Q69 65 74 70"/>
+            </svg>
+          </div>
+          <span class="additional-name">Кровельные работы</span>
+        </div>
       </div>
     </div>
   </div>
-
-  <style>
-    .services-section {
-      padding: 40px 10px;
-      background: #F4F3F5;
-    }
-
-    .services-title {
-      text-align: center;
-      text-transform: uppercase;
-      font-size: 42px;
-      font-weight: 600;
-      margin: 0 auto 50px;
-      width: fit-content;
-      color: #2c5530;
-      position: relative;
-    }
-
-    .services-title::before,
-    .services-title::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 200px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #8bc34a, transparent);
-    }
-
-    .services-title::before {
-      left: -220px;
-    }
-
-    .services-title::after {
-      right: -220px;
-    }
-
-    /* УРОВЕНЬ 1: Основные направления (большие) */
-    .primary-services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 30px;
-      margin-bottom: 60px;
-    }
-
-    .primary-service {
-      background: white;
-      border-radius: 16px;
-      padding: 40px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .primary-service::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: linear-gradient(90deg, #8bc34a, #4a7c59);
-    }
-
-    .primary-service:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-    }
-
-    .primary-icon {
-      width: 120px;
-      height: 120px;
-      background: #2c5530;
-      border-radius: 50%;
-      margin: 0 auto 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
-      transition: all 0.3s ease;
-    }
-
-    .primary-service:hover .primary-icon {
-      background: #8bc34a;
-      transform: scale(1.1);
-    }
-
-    .primary-title {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: #2c5530;
-    }
-
-    .primary-description {
-      font-size: 16px;
-      color: #666;
-      margin-bottom: 25px;
-      line-height: 1.6;
-    }
-
-    .primary-btn {
-      background: #8bc34a;
-      color: white;
-      padding: 15px 35px;
-      border: none;
-      border-radius: 25px;
-      font-size: 18px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .primary-btn:hover {
-      background: #4a7c59;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(139, 195, 74, 0.3);
-    }
-
-    /* УРОВЕНЬ 2: Популярные услуги (средние) */
-    .secondary-title {
-      text-align: center;
-      font-size: 32px;
-      font-weight: 600;
-      margin-bottom: 30px;
-      color: #2c5530;
-    }
-
-    .secondary-services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-      margin-bottom: 50px;
-    }
-
-    .secondary-service {
-      background: white;
-      border-radius: 12px;
-      padding: 30px 25px;
-      text-align: center;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-
-    .secondary-service:hover {
-      transform: translateY(-5px);
-      border-color: #8bc34a;
-      box-shadow: 0 12px 30px rgba(139, 195, 74, 0.2);
-    }
-
-    .secondary-icon {
-      width: 80px;
-      height: 80px;
-      background: #f8f9fa;
-      border-radius: 50%;
-      margin: 0 auto 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 35px;
-      color: #2c5530;
-      transition: all 0.3s ease;
-    }
-
-    .secondary-service:hover .secondary-icon {
-      background: #8bc34a;
-      color: white;
-    }
-
-    .secondary-title-text {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #2c5530;
-    }
-
-    .secondary-description {
-      font-size: 15px;
-      color: #666;
-      margin-bottom: 20px;
-    }
-
-    .secondary-btn {
-      background: transparent;
-      color: #8bc34a;
-      padding: 12px 25px;
-      border: 2px solid #8bc34a;
-      border-radius: 20px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-    }
-
-    .secondary-btn:hover {
-      background: #8bc34a;
-      color: white;
-    }
-
-    /* УРОВЕНЬ 3: Дополнительные услуги (компактные) */
-    .tertiary-title {
-      text-align: center;
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 25px;
-      color: #2c5530;
-    }
-
-    .tertiary-services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .tertiary-service {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-      transition: all 0.3s ease;
-      border-left: 4px solid #8bc34a;
-    }
-
-    .tertiary-service:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(139, 195, 74, 0.15);
-    }
-
-    .tertiary-icon {
-      width: 60px;
-      height: 60px;
-      background: #f8f9fa;
-      border-radius: 50%;
-      margin: 0 auto 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 25px;
-      color: #2c5530;
-      transition: all 0.3s ease;
-    }
-
-    .tertiary-service:hover .tertiary-icon {
-      background: #8bc34a;
-      color: white;
-    }
-
-    .tertiary-title-text {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #2c5530;
-    }
-
-    .tertiary-description {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 15px;
-    }
-
-    .tertiary-btn {
-      background: transparent;
-      color: #8bc34a;
-      padding: 8px 15px;
-      border: 1px solid #8bc34a;
-      border-radius: 15px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-    }
-
-    .tertiary-btn:hover {
-      background: #8bc34a;
-      color: white;
-    }
-
-    /* Адаптивность */
-    @media (max-width: 1200px) {
-
-      .services-title::before,
-      .services-title::after {
-        display: none;
-      }
-    }
-
-    @media (max-width: 768px) {
-
-      .primary-services,
-      .secondary-services,
-      .tertiary-services {
-        grid-template-columns: 1fr;
-      }
-
-      .services-title {
-        font-size: 32px;
-      }
-
-      .primary-service {
-        padding: 30px 20px;
-      }
-
-      .primary-title {
-        font-size: 24px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .services-section {
-        padding: 30px 10px;
-      }
-
-      .services-title {
-        font-size: 28px;
-      }
-    }
-  </style>
 </section>
+
+
+
+<style>
+.services-section {
+  padding: 60px 20px;
+  background: #F4F3F5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0 auto 60px;
+  color: #2c5530;
+  position: relative;
+}
+
+.services-title::before,
+.services-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 150px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #8bc34a, transparent);
+}
+
+.services-title::before {
+  left: -170px;
+}
+
+.services-title::after {
+  right: -170px;
+}
+
+/* Основные услуги */
+.primary-services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.primary-service {
+  background: white;
+  border-radius: 20px;
+  padding: 50px 40px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-service::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #8bc34a, #4a7c59);
+}
+
+.primary-service:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 25px 60px rgba(139, 195, 74, 0.2);
+}
+
+.primary-icon {
+  width: 120px;
+  height: 120px;
+  background: #2c5530;
+  border-radius: 50%;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.4s ease;
+}
+
+.primary-icon svg {
+  width: 60px;
+  height: 60px;
+}
+
+.primary-service:hover .primary-icon {
+  background: #8bc34a;
+  transform: scale(1.1) rotate(5deg);
+}
+
+.primary-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #2c5530;
+}
+
+.primary-description {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Основная CTA кнопка */
+.cta-section {
+  text-align: center;
+  margin: 60px 0;
+}
+
+.main-cta-btn {
+  background: linear-gradient(135deg, #8bc34a, #4a7c59);
+  color: white;
+  padding: 25px 50px;
+  border: none;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 15px 35px rgba(139, 195, 74, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.main-cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.main-cta-btn:hover::before {
+  left: 100%;
+}
+
+.main-cta-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 25px 50px rgba(139, 195, 74, 0.4);
+}
+
+.cta-text {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.cta-subtext {
+  display: block;
+  font-size: 14px;
+  opacity: 0.9;
+  font-weight: 400;
+  text-transform: none;
+}
+
+/* Дополнительные услуги */
+.additional-services {
+  margin-top: 60px;
+}
+
+.additional-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #2c5530;
+}
+
+.additional-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.additional-service {
+  background: white;
+  border-radius: 15px;
+  padding: 25px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.additional-service:hover {
+  transform: translateY(-5px);
+  border-color: #8bc34a;
+  box-shadow: 0 10px 25px rgba(139, 195, 74, 0.15);
+}
+
+.additional-icon {
+  width: 60px;
+  height: 60px;
+  background: #f8f9fa;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2c5530;
+  transition: all 0.3s ease;
+}
+
+.additional-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.additional-service:hover .additional-icon {
+  background: #8bc34a;
+  color: white;
+  transform: scale(1.1);
+}
+
+.additional-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c5530;
+}
+
+
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+  .services-title::before,
+  .services-title::after {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-section {
+    padding: 40px 15px;
+  }
+
+  .services-title {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+
+  .primary-services {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .primary-service {
+    padding: 40px 30px;
+  }
+
+  .primary-title {
+    font-size: 24px;
+  }
+
+  .main-cta-btn {
+    padding: 20px 40px;
+    font-size: 18px;
+  }
+
+  .cta-text {
+    font-size: 18px;
+  }
+
+  .additional-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .modal-content {
+    margin: 20px;
+  }
+
+  .callback-form {
+    padding: 0 20px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-title {
+    font-size: 28px;
+  }
+
+  .primary-service {
+    padding: 30px 20px;
+  }
+
+  .primary-icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .primary-icon svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .main-cta-btn {
+    padding: 18px 30px;
+    font-size: 16px;
+  }
+
+  .additional-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

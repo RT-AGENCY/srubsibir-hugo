@@ -116,23 +116,23 @@
               <div class="dropdown-section">
                 <h4>Проекты</h4>
                 <a href="/projects/">Все проекты</a>
-                <a href="/projects/">Сруб из сосны</a>
-                <a href="/projects/">Сруб из лиственницы</a>
-                <a href="/projects/">Элитные дома из кедра</a>
-                <a href="/projects/">Сруб бани под ключ</a>
-                <a href="/projects/">Проекты домов Post and Beam</a>
+                <a href="/projects/?material=сосна">Сруб из сосны</a>
+                <a href="/projects/?material=лиственница">Сруб из лиственницы</a>
+                <a href="/projects/?material=кедр">Элитные дома из кедра</a>
+                <a href="/projects/?category=Баня">Сруб бани под ключ</a>
+                <!-- <a href="/projects/?material=сосна">Проекты домов Post and Beam</a> -->
               </div>
               {{ end }}
 
               {{ if eq .Name "Услуги" }}
               <!-- Подменю для Услуг -->
-              <div class="dropdown-section">
+              <!-- <div class="dropdown-section">
                 <a href="/services/">Срубы бань из бревна</a>
                 <a href="/services/">Дома из сосны</a>
                 <a href="/services/">Дома из кедра</a>
                 <a href="/services/">Дома POST&BEAM</a>
                 <a href="/services/">Дома из лиственницы</a>
-              </div>
+              </div> -->
               <div class="dropdown-section">
                 <a href="/services/proekty-domov">Проектирование домов</a>
                 <a href="/services/montazh-i-remont-kryshi">Монтаж и ремонт кровли</a>
@@ -142,10 +142,10 @@
               {{ if eq .Name "О компании" }}
               <!-- Подменю для О компании -->
               <div class="dropdown-section">
-                <a href="/review/">Отзывы</a>
+                <a href="/reviews/">Отзывы</a>
                 <a href="/about/">О компании</a>
-                <a href="/about/">Наши работы</a>
-                <a href="/about/">Наши технологии</a>
+                <!-- <a href="/about/">Наши работы</a> -->
+                <!-- <a href="/about/">Наши технологии</a> -->
                 <a href="/payment-delivery/">Оплата и Доставка</a>
                 <a href="/discounts/">Скидки</a>
               </div>
@@ -244,11 +244,11 @@
           </div>
           <div class="nav-submenu" id="projects-submenu">
             <a class="nav-item" href="/projects/">Все проекты</a>
-            <a class="nav-item" href="/projects/">Сруб из сосны</a>
-            <a class="nav-item" href="/projects/">Сруб из лиственницы</a>
+            <a class="nav-item" href="/projects/?material=сосна">Сруб из сосны</a>
+            <a class="nav-item" href="/projects/?material=лиственница">Сруб из лиственницы</a>
             <a class="nav-item" href="/projects/">Элитные дома из кедра</a>
             <a class="nav-item" href="/projects/">Сруб бани под ключ</a>
-            <a class="nav-item" href="/projects/">Проекты домов Post and Beam</a>
+            <!-- <a class="nav-item" href="/projects/">Проекты домов Post and Beam</a> -->
           </div>
         </div>
 
@@ -261,11 +261,11 @@
             </svg>
           </div>
           <div class="nav-submenu" id="services-submenu">
-            <a class="nav-item" href="/services/">Срубы бань из бревна</a>
-            <a class="nav-item" href="/services/">Дома из сосны</a>
-            <a class="nav-item" href="/services/">Дома из кедра</a>
-            <a class="nav-item" href="/services/">Дома POST&BEAM</a>
-            <a class="nav-item" href="/services/">Дома из лиственницы</a>
+            <!-- <a class="nav-item" href="/services/">Срубы бань из бревна</a> -->
+            <!-- <a class="nav-item" href="/services/">Дома из сосны</a> -->
+            <!-- <a class="nav-item" href="/services/">Дома из кедра</a> -->
+            <!-- <a class="nav-item" href="/services/">Дома POST&BEAM</a> -->
+            <!-- <a class="nav-item" href="/services/">Дома из лиственницы</a> -->
             <a class="nav-item" href="/services/proekty-domov">Проектирование домов</a>
             <a class="nav-item" href="/services/montazh-i-remont-kryshi">Монтаж и ремонт кровли</a>
             <a class="nav-item" href="/services/stroitelnye-materialy">Строительные материалы</a>
@@ -281,10 +281,10 @@
             </svg>
           </div>
           <div class="nav-submenu" id="about-submenu">
-            <a class="nav-item" href="/review/">Отзывы</a>
+            <a class="nav-item" href="/reviews/">Отзывы</a>
             <a class="nav-item" href="/about/">О компании</a>
-            <a class="nav-item" href="/about/">Наши работы</a>
-            <a class="nav-item" href="/about/">Наши технологии</a>
+            <!-- <a class="nav-item" href="/about/">Наши работы</a> -->
+            <!-- <a class="nav-item" href="/about/">Наши технологии</a> -->
             <a class="nav-item" href="/payment-delivery/">Оплата и Доставка</a>
             <a class="nav-item" href="/discounts/">Скидки</a>
           </div>
