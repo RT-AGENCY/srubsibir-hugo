@@ -181,7 +181,8 @@ p {
 }
 
 .header-top {
-  height: 84px;
+  height: auto;
+  min-height: 55px;
   padding: 12px 10px;
 }
 
@@ -212,13 +213,13 @@ p {
 .header__button_call {
   justify-content: center;
   text-align: center;
-  height: 55px;
+  height: 42px;
   padding: 0px 15px;
   background: #00a13d;
   color: white;
   display: flex;
   align-items: center;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease 0s;
@@ -957,7 +958,7 @@ body.mobile-menu-open {
 }
 
 .search-form__fake-input {
-  height: 55px;
+  height: 42px;
   max-width: 330px;
   width: 100%;
   border: 2px solid #eae9ec;
@@ -981,7 +982,7 @@ body.mobile-menu-open {
 .search-form__input {
   all: initial;
   font-family: 'Montserrat', Arial, sans-serif;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 500;
   color: #8c8c8c;
   flex: 1 1 auto;
@@ -993,7 +994,7 @@ body.mobile-menu-open {
 .search-form__input::placeholder {
   color: #8c8c8c;
   font-family: 'Montserrat', Arial, sans-serif;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 500;
 }
 

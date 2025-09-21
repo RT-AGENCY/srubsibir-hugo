@@ -39,7 +39,7 @@
           </div>
         </a>
 
-        <a href="https://wa.me/79030770399" class="contact-widget-option" target="_blank">
+        <!-- <a href="https://wa.me/79030770399" class="contact-widget-option" target="_blank">
           <div class="contact-option-icon whatsapp-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -51,7 +51,7 @@
             <span class="contact-option-title">WhatsApp</span>
             <span class="contact-option-subtitle">Написать сообщение</span>
           </div>
-        </a>
+        </a> -->
 
         <button class="contact-widget-option" onclick="showCallbackForm()">
           <div class="contact-option-icon callback-icon">
@@ -183,7 +183,7 @@
   }
 
   .contact-widget-content {
-    padding: 15px 20px 20px;
+    padding: 15px 10px 20px;
   }
 
   .contact-widget-options {
@@ -194,7 +194,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 0;
+    padding: 12px 10px;
     text-decoration: none;
     color: inherit;
     border: none;
@@ -425,15 +425,15 @@
   // Добавляем трекинг к кнопкам
   document.addEventListener('DOMContentLoaded', function () {
     const phoneLink = document.querySelector('a[href^="tel:"]');
-    const whatsappLink = document.querySelector('a[href^="https://wa.me/"]');
+    //const whatsappLink = document.querySelector('a[href^="https://wa.me/"]');
     const callbackBtn = document.querySelector('button[onclick="showCallbackForm()"]');
 
     if (phoneLink) {
       phoneLink.addEventListener('click', () => trackWidgetInteraction('phone_call'));
     }
-    if (whatsappLink) {
+    /*if (whatsappLink) {
       whatsappLink.addEventListener('click', () => trackWidgetInteraction('whatsapp'));
-    }
+    }*/
     if (callbackBtn) {
       callbackBtn.addEventListener('click', () => trackWidgetInteraction('callback_request'));
     }
