@@ -14,7 +14,7 @@
 
     <div class="callback-modal-body">
       <form class="callback-form" id="callbackForm">
-        
+
         <!-- Информация о проекте (показывается только для проектов) -->
         <div class="project-info-block" id="projectInfoBlock" style="display: none;">
           <h3>Интересующий проект:</h3>
@@ -42,13 +42,15 @@
         <!-- Имя -->
         <div class="callback-form-group">
           <label for="callbackName" class="callback-form-label">Ваше имя *</label>
-          <input type="text" id="callbackName" name="name" class="callback-form-input" placeholder="Введите ваше имя" required>
+          <input type="text" id="callbackName" name="name" class="callback-form-input" placeholder="Введите ваше имя"
+            required>
         </div>
 
         <!-- Телефон -->
         <div class="callback-form-group">
           <label for="callbackPhone" class="callback-form-label">Номер телефона *</label>
-          <input type="tel" id="callbackPhone" name="phone" class="callback-form-input" placeholder="+7 (___) ___-__-__" required>
+          <input type="tel" id="callbackPhone" name="phone" class="callback-form-input" placeholder="+7 (___) ___-__-__"
+            required>
         </div>
 
         <!-- Время звонка -->
@@ -65,7 +67,8 @@
         <!-- Комментарий -->
         <div class="callback-form-group">
           <label for="callbackComment" class="callback-form-label">Комментарий</label>
-          <textarea id="callbackComment" name="comment" class="callback-form-textarea" placeholder="Дополнительные пожелания или вопросы" rows="3"></textarea>
+          <textarea id="callbackComment" name="comment" class="callback-form-textarea"
+            placeholder="Дополнительные пожелания или вопросы" rows="3"></textarea>
         </div>
 
         <!-- Согласие -->
@@ -105,591 +108,881 @@
 </div>
 
 <style>
-/* Базовые стили модального окна */
-.callback-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10000;
-  font-family: Arial, sans-serif;
-}
-
-.callback-modal.active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s ease;
-}
-
-.callback-modal-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-}
-
-.callback-modal-content {
-  position: relative;
-  background: white;
-  border-radius: 15px;
-  width: 100%;
-  max-width: 550px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideInUp 0.3s ease;
-  margin: 20px;
-}
-
-/* Заголовок */
-.callback-modal-header {
-  padding: 25px 30px 20px;
-  border-bottom: 1px solid #f0f0f0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.callback-modal-header h2 {
-  margin: 0;
-  color: #2c5530;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.callback-modal-close {
-  background: none;
-  border: none;
-  color: #666;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.callback-modal-close:hover {
-  background: #f0f0f0;
-  color: #2c5530;
-  transform: rotate(90deg);
-}
-
-/* Тело модального окна */
-.callback-modal-body {
-  padding: 30px;
-}
-
-/* Информация о проекте */
-.project-info-block {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 25px;
-  border-left: 4px solid #8bc34a;
-}
-
-.project-info-block h3 {
-  margin: 0 0 15px 0;
-  color: #2c5530;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.project-details {
-  display: grid;
-  gap: 10px;
-}
-
-.project-detail-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(139, 195, 74, 0.1);
-}
-
-.project-detail-row:last-child {
-  border-bottom: none;
-}
-
-.project-detail-label {
-  font-weight: 600;
-  color: #666;
-  font-size: 14px;
-  padding-right: 10px;
-}
-
-.project-detail-value {
-  color: #2c5530;
-  font-weight: 600;
-  font-size: 14px;
-  text-align: right;
-}
-@media(max-width: 768px) {
-  .project-detail-value {
-    text-align: left;
+  /* Базовые стили модального окна */
+  .callback-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    font-family: Arial, sans-serif;
   }
-}
 
-/* Форма */
-.callback-form-group {
-  margin-bottom: 20px;
-}
-
-.callback-form-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #2c5530;
-  font-size: 14px;
-}
-
-.callback-form-input,
-.callback-form-select,
-.callback-form-textarea {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  background: white;
-  box-sizing: border-box;
-}
-
-.callback-form-input:focus,
-.callback-form-select:focus,
-.callback-form-textarea:focus {
-  outline: none;
-  border-color: #8bc34a;
-  box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1);
-}
-
-.callback-form-textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.callback-form-select {
-  cursor: pointer;
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
-  appearance: none;
-}
-
-/* Чекбокс */
-.checkbox-group {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-
-.checkbox-group input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  margin: 0;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.callback-checkbox-label {
-  font-size: 14px;
-  line-height: 1.4;
-  color: #666;
-}
-
-.callback-checkbox-label a {
-  color: #8bc34a;
-  text-decoration: none;
-}
-
-.callback-checkbox-label a:hover {
-  text-decoration: underline;
-}
-
-/* Кнопка отправки */
-.callback-form-submit {
-  width: 100%;
-  background: linear-gradient(135deg, #8bc34a 0%, #7cb342 100%);
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.callback-form-submit:hover {
-  background: linear-gradient(135deg, #7cb342 0%, #689f38 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
-}
-
-.callback-form-submit:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.callback-btn-loader svg {
-  animation: spin 1s linear infinite;
-}
-
-/* Успешная отправка */
-.callback-success {
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.callback-success-icon {
-  margin-bottom: 20px;
-}
-
-.callback-success h3 {
-  color: #2c5530;
-  margin-bottom: 10px;
-  font-size: 24px;
-}
-
-.callback-success p {
-  color: #666;
-  margin-bottom: 25px;
-  line-height: 1.5;
-}
-
-.callback-success-btn {
-  background: #8bc34a;
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.callback-success-btn:hover {
-  background: #7cb342;
-  transform: translateY(-1px);
-}
-
-/* Анимации */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
+  .callback-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .callback-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
   }
-}
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
   .callback-modal-content {
-    margin: 10px;
-    max-height: 95vh;
+    position: relative;
+    background: white;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideInUp 0.3s ease;
+    margin: 20px;
   }
 
+  /* Заголовок */
   .callback-modal-header {
-    padding: 20px 20px 15px;
+    padding: 25px 30px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .callback-modal-header h2 {
-    font-size: 20px;
+    margin: 0;
+    color: #2c5530;
+    font-size: 24px;
+    font-weight: 700;
   }
 
+  .callback-modal-close {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .callback-modal-close:hover {
+    background: #f0f0f0;
+    color: #2c5530;
+    transform: rotate(90deg);
+  }
+
+  /* Тело модального окна */
   .callback-modal-body {
+    padding: 30px;
+  }
+
+  /* Информация о проекте */
+  .project-info-block {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
     padding: 20px;
+    margin-bottom: 25px;
+    border-left: 4px solid #8bc34a;
+  }
+
+  .project-info-block h3 {
+    margin: 0 0 15px 0;
+    color: #2c5530;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .project-details {
+    display: grid;
+    gap: 10px;
   }
 
   .project-detail-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(139, 195, 74, 0.1);
+  }
+
+  .project-detail-row:last-child {
+    border-bottom: none;
+  }
+
+  .project-detail-label {
+    font-weight: 600;
+    color: #666;
+    font-size: 14px;
+    padding-right: 10px;
+  }
+
+  .project-detail-value {
+    color: #2c5530;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: right;
+  }
+
+  @media(max-width: 768px) {
+    .project-detail-value {
+      text-align: left;
+    }
+  }
+
+  /* Форма */
+  .callback-form-group {
+    margin-bottom: 20px;
+  }
+
+  .callback-form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c5530;
+    font-size: 14px;
   }
 
   .callback-form-input,
   .callback-form-select,
   .callback-form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
     font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .callback-modal-content {
-    margin: 5px;
+    transition: all 0.3s ease;
+    background: white;
+    box-sizing: border-box;
   }
 
-  .callback-modal-header {
-    padding: 15px 15px 10px;
+  .callback-form-input:focus,
+  .callback-form-select:focus,
+  .callback-form-textarea:focus {
+    outline: none;
+    border-color: #8bc34a;
+    box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1);
   }
 
-  .callback-modal-body {
-    padding: 15px;
+  .callback-form-textarea {
+    resize: vertical;
+    min-height: 80px;
   }
-}
 
-/* Валидация */
-.callback-form-input:invalid,
-.callback-form-textarea:invalid {
-  border-color: #dc3545;
-}
+  .callback-form-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    appearance: none;
+  }
 
-.callback-form-input:valid,
-.callback-form-textarea:valid {
-  border-color: #28a745;
-}
+  /* Чекбокс */
+  .checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
 
-/* Состояние загрузки формы */
-.callback-form.loading {
-  opacity: 0.7;
-  pointer-events: none;
-}
+  .checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .callback-checkbox-label {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #666;
+  }
+
+  .callback-checkbox-label a {
+    color: #8bc34a;
+    text-decoration: none;
+  }
+
+  .callback-checkbox-label a:hover {
+    text-decoration: underline;
+  }
+
+  /* Кнопка отправки */
+  .callback-form-submit {
+    width: 100%;
+    background: linear-gradient(135deg, #8bc34a 0%, #7cb342 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .callback-form-submit:hover {
+    background: linear-gradient(135deg, #7cb342 0%, #689f38 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
+  }
+
+  .callback-form-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .callback-btn-loader svg {
+    animation: spin 1s linear infinite;
+  }
+
+  /* Успешная отправка */
+  .callback-success {
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .callback-success-icon {
+    margin-bottom: 20px;
+  }
+
+  .callback-success h3 {
+    color: #2c5530;
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+
+  .callback-success p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+
+  .callback-success-btn {
+    background: #8bc34a;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .callback-success-btn:hover {
+    background: #7cb342;
+    transform: translateY(-1px);
+  }
+
+  /* Анимации */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .callback-modal-content {
+      margin: 10px;
+      max-height: 95vh;
+    }
+
+    .callback-modal-header {
+      padding: 20px 20px 15px;
+    }
+
+    .callback-modal-header h2 {
+      font-size: 20px;
+    }
+
+    .callback-modal-body {
+      padding: 20px;
+    }
+
+    .project-detail-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+      padding: 5px 0;
+    }
+
+    .callback-form-input,
+    .callback-form-select,
+    .callback-form-textarea {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .callback-modal-content {
+      margin: 5px;
+    }
+
+    .callback-modal-header {
+      padding: 15px 15px 10px;
+    }
+
+    .callback-modal-body {
+      padding: 15px;
+    }
+  }
+
+  /* Валидация */
+  .callback-form-input:invalid,
+  .callback-form-textarea:invalid {
+    border-color: #dc3545;
+  }
+
+  .callback-form-input:valid,
+  .callback-form-textarea:valid {
+    border-color: #28a745;
+  }
+
+  /* Состояние загрузки формы */
+  .callback-form.loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
 </style>
 
 <script>
-// Основные функции управления модальным окном
-function openCallbackModal() {
-  const modal = document.getElementById('callbackModal');
-  const projectBlock = document.getElementById('projectInfoBlock');
-  const modalTitle = document.getElementById('callbackModalTitle');
-  
-  // Скрываем информацию о проекте для обычного звонка
-  projectBlock.style.display = 'none';
-  modalTitle.textContent = 'Заказать обратный звонок';
-  
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
+  // === ОСНОВНЫЕ ФУНКЦИИ УПРАВЛЕНИЯ МОДАЛЬНЫМ ОКНОМ ===
 
-  setTimeout(() => {
-    document.getElementById('callbackName').focus();
-  }, 300);
-}
-
-function openCallbackModalWithProject(projectData) {
-  const modal = document.getElementById('callbackModal');
-  const projectBlock = document.getElementById('projectInfoBlock');
-  const modalTitle = document.getElementById('callbackModalTitle');
-  
-  // Показываем информацию о проекте
-  projectBlock.style.display = 'block';
-  modalTitle.textContent = 'Узнать цену проекта';
-  
-  // Заполняем данные о проекте
-  document.getElementById('projectTitle').textContent = projectData.title || 'Не указано';
-  document.getElementById('projectArea').textContent = projectData.area || 'Не указано';
-  document.getElementById('projectCategory').textContent = projectData.category || 'Не указано';
-  document.getElementById('projectPrice').textContent = projectData.price || 'Уточнить';
-  
-  // Сохраняем данные в скрытое поле для отправки
-  document.getElementById('projectDataInput').value = JSON.stringify(projectData);
-  
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-
-  setTimeout(() => {
-    document.getElementById('callbackName').focus();
-  }, 300);
-}
-
-function closeCallbackModal() {
-  const modal = document.getElementById('callbackModal');
-  modal.classList.remove('active');
-  document.body.style.overflow = '';
-  resetCallbackForm();
-}
-
-function resetCallbackForm() {
-  const form = document.getElementById('callbackForm');
-  const success = document.getElementById('callbackSuccess');
-  const projectBlock = document.getElementById('projectInfoBlock');
-
-  form.style.display = 'block';
-  success.style.display = 'none';
-  projectBlock.style.display = 'none';
-  form.reset();
-
-  const submitBtn = form.querySelector('.callback-form-submit');
-  submitBtn.disabled = false;
-  submitBtn.querySelector('.callback-btn-text').style.display = 'inline';
-  submitBtn.querySelector('.callback-btn-loader').style.display = 'none';
-}
-
-// Инициализация формы
-function initCallbackForm() {
-  const form = document.getElementById('callbackForm');
-  if (!form) return;
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    if (!validateCallbackForm()) return;
-
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-
-    const submitBtn = form.querySelector('.callback-form-submit');
-    submitBtn.disabled = true;
-    submitBtn.querySelector('.callback-btn-text').style.display = 'none';
-    submitBtn.querySelector('.callback-btn-loader').style.display = 'inline';
-    form.classList.add('loading');
-
-    submitCallbackForm(data)
-      .then(() => {
-        form.style.display = 'none';
-        document.getElementById('callbackSuccess').style.display = 'block';
-      })
-      .catch(() => {
-        alert('Произошла ошибка при отправке. Попробуйте позже.');
-      })
-      .finally(() => {
-        form.classList.remove('loading');
-        submitBtn.disabled = false;
-        submitBtn.querySelector('.callback-btn-text').style.display = 'inline';
-        submitBtn.querySelector('.callback-btn-loader').style.display = 'none';
-      });
-  });
-}
-
-function validateCallbackForm() {
-  const name = document.getElementById('callbackName').value.trim();
-  const phone = document.getElementById('callbackPhone').value.trim();
-  const privacy = document.getElementById('callbackPrivacy').checked;
-
-  if (!name || name.length < 2) {
-    alert('Введите корректное имя');
-    return false;
-  }
-
-  if (!phone || phone.length < 10) {
-    alert('Введите корректный номер телефона');
-    return false;
-  }
-
-  if (!privacy) {
-    alert('Необходимо согласие на обработку персональных данных');
-    return false;
-  }
-
-  return true;
-}
-
-async function submitCallbackForm(data) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      console.log('Данные формы обратного звонка:', data);
-      
-      // Если есть данные о проекте, выводим их отдельно
-      if (data.project_data) {
-        console.log('Данные о проекте:', JSON.parse(data.project_data));
-      }
-      
-      resolve();
-    }, 2000);
-  });
-}
-
-// Маска для телефона
-function initPhoneMask() {
-  const phoneInput = document.getElementById('callbackPhone');
-  if (!phoneInput) return;
-
-  phoneInput.addEventListener('input', function(e) {
-    let value = e.target.value.replace(/\D/g, '');
-    
-    if (value.startsWith('8')) {
-      value = '7' + value.slice(1);
-    }
-    
-    if (value.startsWith('7')) {
-      const match = value.match(/^7(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})$/);
-      if (match) {
-        e.target.value = '+7' + 
-          (match[1] ? ' (' + match[1] : '') +
-          (match[2] ? ') ' + match[2] : '') +
-          (match[3] ? '-' + match[3] : '') +
-          (match[4] ? '-' + match[4] : '');
-      }
-    }
-  });
-}
-
-// Закрытие по Escape
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
+  function openCallbackModal() {
     const modal = document.getElementById('callbackModal');
-    if (modal && modal.classList.contains('active')) {
-      closeCallbackModal();
+    const projectBlock = document.getElementById('projectInfoBlock');
+    const modalTitle = document.getElementById('callbackModalTitle');
+
+    if (!modal) return;
+
+    // Скрываем информацию о проекте для обычного звонка
+    if (projectBlock) projectBlock.style.display = 'none';
+    if (modalTitle) modalTitle.textContent = 'Заказать обратный звонок';
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    setTimeout(() => {
+      const nameInput = document.getElementById('callbackName');
+      if (nameInput) nameInput.focus();
+    }, 300);
+  }
+
+  function openCallbackModalWithProject(projectData) {
+    const modal = document.getElementById('callbackModal');
+    const projectBlock = document.getElementById('projectInfoBlock');
+    const modalTitle = document.getElementById('callbackModalTitle');
+
+    if (!modal) return;
+
+    // Показываем информацию о проекте
+    if (projectBlock) projectBlock.style.display = 'block';
+    if (modalTitle) modalTitle.textContent = 'Узнать цену проекта';
+
+    // Заполняем данные о проекте
+    const projectTitle = document.getElementById('projectTitle');
+    const projectArea = document.getElementById('projectArea');
+    const projectCategory = document.getElementById('projectCategory');
+    const projectPrice = document.getElementById('projectPrice');
+    const projectDataInput = document.getElementById('projectDataInput');
+
+    if (projectTitle) projectTitle.textContent = projectData.title || 'Не указано';
+    if (projectArea) projectArea.textContent = projectData.area || 'Не указано';
+    if (projectCategory) projectCategory.textContent = projectData.category || 'Не указано';
+    if (projectPrice) projectPrice.textContent = projectData.price || 'Уточнить';
+    if (projectDataInput) projectDataInput.value = JSON.stringify(projectData);
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    setTimeout(() => {
+      const nameInput = document.getElementById('callbackName');
+      if (nameInput) nameInput.focus();
+    }, 300);
+  }
+
+  function closeCallbackModal() {
+    const modal = document.getElementById('callbackModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      resetCallbackForm();
     }
   }
-});
 
-// Инициализация при загрузке
-document.addEventListener('DOMContentLoaded', function() {
-  initPhoneMask();
-  initCallbackForm();
-  initCallbackTriggers();
-});
+  function resetCallbackForm() {
+    const form = document.getElementById('callbackForm');
+    const success = document.getElementById('callbackSuccess');
+    const projectBlock = document.getElementById('projectInfoBlock');
 
-function initCallbackTriggers() {
-  const triggerSelectors = [
-    '.callback-btn:not([data-project-title])',  // Обычные кнопки без проекта
-    '.mobile-callback-btn',
-    '.header-callback-btn',
-    '.widget-callback-btn'
-  ];
+    if (form) {
+      form.style.display = 'block';
+      form.reset();
+      form.classList.remove('loading');
+    }
 
-  triggerSelectors.forEach(selector => {
-    const elements = document.querySelectorAll(selector);
-    elements.forEach(element => {
-      if (!element.hasAttribute('data-callback-initialized')) {
-        element.setAttribute('data-callback-initialized', 'true');
-        element.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          openCallbackModal();
+    if (success) success.style.display = 'none';
+    if (projectBlock) projectBlock.style.display = 'none';
+
+    clearFieldErrors();
+
+    const submitBtn = form?.querySelector('.callback-form-submit');
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      const btnText = submitBtn.querySelector('.callback-btn-text');
+      const btnLoader = submitBtn.querySelector('.callback-btn-loader');
+      if (btnText) btnText.style.display = 'inline';
+      if (btnLoader) btnLoader.style.display = 'none';
+    }
+  }
+
+  // === ОТПРАВКА ФОРМЫ В AIRTABLE ЧЕРЕЗ NETLIFY FUNCTIONS ===
+
+  async function submitCallbackForm(data) {
+    try {
+      // Подготавливаем данные для отправки
+      const formData = {
+        "Name": data.name || "",
+        "Phone": data.phone || "",
+        "Email": data.email || "",
+        "Call Time": mapCallTimeToRussian(data.callTime) || "",
+        "Comment": data.comment || "",
+        "Project info": data.project_data || "",
+        // Дополнительные данные
+        "page_url": window.location.href,
+        "utm_source": getUTMParameter('utm_source'),
+        "utm_medium": getUTMParameter('utm_medium'),
+        "utm_campaign": getUTMParameter('utm_campaign')
+      };
+
+      // Отправляем на Netlify Function
+      const response = await fetch('/.netlify/functions/callback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || `HTTP ${response.status}`);
+      }
+
+      if (result.success) {
+        console.log('Заявка успешно отправлена:', result.record);
+        return result;
+      } else {
+        throw new Error(result.error || 'Unknown error');
+      }
+
+    } catch (error) {
+      console.error('Ошибка отправки в Airtable:', error);
+      throw error;
+    }
+  }
+
+  // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
+
+  function mapCallTimeToRussian(callTime) {
+    const timeMap = {
+      'now': 'Сейчас',
+      'morning': 'Утром (9:00-12:00)',
+      'afternoon': 'Днем (12:00-17:00)',
+      'evening': 'Вечером (17:00-20:00)'
+    };
+    return timeMap[callTime] || callTime;
+  }
+
+  function getUTMParameter(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param) || '';
+  }
+
+  // === ИНИЦИАЛИЗАЦИЯ И ОБРАБОТКА ФОРМЫ ===
+
+  function initCallbackForm() {
+    const form = document.getElementById('callbackForm');
+    if (!form) return;
+
+    // Инициализируем маску телефона
+    initPhoneMask();
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (!validateCallbackForm()) return;
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      const submitBtn = form.querySelector('.callback-form-submit');
+      const btnText = submitBtn?.querySelector('.callback-btn-text');
+      const btnLoader = submitBtn?.querySelector('.callback-btn-loader');
+
+      // Показываем состояние загрузки
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.style.display = 'none';
+      if (btnLoader) btnLoader.style.display = 'inline';
+      form.classList.add('loading');
+
+      submitCallbackForm(data)
+        .then((result) => {
+          // Успешная отправка
+          form.style.display = 'none';
+          const successBlock = document.getElementById('callbackSuccess');
+          if (successBlock) {
+            successBlock.style.display = 'block';
+          } else {
+            showNotification('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+            setTimeout(closeCallbackModal, 2000);
+          }
+
+          // Отправляем событие в аналитику
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'form_submit', {
+              'event_category': 'engagement',
+              'event_label': 'callback_form',
+              'value': 1
+            });
+          }
+
+          // Отправляем в Яндекс.Метрику
+          if (typeof ym !== 'undefined') {
+            ym(window.yaCounterId, 'reachGoal', 'callback_form');
+          }
+
+          console.log('Форма успешно отправлена:', result);
+        })
+        .catch((error) => {
+          console.error('Ошибка отправки формы:', error);
+
+          let errorMessage = 'Произошла ошибка при отправке заявки. ';
+
+          if (error.message.includes('Failed to fetch')) {
+            errorMessage += 'Проверьте подключение к интернету и попробуйте еще раз.';
+          } else if (error.message.includes('configuration')) {
+            errorMessage += 'Проблема с конфигурацией сервера. Свяжитесь с нами по телефону.';
+          } else {
+            errorMessage += 'Попробуйте позже или свяжитесь с нами по телефону.';
+          }
+
+          showNotification(errorMessage, 'error');
+
+          // Отправляем событие об ошибке в аналитику
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'exception', {
+              'description': error.message,
+              'fatal': false
+            });
+          }
+        })
+        .finally(() => {
+          // Восстанавливаем состояние кнопки
+          form.classList.remove('loading');
+          if (submitBtn) submitBtn.disabled = false;
+          if (btnText) btnText.style.display = 'inline';
+          if (btnLoader) btnLoader.style.display = 'none';
         });
+    });
+  }
+
+  // === ВАЛИДАЦИЯ ФОРМЫ ===
+
+  function validateCallbackForm() {
+    const name = document.getElementById('callbackName')?.value.trim();
+    const phone = document.getElementById('callbackPhone')?.value.trim();
+    const privacy = document.getElementById('callbackPrivacy')?.checked;
+
+    // Очищаем предыдущие ошибки
+    clearFieldErrors();
+
+    let isValid = true;
+
+    // Проверка имени
+    if (!name || name.length < 2) {
+      showFieldError('callbackName', 'Введите корректное имя (минимум 2 символа)');
+      isValid = false;
+    } else if (name.length > 50) {
+      showFieldError('callbackName', 'Слишком длинное имя (максимум 50 символов)');
+      isValid = false;
+    }
+
+    // Проверка телефона
+    const phoneDigits = phone?.replace(/\D/g, '') || '';
+    if (!phone || phoneDigits.length < 10) {
+      showFieldError('callbackPhone', 'Введите корректный номер телефона');
+      isValid = false;
+    }
+
+    // Проверка комментария (если заполнен)
+    const comment = document.getElementById('callbackComment')?.value.trim();
+    if (comment && comment.length > 500) {
+      showFieldError('callbackComment', 'Слишком длинный комментарий (максимум 500 символов)');
+      isValid = false;
+    }
+
+    // Проверка согласия
+    if (!privacy) {
+      showFieldError('callbackPrivacy', 'Необходимо согласие на обработку персональных данных');
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  function showFieldError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    if (!field) return;
+
+    const group = field.closest('.callback-form-group');
+    if (!group) return;
+
+    // Добавляем класс ошибки
+    field.classList.add('error');
+
+    // Создаем элемент ошибки если его нет
+    let errorElement = group.querySelector('.field-error');
+    if (!errorElement) {
+      errorElement = document.createElement('div');
+      errorElement.className = 'field-error';
+      errorElement.style.cssText = `
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 5px;
+      display: block;
+    `;
+      group.appendChild(errorElement);
+    }
+
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+  }
+
+  function clearFieldErrors() {
+    // Убираем классы ошибок
+    document.querySelectorAll('.callback-form-input, .callback-form-textarea, .callback-form-select').forEach(field => {
+      field.classList.remove('error');
+    });
+
+    // Скрываем сообщения об ошибках
+    document.querySelectorAll('.field-error').forEach(error => {
+      error.style.display = 'none';
+    });
+  }
+
+  // === МАСКА ТЕЛЕФОНА ===
+
+  function initPhoneMask() {
+    const phoneInput = document.getElementById('callbackPhone');
+    if (!phoneInput) return;
+
+    phoneInput.addEventListener('input', function (e) {
+      let value = e.target.value.replace(/\D/g, '');
+
+      if (value.startsWith('8')) {
+        value = '7' + value.slice(1);
+      }
+
+      if (value.startsWith('7') && value.length <= 11) {
+        const match = value.match(/^7(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})$/);
+        if (match) {
+          e.target.value = '+7' +
+            (match[1] ? ' (' + match[1] : '') +
+            (match[2] ? ') ' + match[2] : '') +
+            (match[3] ? '-' + match[3] : '') +
+            (match[4] ? '-' + match[4] : '');
+        }
+      } else if (value && !value.startsWith('7')) {
+        e.target.value = '+' + value;
+      }
+    });
+
+    phoneInput.addEventListener('keydown', function (e) {
+      // Разрешаем служебные клавиши
+      if ([8, 9, 27, 13, 46, 37, 38, 39, 40].indexOf(e.keyCode) !== -1 ||
+        // Разрешаем Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+        (e.ctrlKey && [65, 67, 86, 88].indexOf(e.keyCode) !== -1)) {
+        return;
+      }
+
+      // Разрешаем только цифры
+      if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        e.preventDefault();
+      }
+    });
+  }
+
+  // === УВЕДОМЛЕНИЯ ===
+
+  function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+    <div class="notification-content">
+      <span class="notification-message">${message}</span>
+      <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+    </div>
+  `;
+
+    notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    z-index: 10000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  `;
+
+    // Цвета для разных типов уведомлений
+    const colors = {
+      success: '#28a745',
+      error: '#dc3545',
+      warning: '#ffc107',
+      info: '#17a2b8'
+    };
+
+    notification.style.backgroundColor = colors[type] || colors.info;
+    if (type === 'warning') {
+      notification.style.color = '#000';
+    }
+
+    document.body.appendChild(notification);
+
+    // Анимация появления
+    setTimeout(() => {
+      notification.style.transform = 'translateX(0)';
+    }, 100);
+
+    // Автоматическое скрытие
+    setTimeout(() => {
+      if (document.body.contains(notification)) {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          if (document.body.contains(notification)) {
+            document.body.removeChild(notification);
+          }
+        }, 300);
+      }
+    }, 5000);
+  }
+
+  // === ИНИЦИАЛИЗАЦИЯ ТРИГГЕРОВ И СОБЫТИЙ ===
+
+  function initCallbackTriggers() {
+    // Основные кнопки обратного звонка
+    const triggerSelectors = [
+      '.callback-btn',
+      '.mobile-callback-btn',
+      '.header-callback-btn',
+      '[data-id="modal-call"]'
+    ];
+
+    triggerSelectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(element => {
+        if (!element.hasAttribute('data-callback-initialized')) {
+          element.setAttribute('data-callback-initialized', 'true');
+          element.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Проверяем есть ли данные о проекте
+            const projectTitle = this.getAttribute('data-project-title');
+            if (projectTitle) {
+              const projectData = {
+                title: projectTitle,
+                area: this.getAttribute('data-project-area') || '',
+                category: this.getAttribute('data-project-category') || '',
+                price: this.getAttribute('data-project-price') || ''
+              };
+              openCallbackModalWithProject(projectData);
+            } else {
+              openCallbackModal();
+            }
+          });
+        }
+      });
+    });
+  }
+
+  // Функция для виджета
+  function showCallbackForm() {
+    openCallbackModal();
+    const widget = document.getElementById('contactWidget');
+    if (widget) {
+      widget.classList.remove('active');
+    }
+  }
+
+  // === ОБЩАЯ ИНИЦИАЛИЗАЦИЯ ===
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initCallbackForm();
+    initCallbackTriggers();
+
+    // Закрытие по Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('callbackModal');
+        if (modal && modal.classList.contains('active')) {
+          closeCallbackModal();
+        }
       }
     });
   });
-}
-
-// Обновляем функцию в виджете
-function showCallbackForm() {
-  openCallbackModal();
-  const widget = document.getElementById('contactWidget');
-  if (widget) {
-    widget.classList.remove('active');
-  }
-}
 </script>

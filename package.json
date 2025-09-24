@@ -1,0 +1,13 @@
+{
+  "name": "srub-sibir-site",
+  "version": "1.0.0",
+  "description": "Hugo site with Netlify Functions",
+  "scripts": {
+    "build": "hugo --minify"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {},
+  "private": true
+}
