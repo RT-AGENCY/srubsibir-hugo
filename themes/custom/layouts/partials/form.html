@@ -85,9 +85,11 @@
     gap: 30px;
     align-items: start;
   }
+
   .order-form-input {
     width: 100%;
   }
+
   @media(max-width: 1200px) {
     .order-form-row {
       grid-template-columns: 1fr;
@@ -107,6 +109,7 @@
     animation: order-fadeInUp 0.6s ease forwards;
     opacity: 0;
   }
+
   @media(min-width: 1200px) {
     .order-form-group:nth-child(1) {
       margin-top: 33.6px;
@@ -372,6 +375,7 @@
       padding: 6px 10px;
     }
   }
+
   @media (min-width: 1200px) {
     .order-form-select {
       width: 200px;
@@ -527,9 +531,155 @@
         e.target.value = value;
       });
 
+      // Функция отправки в Airtable через Netlify Functions
+      async function submitQuestionsForm(data) {
+        try {
+          console.log('=== ОТПРАВКА ФОРМЫ ВОПРОСОВ ===');
+          console.log('Исходные данные:', data);
+
+          // Маппинг полей под вашу структуру
+          const formData = {
+            "name": data.name || "",
+            "email": data.email || "",
+            "phone": data.phone || "",
+            "country": data.country || "",
+            "location": data.location || "",
+            "diameter": data.log_diameter || "", // ваше поле log_diameter
+            "delivery_date": data.purchase_date || "", // ваше поле purchase_date
+            "completeness": data.completeness || "",
+            // Дополнительные данные
+            "page_url": window.location.href,
+            "utm_source": getUTMParameter('utm_source'),
+            "utm_medium": getUTMParameter('utm_medium'),
+            "utm_campaign": getUTMParameter('utm_campaign')
+          };
+
+          console.log('Подготовленные данные:', formData);
+
+          // Проверяем где запущены
+          const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+          if (isLocal) {
+            // Локальная разработка - имитация
+            console.log('🔧 РЕЖИМ РАЗРАБОТКИ: имитация отправки');
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            return {
+              success: true,
+              message: 'Вопрос успешно отправлен (режим разработки)',
+              record: { id: 'mock_questions_' + Date.now() }
+            };
+          } else {
+            // Продакшн - реальная отправка
+            const response = await fetch('/.netlify/functions/questions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData)
+            });
+
+            const responseText = await response.text();
+            console.log('Response status:', response.status);
+            console.log('Response text:', responseText);
+
+            let result;
+            try {
+              result = JSON.parse(responseText);
+            } catch (parseError) {
+              console.error('Failed to parse response:', parseError);
+              throw new Error('Invalid server response');
+            }
+
+            if (!response.ok) {
+              throw new Error(result.error || `HTTP ${response.status}`);
+            }
+
+            if (result.success) {
+              console.log('✅ Вопрос успешно отправлен:', result.record);
+              return result;
+            } else {
+              throw new Error(result.error || 'Unknown error');
+            }
+          }
+
+        } catch (error) {
+          console.error('=== ОШИБКА ОТПРАВКИ ФОРМЫ ВОПРОСОВ ===');
+          console.error('Error:', error.message);
+          throw error;
+        }
+      }
+
+      // Функция для получения UTM параметров
+      function getUTMParameter(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param) || '';
+      }
+
+      // Функция показа уведомлений
+      function showNotification(message, type = 'info') {
+        // Удаляем предыдущие уведомления
+        const existingNotifications = document.querySelectorAll('.notification');
+        existingNotifications.forEach(n => n.remove());
+
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+      <div class="notification-content">
+        <span class="notification-message">${message}</span>
+        <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+      </div>
+    `;
+
+        notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      z-index: 10000;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-family: inherit;
+    `;
+
+        const colors = {
+          success: '#28a745',
+          error: '#dc3545',
+          warning: '#ffc107',
+          info: '#17a2b8'
+        };
+
+        notification.style.backgroundColor = colors[type] || colors.info;
+        if (type === 'warning') {
+          notification.style.color = '#000';
+        }
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.style.transform = 'translateX(0)';
+        }, 100);
+
+        setTimeout(() => {
+          if (document.body.contains(notification)) {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+              if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+              }
+            }, 300);
+          }
+        }, 5000);
+      }
+
       // Валидация формы
       function validateField(field) {
-        const errorMessage = field.parentNode.querySelector('.order-error-message');
+        const errorMessage = field.closest('div')?.querySelector('.order-error-message');
         let isValid = true;
 
         if (field.hasAttribute('required') && !field.value.trim()) {
@@ -590,28 +740,77 @@
         });
 
         if (isFormValid) {
+          const originalText = submitButton.textContent;
           submitButton.classList.add('loading');
           submitButton.textContent = 'Отправка...';
+          submitButton.disabled = true;
 
-          // Имитация отправки
-          setTimeout(() => {
-            submitButton.classList.remove('loading');
-            submitButton.textContent = 'Отправлено!';
-            submitButton.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+          // Получаем данные формы
+          const formData = new FormData(form);
+          const data = Object.fromEntries(formData.entries());
 
-            // Показываем сообщение об успехе
-            alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+          // Отправляем в Airtable
+          submitQuestionsForm(data)
+            .then((result) => {
+              // Успешная отправка
+              submitButton.classList.remove('loading');
+              submitButton.textContent = 'Отправлено!';
+              submitButton.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
 
-            // Сброс формы
-            setTimeout(() => {
-              form.reset();
-              submitButton.textContent = 'Отправить заявку';
-              submitButton.style.background = '';
-              inputs.forEach(input => {
-                input.classList.remove('success', 'error');
-              });
-            }, 2000);
-          }, 2000);
+              showNotification('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+
+              // Отправляем событие в аналитику
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_submit', {
+                  'event_category': 'engagement',
+                  'event_label': 'questions_form',
+                  'value': 1
+                });
+              }
+
+              if (typeof ym !== 'undefined') {
+                ym(window.yaCounterId, 'reachGoal', 'questions_form');
+              }
+
+              // Сброс формы через 2 секунды
+              setTimeout(() => {
+                form.reset();
+                submitButton.textContent = originalText;
+                submitButton.style.background = '';
+                submitButton.disabled = false;
+                inputs.forEach(input => {
+                  input.classList.remove('success', 'error');
+                });
+              }, 2000);
+
+              console.log('Форма вопросов успешно отправлена:', result);
+            })
+            .catch((error) => {
+              console.error('Ошибка отправки формы:', error);
+
+              submitButton.classList.remove('loading');
+              submitButton.textContent = originalText;
+              submitButton.disabled = false;
+
+              let errorMessage = 'Произошла ошибка при отправке заявки. ';
+
+              if (error.message.includes('Failed to fetch')) {
+                errorMessage += 'Проверьте подключение к интернету и попробуйте еще раз.';
+              } else if (error.message.includes('configuration')) {
+                errorMessage += 'Проблема с конфигурацией сервера. Свяжитесь с нами по телефону.';
+              } else {
+                errorMessage += 'Попробуйте позже или свяжитесь с нами по телефону.';
+              }
+
+              showNotification(errorMessage, 'error');
+
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'exception', {
+                  'description': error.message,
+                  'fatal': false
+                });
+              }
+            });
         } else {
           // Прокручиваем к первому полю с ошибкой
           const firstError = form.querySelector('.order-form-input.error, .order-form-select.error');
@@ -622,6 +821,6 @@
         }
       });
 
-      console.log('Форма заказа сруба инициализирована');
+      console.log('Форма заказа сруба инициализирована с Airtable интеграцией');
     });
   </script>
