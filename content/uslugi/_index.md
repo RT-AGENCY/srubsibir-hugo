@@ -1,12 +1,10 @@
 ---
-title: "Сервисы"
-description: "Полный спектр услуг по строительству деревянных домов и бань"
-layout: "services"
+title: "Каталог проектов"
 
 showHero: false
 showAdvantages: false
 showProjects: false
-showServices: true
+showServices: false
 showTechnology: false
 showStages: false
 showOurJobs: false
