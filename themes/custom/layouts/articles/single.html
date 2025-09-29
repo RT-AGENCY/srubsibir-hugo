@@ -1,0 +1,163 @@
+{{ define "main" }}
+<div class="container">
+    <div class="breadcrumbs">
+        <a href="{{ .Site.BaseURL }}">Главная</a> — 
+        <a href="{{ .Section | relURL }}">{{ .Section | humanize }}</a> — 
+        {{ .Title }}
+    </div>
+
+    <article class="article-single">
+        <h1 class="article-title">{{ .Title }}</h1>
+        
+        <div class="article-meta">
+            <span class="article-date">{{ .Date.Format "02.01.2006" }}</span>
+        </div>
+
+        {{ with .Params.image }}
+        <div class="article-image-wrapper">
+            <img src="{{ . | relURL }}" alt="{{ $.Title }}" class="article-main-image">
+        </div>
+        {{ end }}
+
+        <div class="article-content">
+            {{ .Content }}
+        </div>
+
+        <div class="article-footer">
+            <a href="{{ .Section | relURL }}" class="back-btn">← Вернуться к списку статей</a>
+        </div>
+    </article>
+</div>
+
+<style>
+    .breadcrumbs {
+        padding: 30px 0;
+        font-size: 14px;
+        color: #999;
+    }
+
+    .breadcrumbs a {
+        color: #999;
+        text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+        color: #00a651;
+    }
+
+    .article-single {
+        background: #fff;
+        padding: 50px;
+        margin-bottom: 50px;
+    }
+
+    .article-title {
+        font-size: 40px;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: 20px;
+        line-height: 1.3;
+    }
+    ol {
+      list-style: auto;
+    }
+
+    .article-meta {
+        font-size: 14px;
+        color: #999;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .article-image-wrapper {
+        margin-bottom: 40px;
+    }
+
+    .article-main-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .article-content {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    .article-content h2 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #000;
+        margin: 40px 0 20px;
+    }
+
+    .article-content h3 {
+        font-size: 22px;
+        font-weight: 600;
+        color: #000;
+        margin: 30px 0 15px;
+    }
+
+    .article-content p {
+        margin-bottom: 20px;
+    }
+
+    .article-content ul, 
+    .article-content ol {
+        margin: 20px 0 20px 30px;
+    }
+
+    .article-content li {
+        margin-bottom: 10px;
+    }
+
+    .article-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 30px 0;
+    }
+
+    .article-content blockquote {
+        border-left: 4px solid #00a651;
+        padding-left: 20px;
+        margin: 30px 0;
+        font-style: italic;
+        color: #666;
+    }
+
+    .article-footer {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 1px solid #eee;
+    }
+
+    .back-btn {
+        display: inline-block;
+        color: #00a651;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .back-btn:hover {
+        color: #008a43;
+    }
+
+    @media (max-width: 768px) {
+        .article-single {
+            padding: 30px 20px;
+        }
+
+        .article-title {
+            font-size: 28px;
+        }
+
+        .article-content h2 {
+            font-size: 24px;
+        }
+    }
+</style>
+{{ end }}

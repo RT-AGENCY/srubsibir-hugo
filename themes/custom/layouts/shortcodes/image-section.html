@@ -1,0 +1,72 @@
+<div class='section-with-image {{ .Get "position" }}'>
+    <div class="section-content-wrapper">
+        <div class="section-text">
+            {{ .Inner | markdownify }}
+        </div>
+        <div class="section-image">
+            <img src='{{ .Get "src" }}' alt="">
+        </div>
+    </div>
+  <style>
+    /* Секция с изображением */
+    .section-with-image {
+      margin: 40px 0;
+    }
+
+    .section-with-image .section-content-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .section-with-image.left .section-content-wrapper {
+      grid-template-areas: "image text";
+    }
+
+    .section-with-image.left .section-image {
+      grid-area: image;
+    }
+
+    .section-with-image.left .section-text {
+      grid-area: text;
+    }
+
+    .section-with-image.right .section-content-wrapper {
+      grid-template-areas: "text image";
+    }
+
+    .section-with-image.right .section-text {
+      grid-area: text;
+    }
+
+    .section-with-image.right .section-image {
+      grid-area: image;
+    }
+
+    .section-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .section-text h2 {
+      margin-top: 0;
+    }
+
+    /* Адаптив для секций с изображениями */
+    @media (max-width: 768px) {
+      .section-with-image .section-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .section-with-image.left .section-content-wrapper,
+      .section-with-image.right .section-content-wrapper {
+        grid-template-areas:
+          "image"
+          "text";
+      }
+    }
+  </style>
+</div>
