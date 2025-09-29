@@ -15,7 +15,7 @@ showContactForm: true
 showWidget: true
 showCallForm: true
 
-
+draft: false
 ---
 
 ## Где заказать проект частного дома?
