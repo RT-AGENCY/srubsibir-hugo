@@ -1,7 +1,6 @@
 ---
 title: "Сервисы"
 description: "Полный спектр услуг по строительству деревянных домов и бань"
-layout: "services"
 
 showHero: false
 showAdvantages: false

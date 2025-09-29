@@ -1,0 +1,269 @@
+{{ define "main" }}
+<div class="service-page">
+  <div class="container">
+    <!-- Хлебные крошки -->
+    <nav class="breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+        <li class="breadcrumb-item"><a href="/services/">Услуги</a></li>
+        <li class="breadcrumb-item"><span>{{ .Title }}</span></li>
+      </ol>
+    </nav>
+
+    <!-- Заголовок -->
+    <h1 class="service-title">{{ .Title }}</h1>
+
+    <!-- Основной контент -->
+    <div class="service-content">
+      {{ .Content }}
+    </div>
+  </div>
+</div>
+
+<style>
+.service-page {
+  padding: 40px 0 60px;
+  min-height: 70vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Хлебные крошки */
+.breadcrumb {
+  margin-bottom: 30px;
+}
+
+.breadcrumb-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 5px;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-item a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.breadcrumb-item a:hover {
+  color: #2c5530;
+  text-decoration: underline;
+}
+
+.breadcrumb-item:not(:last-child)::after {
+  content: " › ";
+  margin-left: 5px;
+  color: #999;
+}
+
+.breadcrumb-item:last-child span {
+  color: #333;
+  font-weight: 500;
+}
+
+/* Заголовок */
+.service-title {
+  font-size: 2.5rem;
+  color: #2c5530;
+  margin-bottom: 40px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Контент */
+.service-content {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.service-content h2 {
+  font-size: 1.8rem;
+  color: #2c5530;
+  margin: 40px 0 20px 0;
+  font-weight: 600;
+}
+
+.service-content h2:first-child {
+  margin-top: 0;
+}
+
+.service-content h3 {
+  font-size: 1.4rem;
+  color: #4a7c59;
+  margin: 30px 0 15px 0;
+  font-weight: 600;
+}
+
+.service-content p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.service-content strong {
+  color: #2c5530;
+  font-weight: 600;
+}
+
+.service-content ul,
+.service-content ol {
+  margin: 20px 0;
+  padding-left: 30px;
+}
+
+.service-content ul {
+  list-style-type: disc;
+}
+
+.service-content ol {
+  list-style-type: decimal;
+}
+
+.service-content li {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.service-content li strong {
+  color: #2c5530;
+}
+
+.service-content a {
+  color: #8bc34a;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.service-content a:hover {
+  color: #2c5530;
+  text-decoration: underline;
+}
+
+/* Таблицы */
+.service-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.service-content th,
+.service-content td {
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.service-content th {
+  background: #2c5530;
+  color: white;
+  font-weight: 600;
+}
+
+.service-content tr:hover {
+  background: rgba(139, 195, 74, 0.05);
+}
+
+/* Блоки с акцентом */
+.service-content blockquote {
+  border-left: 4px solid #8bc34a;
+  background: #f8f9fa;
+  padding: 20px 30px;
+  margin: 30px 0;
+  border-radius: 4px;
+}
+
+.service-content blockquote p {
+  margin: 0;
+  font-style: italic;
+  color: #555;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .service-page {
+    padding: 20px 0 40px;
+  }
+
+  .container {
+    padding: 0 15px;
+  }
+
+  .service-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+
+  .service-content {
+    padding: 25px 20px;
+  }
+
+  .service-content h2 {
+    font-size: 1.5rem;
+    margin: 30px 0 15px 0;
+  }
+
+  .service-content h3 {
+    font-size: 1.2rem;
+    margin: 25px 0 12px 0;
+  }
+
+  .service-content p,
+  .service-content li {
+    font-size: 1rem;
+  }
+
+  .service-content ul,
+  .service-content ol {
+    padding-left: 20px;
+  }
+
+  .service-content table {
+    font-size: 0.9rem;
+  }
+
+  .service-content th,
+  .service-content td {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-title {
+    font-size: 1.5rem;
+  }
+
+  .service-content {
+    padding: 20px 15px;
+  }
+
+  .service-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .service-content h3 {
+    font-size: 1.1rem;
+  }
+
+  .breadcrumb-list {
+    font-size: 13px;
+  }
+}
+</style>
+{{ end }}
