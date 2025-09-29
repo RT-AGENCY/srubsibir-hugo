@@ -54,7 +54,7 @@ theme = 'custom'
 [permalinks]
   projects = "/projects/:section/:slug/"
   blog = "/blog/:year/:month/:slug/"
-  services = "/services/:slug/"
+  services = "/uslugi/:slug/"
 
 [sitemap]
   changefreq = "monthly"
@@ -71,7 +71,7 @@ theme = 'custom'
 
 [[menu.main]]
   name = "Услуги"
-  url = "/services/"
+  url = "/uslugi/"
   weight = 20
 
 [[menu.main]]
