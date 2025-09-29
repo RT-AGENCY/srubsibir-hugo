@@ -146,24 +146,6 @@
   position: relative;
 }
 
-.services-title::before,
-.services-title::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 150px;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #8bc34a, transparent);
-}
-
-.services-title::before {
-  left: 0;
-}
-
-.services-title::after {
-  right: 0;
-}
-
 /* Основные услуги */
 .primary-services {
   display: grid;
@@ -360,13 +342,6 @@
 
 
 /* Адаптивность */
-@media (max-width: 1200px) {
-  .services-title::before,
-  .services-title::after {
-    display: none;
-  }
-}
-
 @media (max-width: 768px) {
   .services-section {
     padding: 40px 15px;
