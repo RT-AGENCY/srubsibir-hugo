@@ -15,6 +15,7 @@ showContactForm: true
 showWidget: true
 showCallForm: true
 
+draft: false
 
 ---
 
