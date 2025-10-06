@@ -69,7 +69,7 @@
   <link rel="canonical" href="{{ .Permalink }}">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'"/>
   {{ $css := resources.Get "css/main.css" }}
   {{ if $css }}
   {{ if hugo.IsDevelopment }}
