@@ -124,7 +124,7 @@
     </div>
     
 <!-- Планировка -->
-    {{ if .Params.floor_plans }}
+    {{ if or .Params.floor_plans .Params.planning_description }}
     <div class="planning-section">
       <h2 class="section-title">Планировка</h2>
       
