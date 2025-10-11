@@ -43,19 +43,14 @@ gallery:
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-6.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-7.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-8.jpg"
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-9.jpg"
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-10.jpg"
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-11.jpg"
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-12.jpg"
+
 
 # Планировка
 floor_plans:
   - title: "План дома"
     images:
+      - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-7.jpg"
       - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-8.jpg"
-      - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-9.jpg"
-      - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-10.jpg"
-      - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/monako-164/monako-164-11.jpg"
 
 planning_description: |
     ### Первый этаж
