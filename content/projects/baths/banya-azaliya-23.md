@@ -48,7 +48,7 @@ gallery:
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-11.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-12.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-13.jpg"
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-14.png
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-14.png"
 
 # Планировка
 floor_plans:
@@ -56,7 +56,7 @@ floor_plans:
     images:
       - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-9.jpg"
       - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-10.jpg"
-      - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-14.png
+      - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-14.png"
 
 planning_description: |
     Три классических отделения:

@@ -53,7 +53,7 @@ floor_plans:
     images:
       - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/mihai-21/mihai-21-9.jpg"
       - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/mihai-21/mihai-21-10.jpg"
-      - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/mihai-21/mihai-21-11.jpg
+      - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/mihai-21/mihai-21-11.jpg"
 
 planning_description: |
     В бане три классических отделения:
