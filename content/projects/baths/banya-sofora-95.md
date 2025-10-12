@@ -18,8 +18,8 @@ showCallForm: true
 
 # Основные характеристики
 category: "Бани с террасой"
-categories: ["Бани с террасой", "Дом"]
-main_category: "Дом"
+categories: ["Бани с террасой", "Баня"]
+main_category: "Баня"
 area: "95,6 м²"
 dimensions: "13,8х11,2 м"
 floors: 1
@@ -35,7 +35,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/sofora-96/sofora-96-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/sofora-96/sofora-96-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/sofora-96/sofora-96-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/sofora-96/sofora-96-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/sofora-96/sofora-96-4.jpg"

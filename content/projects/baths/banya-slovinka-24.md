@@ -18,8 +18,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Баня"
-categories: ["Баня", "Дом"]
-main_category: "Дом"
+main_category: "Баня"
 area: "24 м²"
 dimensions: "5 x 6 м"
 floors: 1
@@ -35,7 +34,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/slovinks-24/slovinks-24-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/slovinks-24/slovinks-24-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/slovinks-24/slovinks-24-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/slovinks-24/slovinks-24-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/slovinks-24/slovinks-24-4.jpg"

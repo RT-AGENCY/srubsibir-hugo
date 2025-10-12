@@ -18,8 +18,8 @@ showCallForm: true
 
 # Основные характеристики
 category: "Баня с террасой"
-categories: ["Баня с террасой", "Дом"]
-main_category: "Дом"
+categories: ["Баня с террасой", "Баня"]
+main_category: "Баня"
 area: "84 м²"
 dimensions: "10х8,86 м"
 floors: 1
@@ -35,7 +35,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/gres-84/gres-84-1.jpg" 
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/gres-84/gres-84-1.jpg" 
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/gres-84/gres-84-2.jpg"  
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/gres-84/gres-84-3.jpg"  
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/gres-84/gres-84-4.jpg"  

@@ -18,8 +18,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Баня"
-categories: ["Баня", "Дом"]
-main_category: "Дом"
+main_category: "Баня"
 area: "61 м²"
 dimensions: "9 x 9 м"
 floors: 1
@@ -35,7 +34,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/olhovka-61/olhovka-61-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/olhovka-61/olhovka-61-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/olhovka-61/olhovka-61-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/olhovka-61/olhovka-61-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/olhovka-61/olhovka-61-4.jpg"

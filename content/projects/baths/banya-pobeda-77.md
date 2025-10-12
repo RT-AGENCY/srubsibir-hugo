@@ -35,7 +35,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/pobeda-77/pobeda-77-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/pobeda-77/pobeda-77-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/pobeda-77/pobeda-77-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/pobeda-77/pobeda-77-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/pobeda-77/pobeda-77-4.jpg"

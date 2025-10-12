@@ -35,7 +35,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/sloboda-19/sloboda-19-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/sloboda-19/sloboda-19-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/sloboda-19/sloboda-19-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/sloboda-19/sloboda-19-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/sloboda-19/sloboda-19-4.jpg"

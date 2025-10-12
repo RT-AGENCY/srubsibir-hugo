@@ -18,8 +18,8 @@ showCallForm: true
 
 # Основные характеристики
 category: "Бани с террасой"
-categories: ["Бани с террасой", "Дом"]
-main_category: "Дом"
+categories: ["Бани с террасой", "Баня"]
+main_category: "Баня"
 area: "156 м²"
 dimensions: "12,4х18,2 м"
 floors: 1
@@ -35,7 +35,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/kostus-156/kostus-156-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/kostus-156/kostus-156-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/kostus-156/kostus-156-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/kostus-156/kostus-156-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/kostus-156/kostus-156-4.jpg"

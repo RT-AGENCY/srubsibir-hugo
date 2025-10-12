@@ -18,8 +18,8 @@ showCallForm: true
 
 # Основные характеристики
 category: "Баня"
-categories: ["Баня", "Дом"]
-main_category: "Дом"
+categories: ["Баня"]
+main_category: "Баня"
 area: "23,5 м²"
 dimensions: "5х7 м"
 floors: 1
@@ -35,7 +35,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/azalia-23/azalia-23-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/azalia-23/azalia-23-4.jpg"

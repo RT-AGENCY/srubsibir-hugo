@@ -18,8 +18,8 @@ showCallForm: true
 
 # Основные характеристики
 category: "Бани с террасой"
-categories: ["Бани с террасой", "Дом"]
-main_category: "Дом"
+categories: ["Бани с террасой", "Баня"]
+main_category: "Баня"
 area: "135 м²"
 dimensions: "8х12 м"
 floors: 2
@@ -35,7 +35,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/maranta-135/maranta-135-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/maranta-135/maranta-135-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/maranta-135/maranta-135-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/maranta-135/maranta-135-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/maranta-135/maranta-135-4.jpg"

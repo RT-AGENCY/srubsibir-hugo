@@ -18,8 +18,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Баня"
-categories: ["Баня", "Дом"]
-main_category: "Дом"
+main_category: "Баня"
 area: "118 м²"
 dimensions: "11х10,6 м"
 floors: 1
@@ -35,7 +34,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/eremeevka-118/eremeevka-118-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/eremeevka-118/eremeevka-118-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/eremeevka-118/eremeevka-118-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/eremeevka-118/eremeevka-118-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/eremeevka-118/eremeevka-118-4.jpg"

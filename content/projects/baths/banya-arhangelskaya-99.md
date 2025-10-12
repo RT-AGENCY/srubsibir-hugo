@@ -18,8 +18,8 @@ showCallForm: true
 
 # Основные характеристики
 category: "Баня с террасой"
-categories: ["Баня с террасой", "Дом"]
-main_category: "Дом"
+categories: ["Баня с террасой", "Баня"]
+main_category: "Баня"
 area: "99 м²"
 dimensions: "9х16 м"
 floors: 1
@@ -35,7 +35,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/archangel-99/archangel-99-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/archangel-99/archangel-99-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/archangel-99/archangel-99-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/archangel-99/archangel-99-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/archangel-99/archangel-99-4.jpg"

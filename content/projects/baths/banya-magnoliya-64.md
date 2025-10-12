@@ -18,8 +18,8 @@ showCallForm: true
 
 # Основные характеристики
 category: "Бани с террасой"
-categories: ["Бани с террасой", "Дом"]
-main_category: "Дом"
+categories: ["Бани с террасой", "Баня"]
+main_category: "Баня"
 area: "64 м²"
 dimensions: "7,5х11,4 м"
 floors: 1
@@ -35,7 +35,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/magnolia-64/magnolia-64-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/magnolia-64/magnolia-64-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/magnolia-64/magnolia-64-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/magnolia-64/magnolia-64-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/magnolia-64/magnolia-64-4.jpg"

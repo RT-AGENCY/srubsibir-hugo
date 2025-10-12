@@ -18,8 +18,7 @@ showCallForm: true
 
 # Основные характеристики
 category: "Баня"
-categories: ["Баня", "Дом"]
-main_category: "Дом"
+main_category: "Баня"
 area: "21,33 м²"
 dimensions: "5 x 5 м"
 floors: 1
@@ -35,7 +34,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/mihai-21/mihai-21-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/mihai-21/mihai-21-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/mihai-21/mihai-21-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/mihai-21/mihai-21-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/mihai-21/mihai-21-4.jpg"

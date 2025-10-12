@@ -18,8 +18,8 @@ showCallForm: true
 
 # Основные характеристики
 category: "Бани с террасой"
-categories: ["Бани с террасой", "Дом"]
-main_category: "Дом"
+categories: ["Бани с террасой", "Баня"]
+main_category: "Баня"
 area: "58 м²"
 dimensions: "8,4х12,7 м"
 floors: 1
@@ -35,7 +35,7 @@ price_note: ""
 
 # Галерея изображений
 gallery:
-  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/houses/leshina-58/leshina-58-1.jpg"
+  - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/leshina-58/leshina-58-1.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/leshina-58/leshina-58-2.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/leshina-58/leshina-58-3.jpg"
   - "https://srubsibir-images.hb.ru-msk.vkcloud-storage.ru/projects/baths/leshina-58/leshina-58-4.jpg"
