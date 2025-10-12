@@ -521,9 +521,7 @@
       phoneInput.addEventListener('input', function (e) {
         let value = e.target.value.replace(/\D/g, '');
         if (value.length > 0) {
-          if (value[0] === '8') {
-            value = '7' + value.slice(1);
-          }
+          if (value[0] === '8') value = '7' + value.slice(1);
           if (value[0] === '7') {
             value = value.replace(/^7(\d{3})(\d{3})(\d{2})(\d{2}).*/, '+7 ($1) $2-$3-$4');
           }
@@ -531,94 +529,49 @@
         e.target.value = value;
       });
 
-      // Функция отправки в Airtable через Netlify Functions
-      async function submitQuestionsForm(data) {
-        try {
-          console.log('=== ОТПРАВКА ФОРМЫ ВОПРОСОВ ===');
-          console.log('Исходные данные:', data);
+      // Валидация
+      function validateField(field) {
+        const errorMessage = field.closest('div')?.querySelector('.order-error-message');
+        let isValid = true;
 
-          // Маппинг полей под вашу структуру
-          const formData = {
-            "name": data.name || "",
-            "email": data.email || "",
-            "phone": data.phone || "",
-            "country": data.country || "",
-            "location": data.location || "",
-            "diameter": data.log_diameter || "", // ваше поле log_diameter
-            "delivery_date": data.purchase_date || "", // ваше поле purchase_date
-            "completeness": data.completeness || "",
-            // Дополнительные данные
-            "page_url": window.location.href,
-            "utm_source": getUTMParameter('utm_source'),
-            "utm_medium": getUTMParameter('utm_medium'),
-            "utm_campaign": getUTMParameter('utm_campaign')
-          };
-
-          console.log('Подготовленные данные:', formData);
-
-          // Проверяем где запущены
-          const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-          if (isLocal) {
-            // Локальная разработка - имитация
-            console.log('🔧 РЕЖИМ РАЗРАБОТКИ: имитация отправки');
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            return {
-              success: true,
-              message: 'Вопрос успешно отправлен (режим разработки)',
-              record: { id: 'mock_questions_' + Date.now() }
-            };
-          } else {
-            // Продакшн - реальная отправка
-            const response = await fetch('/.netlify/functions/questions', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(formData)
-            });
-
-            const responseText = await response.text();
-            console.log('Response status:', response.status);
-            console.log('Response text:', responseText);
-
-            let result;
-            try {
-              result = JSON.parse(responseText);
-            } catch (parseError) {
-              console.error('Failed to parse response:', parseError);
-              throw new Error('Invalid server response');
-            }
-
-            if (!response.ok) {
-              throw new Error(result.error || `HTTP ${response.status}`);
-            }
-
-            if (result.success) {
-              console.log('✅ Вопрос успешно отправлен:', result.record);
-              return result;
-            } else {
-              throw new Error(result.error || 'Unknown error');
-            }
-          }
-
-        } catch (error) {
-          console.error('=== ОШИБКА ОТПРАВКИ ФОРМЫ ВОПРОСОВ ===');
-          console.error('Error:', error.message);
-          throw error;
+        if (field.hasAttribute('required') && !field.value.trim()) {
+          isValid = false;
         }
+
+        if (field.type === 'email' && field.value) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(field.value)) isValid = false;
+        }
+
+        if (field.type === 'tel' && field.value) {
+          const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+          if (!phoneRegex.test(field.value)) isValid = false;
+        }
+
+        if (isValid) {
+          field.classList.remove('error');
+          field.classList.add('success');
+          if (errorMessage) errorMessage.classList.remove('show');
+        } else {
+          field.classList.remove('success');
+          field.classList.add('error');
+          if (errorMessage) errorMessage.classList.add('show');
+        }
+
+        return isValid;
       }
 
-      // Функция для получения UTM параметров
-      function getUTMParameter(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param) || '';
-      }
+      // Валидация в реальном времени
+      const inputs = form.querySelectorAll('.order-form-input, .order-form-select');
+      inputs.forEach(input => {
+        input.addEventListener('blur', () => validateField(input));
+        input.addEventListener('input', () => {
+          if (input.classList.contains('error')) validateField(input);
+        });
+      });
 
-      // Функция показа уведомлений
+      // Уведомления
       function showNotification(message, type = 'info') {
-        // Удаляем предыдущие уведомления
         const existingNotifications = document.querySelectorAll('.notification');
         existingNotifications.forEach(n => n.remove());
 
@@ -631,196 +584,102 @@
       </div>
     `;
 
-        notification.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 15px 20px;
-      border-radius: 8px;
-      color: white;
-      font-weight: 500;
-      z-index: 10000;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      max-width: 400px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      font-family: inherit;
-    `;
-
-        const colors = {
-          success: '#28a745',
-          error: '#dc3545',
-          warning: '#ffc107',
-          info: '#17a2b8'
-        };
-
-        notification.style.backgroundColor = colors[type] || colors.info;
-        if (type === 'warning') {
-          notification.style.color = '#000';
-        }
+        const colors = { success: '#28a745', error: '#dc3545', warning: '#ffc107', info: '#17a2b8' };
+        Object.assign(notification.style, {
+          position: 'fixed', top: '20px', right: '20px', padding: '15px 20px',
+          borderRadius: '8px', color: type === 'warning' ? '#000' : 'white',
+          fontWeight: '500', zIndex: '10000', transform: 'translateX(100%)',
+          transition: 'transform 0.3s ease', maxWidth: '400px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          backgroundColor: colors[type] || colors.info
+        });
 
         document.body.appendChild(notification);
-
+        setTimeout(() => notification.style.transform = 'translateX(0)', 100);
         setTimeout(() => {
-          notification.style.transform = 'translateX(0)';
-        }, 100);
-
-        setTimeout(() => {
-          if (document.body.contains(notification)) {
-            notification.style.transform = 'translateX(100%)';
-            setTimeout(() => {
-              if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
-              }
-            }, 300);
-          }
+          notification.style.transform = 'translateX(100%)';
+          setTimeout(() => notification.remove(), 300);
         }, 5000);
       }
 
-      // Валидация формы
-      function validateField(field) {
-        const errorMessage = field.closest('div')?.querySelector('.order-error-message');
-        let isValid = true;
-
-        if (field.hasAttribute('required') && !field.value.trim()) {
-          isValid = false;
-        }
-
-        if (field.type === 'email' && field.value) {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(field.value)) {
-            isValid = false;
-          }
-        }
-
-        if (field.type === 'tel' && field.value) {
-          const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
-          if (!phoneRegex.test(field.value)) {
-            isValid = false;
-          }
-        }
-
-        if (isValid) {
-          field.classList.remove('error');
-          field.classList.add('success');
-          if (errorMessage) {
-            errorMessage.classList.remove('show');
-          }
-        } else {
-          field.classList.remove('success');
-          field.classList.add('error');
-          if (errorMessage) {
-            errorMessage.classList.add('show');
-          }
-        }
-
-        return isValid;
-      }
-
-      // Валидация в реальном времени
-      const inputs = form.querySelectorAll('.order-form-input, .order-form-select');
-      inputs.forEach(input => {
-        input.addEventListener('blur', () => validateField(input));
-        input.addEventListener('input', () => {
-          if (input.classList.contains('error')) {
-            validateField(input);
-          }
-        });
-      });
-
       // Отправка формы
-      form.addEventListener('submit', function (e) {
+      form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         let isFormValid = true;
         inputs.forEach(input => {
-          if (!validateField(input)) {
-            isFormValid = false;
-          }
+          if (!validateField(input)) isFormValid = false;
         });
 
-        if (isFormValid) {
-          const originalText = submitButton.textContent;
-          submitButton.classList.add('loading');
-          submitButton.textContent = 'Отправка...';
-          submitButton.disabled = true;
-
-          // Получаем данные формы
-          const formData = new FormData(form);
-          const data = Object.fromEntries(formData.entries());
-
-          // Отправляем в Airtable
-          submitQuestionsForm(data)
-            .then((result) => {
-              // Успешная отправка
-              submitButton.classList.remove('loading');
-              submitButton.textContent = 'Отправлено!';
-              submitButton.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
-
-              showNotification('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
-
-              // Отправляем событие в аналитику
-              if (typeof gtag !== 'undefined') {
-                gtag('event', 'form_submit', {
-                  'event_category': 'engagement',
-                  'event_label': 'questions_form',
-                  'value': 1
-                });
-              }
-
-              if (typeof ym !== 'undefined') {
-                ym(window.yaCounterId, 'reachGoal', 'questions_form');
-              }
-
-              // Сброс формы через 2 секунды
-              setTimeout(() => {
-                form.reset();
-                submitButton.textContent = originalText;
-                submitButton.style.background = '';
-                submitButton.disabled = false;
-                inputs.forEach(input => {
-                  input.classList.remove('success', 'error');
-                });
-              }, 2000);
-
-              console.log('Форма вопросов успешно отправлена:', result);
-            })
-            .catch((error) => {
-              console.error('Ошибка отправки формы:', error);
-
-              submitButton.classList.remove('loading');
-              submitButton.textContent = originalText;
-              submitButton.disabled = false;
-
-              let errorMessage = 'Произошла ошибка при отправке заявки. ';
-
-              if (error.message.includes('Failed to fetch')) {
-                errorMessage += 'Проверьте подключение к интернету и попробуйте еще раз.';
-              } else if (error.message.includes('configuration')) {
-                errorMessage += 'Проблема с конфигурацией сервера. Свяжитесь с нами по телефону.';
-              } else {
-                errorMessage += 'Попробуйте позже или свяжитесь с нами по телефону.';
-              }
-
-              showNotification(errorMessage, 'error');
-
-              if (typeof gtag !== 'undefined') {
-                gtag('event', 'exception', {
-                  'description': error.message,
-                  'fatal': false
-                });
-              }
-            });
-        } else {
-          // Прокручиваем к первому полю с ошибкой
+        if (!isFormValid) {
           const firstError = form.querySelector('.order-form-input.error, .order-form-select.error');
           if (firstError) {
             firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
             firstError.focus();
           }
+          return;
+        }
+
+        const originalText = submitButton.textContent;
+        submitButton.classList.add('loading');
+        submitButton.textContent = 'Отправка...';
+        submitButton.disabled = true;
+
+        try {
+          const formData = new FormData(form);
+          const data = Object.fromEntries(formData.entries());
+
+          const API_BASE_URL = window.location.hostname === 'localhost' 
+            ? 'https://rt-ads.ru'  // Если локально - используй продакшн API
+            : '';      
+
+          // ✅ ОТПРАВКА НА БЭКЕНД
+          const response = await fetch(`${API_BASE_URL}/api/call-request`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.message || 'Ошибка отправки');
+          }
+
+          // Успех
+          submitButton.classList.remove('loading');
+          submitButton.textContent = 'Отправлено!';
+          submitButton.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+
+          showNotification('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+
+          // Аналитика
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'form_submit', { event_category: 'engagement', event_label: 'questions_form', value: 1 });
+          }
+          if (typeof ym !== 'undefined') {
+            ym(window.yaCounterId, 'reachGoal', 'questions_form');
+          }
+
+          // Сброс формы
+          setTimeout(() => {
+            form.reset();
+            submitButton.textContent = originalText;
+            submitButton.style.background = '';
+            submitButton.disabled = false;
+            inputs.forEach(input => input.classList.remove('success', 'error'));
+          }, 2000);
+
+        } catch (error) {
+          console.error('Ошибка:', error);
+          submitButton.classList.remove('loading');
+          submitButton.textContent = originalText;
+          submitButton.disabled = false;
+
+          showNotification('Произошла ошибка при отправке. Попробуйте позже или позвоните нам.', 'error');
         }
       });
 
-      console.log('Форма заказа сруба инициализирована с Airtable интеграцией');
+      console.log('✅ Форма инициализирована');
     });
   </script>

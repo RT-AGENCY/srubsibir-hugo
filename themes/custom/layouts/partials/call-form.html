@@ -494,21 +494,18 @@
 
 <script>
   // === ОСНОВНЫЕ ФУНКЦИИ УПРАВЛЕНИЯ МОДАЛЬНЫМ ОКНОМ ===
-
   function openCallbackModal() {
     const modal = document.getElementById('callbackModal');
     const projectBlock = document.getElementById('projectInfoBlock');
     const modalTitle = document.getElementById('callbackModalTitle');
-
     if (!modal) return;
-
-    // Скрываем информацию о проекте для обычного звонка
+    
     if (projectBlock) projectBlock.style.display = 'none';
     if (modalTitle) modalTitle.textContent = 'Заказать обратный звонок';
-
+    
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-
+    
     setTimeout(() => {
       const nameInput = document.getElementById('callbackName');
       if (nameInput) nameInput.focus();
@@ -519,14 +516,11 @@
     const modal = document.getElementById('callbackModal');
     const projectBlock = document.getElementById('projectInfoBlock');
     const modalTitle = document.getElementById('callbackModalTitle');
-
     if (!modal) return;
 
-    // Показываем информацию о проекте
     if (projectBlock) projectBlock.style.display = 'block';
     if (modalTitle) modalTitle.textContent = 'Узнать цену проекта';
 
-    // Заполняем данные о проекте
     const projectTitle = document.getElementById('projectTitle');
     const projectArea = document.getElementById('projectArea');
     const projectCategory = document.getElementById('projectCategory');
@@ -541,7 +535,7 @@
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-
+    
     setTimeout(() => {
       const nameInput = document.getElementById('callbackName');
       if (nameInput) nameInput.focus();
@@ -567,10 +561,9 @@
       form.reset();
       form.classList.remove('loading');
     }
-
     if (success) success.style.display = 'none';
     if (projectBlock) projectBlock.style.display = 'none';
-
+    
     clearFieldErrors();
 
     const submitBtn = form?.querySelector('.callback-form-submit');
@@ -583,55 +576,54 @@
     }
   }
 
-  // === ОТПРАВКА ФОРМЫ В AIRTABLE ЧЕРЕЗ NETLIFY FUNCTIONS ===
-
+  // === ОТПРАВКА ФОРМЫ НА БЭКЕНД ===
   async function submitCallbackForm(data) {
     try {
-      // Подготавливаем данные для отправки
+      const callTimeRu = mapCallTimeToRussian(data.callTime);
+      
       const formData = {
-        "Name": data.name || "",
-        "Phone": data.phone || "",
-        "Email": data.email || "",
-        "Call Time": mapCallTimeToRussian(data.callTime) || "",
-        "Comment": data.comment || "",
-        "Project info": data.project_data || "",
-        // Дополнительные данные
-        "page_url": window.location.href,
-        "utm_source": getUTMParameter('utm_source'),
-        "utm_medium": getUTMParameter('utm_medium'),
-        "utm_campaign": getUTMParameter('utm_campaign')
+        name: data.name || "",
+        phone: data.phone || "",
+        email: data.email || "",
+        callTime: callTimeRu || "",
+        comment: data.comment || "",
+        project_data: data.project_data || ""
       };
 
-      // Отправляем на Netlify Function
-      const response = await fetch('/.netlify/functions/callback', {
+      const getApiUrl = () => {
+        if (window.location.hostname === 'localhost' || 
+            window.location.hostname === '127.0.0.1' ||
+            window.location.port === '1313') {
+          return 'https://rt-ads.ru/api/call-request';
+        }
+        return '/api/call-request';
+      };
+
+      const response = await fetch(getApiUrl(), {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
 
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || `HTTP ${response.status}`);
+        throw new Error(result.message || `HTTP ${response.status}`);
       }
 
       if (result.success) {
-        console.log('Заявка успешно отправлена:', result.record);
+        console.log('✅ Заявка отправлена:', result);
         return result;
       } else {
-        throw new Error(result.error || 'Unknown error');
+        throw new Error(result.message || 'Unknown error');
       }
-
     } catch (error) {
-      console.error('Ошибка отправки в Airtable:', error);
+      console.error('❌ Ошибка:', error);
       throw error;
     }
   }
 
   // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
-
   function mapCallTimeToRussian(callTime) {
     const timeMap = {
       'now': 'Сейчас',
@@ -648,12 +640,10 @@
   }
 
   // === ИНИЦИАЛИЗАЦИЯ И ОБРАБОТКА ФОРМЫ ===
-
   function initCallbackForm() {
     const form = document.getElementById('callbackForm');
     if (!form) return;
 
-    // Инициализируем маску телефона
     initPhoneMask();
 
     form.addEventListener('submit', function (e) {
@@ -668,7 +658,6 @@
       const btnText = submitBtn?.querySelector('.callback-btn-text');
       const btnLoader = submitBtn?.querySelector('.callback-btn-loader');
 
-      // Показываем состояние загрузки
       if (submitBtn) submitBtn.disabled = true;
       if (btnText) btnText.style.display = 'none';
       if (btnLoader) btnLoader.style.display = 'inline';
@@ -676,7 +665,6 @@
 
       submitCallbackForm(data)
         .then((result) => {
-          // Успешная отправка
           form.style.display = 'none';
           const successBlock = document.getElementById('callbackSuccess');
           if (successBlock) {
@@ -686,7 +674,6 @@
             setTimeout(closeCallbackModal, 2000);
           }
 
-          // Отправляем событие в аналитику
           if (typeof gtag !== 'undefined') {
             gtag('event', 'form_submit', {
               'event_category': 'engagement',
@@ -695,29 +682,24 @@
             });
           }
 
-          // Отправляем в Яндекс.Метрику
           if (typeof ym !== 'undefined') {
             ym(window.yaCounterId, 'reachGoal', 'callback_form');
           }
 
-          console.log('Форма успешно отправлена:', result);
+          console.log('✅ Форма отправлена:', result);
         })
         .catch((error) => {
-          console.error('Ошибка отправки формы:', error);
+          console.error('❌ Ошибка:', error);
 
           let errorMessage = 'Произошла ошибка при отправке заявки. ';
-
           if (error.message.includes('Failed to fetch')) {
             errorMessage += 'Проверьте подключение к интернету и попробуйте еще раз.';
-          } else if (error.message.includes('configuration')) {
-            errorMessage += 'Проблема с конфигурацией сервера. Свяжитесь с нами по телефону.';
           } else {
             errorMessage += 'Попробуйте позже или свяжитесь с нами по телефону.';
           }
 
           showNotification(errorMessage, 'error');
 
-          // Отправляем событие об ошибке в аналитику
           if (typeof gtag !== 'undefined') {
             gtag('event', 'exception', {
               'description': error.message,
@@ -726,7 +708,6 @@
           }
         })
         .finally(() => {
-          // Восстанавливаем состояние кнопки
           form.classList.remove('loading');
           if (submitBtn) submitBtn.disabled = false;
           if (btnText) btnText.style.display = 'inline';
@@ -736,18 +717,15 @@
   }
 
   // === ВАЛИДАЦИЯ ФОРМЫ ===
-
   function validateCallbackForm() {
     const name = document.getElementById('callbackName')?.value.trim();
     const phone = document.getElementById('callbackPhone')?.value.trim();
     const privacy = document.getElementById('callbackPrivacy')?.checked;
 
-    // Очищаем предыдущие ошибки
     clearFieldErrors();
 
     let isValid = true;
 
-    // Проверка имени
     if (!name || name.length < 2) {
       showFieldError('callbackName', 'Введите корректное имя (минимум 2 символа)');
       isValid = false;
@@ -756,21 +734,18 @@
       isValid = false;
     }
 
-    // Проверка телефона
     const phoneDigits = phone?.replace(/\D/g, '') || '';
     if (!phone || phoneDigits.length < 10) {
       showFieldError('callbackPhone', 'Введите корректный номер телефона');
       isValid = false;
     }
 
-    // Проверка комментария (если заполнен)
     const comment = document.getElementById('callbackComment')?.value.trim();
     if (comment && comment.length > 500) {
       showFieldError('callbackComment', 'Слишком длинный комментарий (максимум 500 символов)');
       isValid = false;
     }
 
-    // Проверка согласия
     if (!privacy) {
       showFieldError('callbackPrivacy', 'Необходимо согласие на обработку персональных данных');
       isValid = false;
@@ -786,20 +761,18 @@
     const group = field.closest('.callback-form-group');
     if (!group) return;
 
-    // Добавляем класс ошибки
     field.classList.add('error');
 
-    // Создаем элемент ошибки если его нет
     let errorElement = group.querySelector('.field-error');
     if (!errorElement) {
       errorElement = document.createElement('div');
       errorElement.className = 'field-error';
       errorElement.style.cssText = `
-      color: #dc3545;
-      font-size: 0.875rem;
-      margin-top: 5px;
-      display: block;
-    `;
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 5px;
+        display: block;
+      `;
       group.appendChild(errorElement);
     }
 
@@ -808,26 +781,23 @@
   }
 
   function clearFieldErrors() {
-    // Убираем классы ошибок
     document.querySelectorAll('.callback-form-input, .callback-form-textarea, .callback-form-select').forEach(field => {
       field.classList.remove('error');
     });
 
-    // Скрываем сообщения об ошибках
     document.querySelectorAll('.field-error').forEach(error => {
       error.style.display = 'none';
     });
   }
 
   // === МАСКА ТЕЛЕФОНА ===
-
   function initPhoneMask() {
     const phoneInput = document.getElementById('callbackPhone');
     if (!phoneInput) return;
 
     phoneInput.addEventListener('input', function (e) {
       let value = e.target.value.replace(/\D/g, '');
-
+      
       if (value.startsWith('8')) {
         value = '7' + value.slice(1);
       }
@@ -847,14 +817,11 @@
     });
 
     phoneInput.addEventListener('keydown', function (e) {
-      // Разрешаем служебные клавиши
       if ([8, 9, 27, 13, 46, 37, 38, 39, 40].indexOf(e.keyCode) !== -1 ||
-        // Разрешаем Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
         (e.ctrlKey && [65, 67, 86, 88].indexOf(e.keyCode) !== -1)) {
         return;
       }
 
-      // Разрешаем только цифры
       if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
         e.preventDefault();
       }
@@ -862,33 +829,16 @@
   }
 
   // === УВЕДОМЛЕНИЯ ===
-
   function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
-    <div class="notification-content">
-      <span class="notification-message">${message}</span>
-      <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-    </div>
-  `;
+      <div class="notification-content">
+        <span class="notification-message">${message}</span>
+        <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+      </div>
+    `;
 
-    notification.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px 20px;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    z-index: 10000;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    max-width: 400px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  `;
-
-    // Цвета для разных типов уведомлений
     const colors = {
       success: '#28a745',
       error: '#dc3545',
@@ -896,35 +846,33 @@
       info: '#17a2b8'
     };
 
-    notification.style.backgroundColor = colors[type] || colors.info;
-    if (type === 'warning') {
-      notification.style.color = '#000';
-    }
+    Object.assign(notification.style, {
+      position: 'fixed',
+      top: '20px',
+      right: '20px',
+      padding: '15px 20px',
+      borderRadius: '8px',
+      color: type === 'warning' ? '#000' : 'white',
+      fontWeight: '500',
+      zIndex: '10000',
+      transform: 'translateX(100%)',
+      transition: 'transform 0.3s ease',
+      maxWidth: '400px',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+      backgroundColor: colors[type] || colors.info
+    });
 
     document.body.appendChild(notification);
 
-    // Анимация появления
+    setTimeout(() => notification.style.transform = 'translateX(0)', 100);
     setTimeout(() => {
-      notification.style.transform = 'translateX(0)';
-    }, 100);
-
-    // Автоматическое скрытие
-    setTimeout(() => {
-      if (document.body.contains(notification)) {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-          if (document.body.contains(notification)) {
-            document.body.removeChild(notification);
-          }
-        }, 300);
-      }
+      notification.style.transform = 'translateX(100%)';
+      setTimeout(() => notification.remove(), 300);
     }, 5000);
   }
 
   // === ИНИЦИАЛИЗАЦИЯ ТРИГГЕРОВ И СОБЫТИЙ ===
-
   function initCallbackTriggers() {
-    // Основные кнопки обратного звонка
     const triggerSelectors = [
       '.callback-btn',
       '.mobile-callback-btn',
@@ -941,7 +889,6 @@
             e.preventDefault();
             e.stopPropagation();
 
-            // Проверяем есть ли данные о проекте
             const projectTitle = this.getAttribute('data-project-title');
             if (projectTitle) {
               const projectData = {
@@ -960,7 +907,6 @@
     });
   }
 
-  // Функция для виджета
   function showCallbackForm() {
     openCallbackModal();
     const widget = document.getElementById('contactWidget');
@@ -970,12 +916,10 @@
   }
 
   // === ОБЩАЯ ИНИЦИАЛИЗАЦИЯ ===
-
   document.addEventListener('DOMContentLoaded', function () {
     initCallbackForm();
     initCallbackTriggers();
 
-    // Закрытие по Escape
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         const modal = document.getElementById('callbackModal');
