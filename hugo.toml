@@ -1,4 +1,4 @@
-baseURL = 'https://srub-sibir.netlify.app'
+baseURL = 'http://5.35.124.243/'
 languageCode = 'ru'
 title = 'Сибирский лес - Деревянные дома и бани'
 theme = 'custom'

@@ -591,12 +591,7 @@
       };
 
       const getApiUrl = () => {
-        if (window.location.hostname === 'localhost' || 
-            window.location.hostname === '127.0.0.1' ||
-            window.location.port === '1313') {
-          return 'https://rt-ads.ru/api/call-request';
-        }
-        return '/api/call-request';
+        return 'https://rt-ads.ru/api/call-request';
       };
 
       const response = await fetch(getApiUrl(), {

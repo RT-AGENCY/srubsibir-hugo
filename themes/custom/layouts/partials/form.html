@@ -629,12 +629,8 @@
           const formData = new FormData(form);
           const data = Object.fromEntries(formData.entries());
 
-          const API_BASE_URL = window.location.hostname === 'localhost' 
-            ? 'https://rt-ads.ru'  // Если локально - используй продакшн API
-            : '';      
-
           // ✅ ОТПРАВКА НА БЭКЕНД
-          const response = await fetch(`${API_BASE_URL}/api/call-request`, {
+          const response = await fetch(`https://rt-ads.ru/api/call-request`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
