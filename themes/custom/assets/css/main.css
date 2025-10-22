@@ -795,6 +795,17 @@ body.mobile-menu-open {
   font-size: 12px;
   line-height: 1.4;
 }
+@media (max-width: 768px) {
+  .contact-subtitle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+.contact-subtitle__email {
+  color: #00b04f;
+  text-decoration: none;
+}
 
 .phone-number {
   color: #00b04f;

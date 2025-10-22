@@ -151,18 +151,6 @@
               </div>
               {{ end }}
 
-              <!-- Каталог кнопка -->
-              {{ if eq .Name "Проекты" }}
-              <div class="dropdown-catalog">
-                <a href="/projects/" class="catalog-btn projects-btn">Все проекты</a>
-              </div>
-              {{ end }}
-
-              {{ if eq .Name "Услуги" }}
-              <div class="dropdown-catalog">
-                <a href="/services/" class="catalog-btn services-btn">Все услуги</a>
-              </div>
-              {{ end }}
             </div>
           </div>
           {{ else }}
@@ -203,7 +191,10 @@
           </svg>
           <div class="contact-text">
             <div class="contact-title">{{ .Site.Params.address }}</div>
-            <div class="contact-subtitle">info@ideisruba.ru<br>по всем вопросам</div>
+            <div class="contact-subtitle">
+              <p>по всем вопросам</p>
+              <a class="contact-subtitle__email" href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a>
+            </div>
           </div>
         </div>
 
@@ -266,6 +257,7 @@
             <!-- <a class="nav-item" href="/services/">Дома из кедра</a> -->
             <!-- <a class="nav-item" href="/services/">Дома POST&BEAM</a> -->
             <!-- <a class="nav-item" href="/services/">Дома из лиственницы</a> -->
+            <a class="nav-item" href="/uslugi/">Все услуги</a>
             <a class="nav-item" href="/uslugi/proekty-domov">Проектирование домов</a>
             <a class="nav-item" href="/uslugi/montazh-i-remont-kryshi">Монтаж и ремонт кровли</a>
             <a class="nav-item" href="/uslugi/stroitelnye-materialy">Строительные материалы</a>
@@ -291,8 +283,10 @@
         </div>
 
         <!-- Стандартные ссылки из меню Hugo -->
-        {{ range .Site.Menus.main }}
-        <a href="{{ .URL }}" class="mobile-nav-link">{{ .Name }}</a>
+       {{ range .Site.Menus.main }}
+          {{ if and (ne .Name "Услуги") (ne .Name "Проекты") (ne .Name "О компании") }}
+            <a href="{{ .URL }}" class="mobile-nav-link">{{ .Name }}</a>
+          {{ end }}
         {{ end }}
       </div>
     </div>
